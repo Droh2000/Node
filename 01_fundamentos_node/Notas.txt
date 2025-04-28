@@ -32,4 +32,47 @@ Blocking/Non-Blocking (I/O -> Input/Output)
                 se encargaria de meter esa funcion en un lugar especia para ser ejecutada despues y node sepa en que momento ejecutar el codigo
 
 Al escribir en la terminal "node"
-Ingresaremos al espacio para poder escribir codigo de Node            
+Ingresaremos al espacio para poder escribir codigo de Node    
+
+Event Loop
+
+    Este es el que decide el orden de ejecucion pero hay una seria de reglas que toma en cuenta
+    El Even Loop quiere hacer una tarea en que para lograra tiene que tomar de la Pila de ejecucion (CallStack), ahi estan las funciones que tenemos que ejecutar
+    el Evenloop le encarga al Libuv que todo lo que haga y consiga lo coloque en la cola de tareas
+
+    Al final el Event Loop es el que tiene el control de lo que nesecita, lo que va a ejecutar y todo lo demas
+    El EventLoop le dice al Libuv lo que tiene que traer y conesguir, despues de eso el EventLoop toma en el orden en que lo nesecite
+
+
+    El event loop es como un circulo en el cual esta al pendiente de todas las tareas sincronas y asyncronas, lo que pasa es que las tareas asyncronas van a ir depositando sus resultados
+    dentro de un Microtask Queue (Esta es una cola de microtareas) en donde ya estan listas las tareas para ser ejecutadas por el hilo principal, el orden de como se ejecutan lo determina el EvenLoop
+    acorde a los procedimentos Timer, I/O, checks, Close queue que son parte de Libuv (Lo que esta dentro del Microtask Queue no es manejado por Libuv, eso seria el proceso principal, todo lo demas
+    si es controlado por el Libuv)
+
+    El Event Loop sigue ciertas reglas
+        1. Callbacks en el microtask se ejecutan primero (Todo el trabajo sincrono se ejecuta primero)
+        2. Todos los Callbacks dentro del Timer queue se ejecutan (Todo los que son SetTimer o intervalos de tiempo se ejecutan aqui)
+        3. Callbacks en el microtask queue si es que hay, se ejecutan despues de los callbacks Timers, primero tareas en el NextTick Queue y luego tareas en el Promise Queue
+            (Los Promise Queue siempre se van a ejecutar despues de los callbacks, si dos tareas terminan al mismo tiempo, uno es una Promesa y el otro es un procedimiento de algun Callback, en este caso
+            primero ejecuta el Callback y luego realiza el promise queue)
+        4. Callbacks de I/O se ejecutan (Funciones de lectura de archivos)
+        5. Callback en el microtask queue se ejecutan (Si hay) y luego promise Queue Si hay (Casi todo lo que entra al MicroTask queue se ejecuta de la misma manera en el que es primero los Callbacks 
+            y luego las promesas)
+        6. Luego todos los callbacks en el check queue se ejecutan
+        7. CallBacks en el microtask se ejecutan despues de cada callback en el check queue (Siguiendo el mismo orden anterior, NextTick y luego promise)
+        8. Todo los Callbacks en el close queue son ejecutados
+        9. Por una ultima vez en el mismo ciclo, los microtask queues son ejecutados de la misma forma, nextTick y Luego promise queue
+
+    Cuendo se completa una tarea asincrona en el Libuv. En que momento decide Node ejecutar la funcion Callback asociada en la pila de llamadas (callback)?
+        - Los callbacks son ejecutados solo cuando el callstack esta vacio, es decir cuando en la cola de tareas no tenemos nada mas que ejectuar entonces ahi va a llaamr los callbacks que libuv le va a ir pasando
+            no importa si tiene un tiempo de espera para que se resuleva o se resuelve de manera inmediata, todo pasa por la parte del Libuv y luego se la pasa al hilo principal cuando no tenemos nada en el Callstack
+
+    Node espera que la pila de llamadas este vacia antes de ejecutar un callback o interrumpe el flujo normal de ejecucion para ejecutar el callback?
+        - El flujo normal de ejecucion no se interumpira para ejecutar una funcion de devolucion de llamada
+            Si hay una serie de trabajos sincronos y se resuelve un setTimer o una promesa, hasta que la pila de trabajo este vacia va a ejecutar ese callback o esa promesa resuelta o su resultado
+    
+    Que pasa con otros metodos asincronos como el SetTimeout y SetInterval que tambien retrasan la ejecucion de un callback?
+        - Los callbacks de setTimeouts y setIntervals tiene prioridad pero no interrumpen el flujo normal
+    
+    Si dos tareas asincronas como setTimeout y ReadFile se completan al mismo tiempo, ¿Como decide Node que callback se debe ejecutar primero en el apila de llamas? ¿Uno tiene prioridad sobre el otro?
+        - Los callbacks de temporizador se ejecutan antes que las devoluciones de llamadas de I/O, incluso si ambas estan listas exactamenten al mismo tiempo
