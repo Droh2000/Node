@@ -1,0 +1,35 @@
+Preguntas Comunes
+    Node habilita que podamos ejecutar JS en un ambiente que no sea nuestro navegador web 
+
+    Con Node podemos crear servidores completos que reciban peticiones HTTP y nos regresen informacion o tener accesos a FileSystem
+    para la manipulacion de archivos
+
+Caracteristicas:
+    * Asincronia
+    * Modulos nativos y de terceros
+    * Gestion de paquetes de terceros con NPM
+    * Construccion de servidores
+    * Escalabilidad
+    * Multiple plataforma
+
+En node la mayoria de las funciones que tiene, se ejecutan en modo no bloqueante, esto significa que cuando estamos ejecutando
+un instruccion no bloque el Thread y podemos seguir ejecutando otras instrucciones (Gracias a la libreria Linuv Node puede ejecutar
+varias tareas en paralelo)
+
+Node se usa en herramientas de fronted para crear, transpilar, compilar, generar, todos estos frameworks estan basados en Node
+
+NPM (Node Package Manager) -> Gestor de paquetes 
+NPX (Node Package Execute) -> Ejecutar paquetes sin instalarlos globalmente en el equipo
+
+Blocking/Non-Blocking (I/O -> Input/Output) 
+
+    I/O -> (Entradas/Salidas) Se refiere pricipalmente a la interaccion con el disco duro del sistema o a procedimientos en los cuales la libreria de 
+            Linuv va a entrar para que podamos tener esa asincronia o procedimientos que se ejecutan en paralelo
+    Blocking -> Es la ejecucion de un codigo que para ejecutar la siguiente linea tiene que terminar la ejecucion anterior, un ejemplo de esto seria Leer un archivo
+                de alguna ruta y hasta que no se lea completamente el archivo no se va a seguir ejecutar el codigo que sigua despues
+                (Se bloquea el Thread de JS hasta que tengamos una respuesta)
+                Este mismo ejemplo pero no bloqueante, se meteria la logica dentro de un CallBack que se ejecuta en un momento especifico en el tiempo,la libreria Linuv
+                se encargaria de meter esa funcion en un lugar especia para ser ejecutada despues y node sepa en que momento ejecutar el codigo
+
+Al escribir en la terminal "node"
+Ingresaremos al espacio para poder escribir codigo de Node            
