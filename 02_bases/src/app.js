@@ -16,3 +16,18 @@ const { emailTemplate } = require('./js-foundation/01-template');
 console.log(emailTemplate);
 
 require('./js-foundation/02-destructuring');
+
+const {getUserById} = require('./js-foundation/03-callbacks');
+
+const id = 1;
+
+// Un Callback es una funcion que se pasa como argumento, donde especificamos en este caso para atrapar en caso de tener un mensaje de error o tener el usuario
+getUserById( 1, function( error, user ){
+    if( error ){
+        // Este tipo de errores seria conveniente que los almacenemos en un sistema de LOG que sea persistente en el File_sistem
+        // porque al desplegar la aplicacion no se podra dar seguimiento a todos estos errores 
+        // Hay que tener presente que JS con NODE no podemos concatenar con COMA dentro
+        throw new Error( error );
+    }
+    console.log(user);
+});
