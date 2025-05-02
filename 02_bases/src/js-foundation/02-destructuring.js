@@ -20,8 +20,20 @@ console.table( SHELL, HOMEBREW_PREFIX );
 
 // Desestructuracion de arreglos
 // Podemos tomarlos con los nombres que queramos y si no queremos el de alguna posicion solo le ponemos la raya debajo o solo poner una coma dejando vacio ahi
-const characters = ['Flash', 'Superman', 'Batman'];
+const characters = ['Flash', 'Superman', 'Green latern', 'Batman'];
 
 const [ _, __, batman] = characters;
 
 console.log(batman);
+
+// Depuracion en Node
+// Supongamos que agregamos un nuevo personaje y queremos obtener batman pero nos sale otro personaje y no sabemos porque
+// entonces ponemos un brakepoint en la linea 25 cuando obtenemos el valor del arreglo desestructurado
+// Hay varias formas de hacer la depuracion y poder llegar a este breakpoint
+//      Una es ir al Package,json y arriba de "scripts" tenemos las opcion de Debug, despues de darle click nos dara a elegir en nuestros Scripts
+//       en este caso seria el de DEV que ejecuta "nodemon src/app.js", al seleccionar esta parte nos mandara al breakpoint, en la parte de la terminal
+//       tenemos los botones de Play, saltar a la siguiente linea, saltar a la siguiente funcion, regresar un paso atras, reinicar todo
+//       Al poner el cursor encmia de la constante podremos ver todos los valores que almacena, al dar el siguiente paso podemos ver los valores de las variables
+//      desestructuradas y asi verificar cual valor es el que estan tomando 
+//      * Si cambiamos codigo hay que precionar Reiniciar
+//      * Para avanzar al siguiente paso hay que precinar la flecha que esta al lado del rectangulo de Play
