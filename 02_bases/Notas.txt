@@ -1,0 +1,17 @@
+Al inicia ejecutamos el siguiente comando:
+    * npm init
+Esto nos abrira una serie de pasos para crear el package.json
+nos va a empezar a definir los valores que tenga el package.json
+Despues de especificar las opciones en la linea de comando, nos generar el archivo que igualmente lo podemos editar desde ahi
+
+Si nos metemos dentro del archivo, en el apartado de Script, en VScode nos daldra para hacer play en el boton de debug, si lo precionamos
+nos dara un error porque en este momento nada configurado para testing
+
+Cualquier aplicacion que tenga un package.json significa que es una aplicacion de Node, si lo vemos en frameworks o librerias
+que son externas, utilizan node para ayudarnos a nosotros a crear la aplicacion, estos usan Node para la manipulacion de archivos 
+para trasformarlos, para aplicar otros patrones
+
+En este archivo podemos especificar cuales son los comandos que podemos usar para que afecten la aplicacion como construirla, levantarla, testearla
+crear un comando para diferentes areas, como para levantar la aplicacion a produccion, todos los diferentes procesos lo podemos meter en un comando
+asi no tenemos que estar recordando que pasos hacer, solo con ejecutar ese comando se aplicaria todos los pasos.
+
