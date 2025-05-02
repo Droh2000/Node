@@ -8,5 +8,8 @@
     "start": "node src/app.js"
   },
   "author": "Diego Ortega",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }

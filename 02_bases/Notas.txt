@@ -48,3 +48,33 @@ Estos comandos de la seccion de "Scripts" son los que usamos para levantar la ap
 
 Seguimos con la creacion de archivos donde cada uno tenga una unica responsabilidad (aplicando el principio de responsabilidad unica) en donde cada funcion o archivo, haga una cosa y la haga bien
 En este caso vamos a crearnos un archivo donde simularemos que nos regrese un Email
+
+Para no estar ante cualquier cambio de nuestro proyecto, estar ejecutando el comando de "npm start", tenemos el paquete de NODEMON
+    Nodemon
+        Con este le decimos a node que tan pronto detecte un cambio recarge la aplicacion para reflejar las ultimas actualizaciones del codigo
+        este paquete lo podemos instalar de manera global en nuestra PC, siempre en los comandos de instalacion que miremos un "-g" significa que a parte de instalarlo de forma global
+        tambien tenemos que ejecutarlo en una terminal abierta como Super_Usuario
+        
+        Para instalarlo de manera local:
+            - npm install --save-dev nodemon
+        Como resumen podemos usar -D para instalarlo igualmente pero como abreviatura pero tambien si ejecutamos el comando
+            - npm install nodemon
+        Con el comando de arriba nos instala el paquete en la parte de nuestras dependencias "Esto lo podemos ver en el archivo package.json"
+        todos los paquetes que esten dentro de "dependecies" estarian llegando al codigo de produccion de nuestra aplicacion, pero este paquete 
+        no esta para ser usado en produccion, si nos sale en ese apartado, hay que volver a ejecutar el comando pero agregandole la "-D", esto nos
+        pondra el paquete dentro del package.json en el apartado de "devDependencies", estas dependencias de desarrollo nunca llegaran a produccion
+
+    Otra cosa es que despues de esta instalacion nos saldra la carpeta de node_modules donde estaran las dependencias que usan los paquetes que instalemos
+    Esta carpeta puede llegar a pesas Gigas pero hay que fijarnos que solo las dependencias de produccion son las que estarian llegando a nuestra aplicacion 
+    final 
+
+    Para mandar a llamar NODEMON nos creamos dentro de "Scripts" el comando para ejecutarlo indicando que este al pendiente del archivo 
+    que es el inicio de nuestra aplicacion
+        - "dev": "nodemon src/app.js"
+    
+    Al ejecutar el comando con "npm run dev" tendremos en la consola ante cualquier cambio que guardemos 
+
+    Como constumbre, para explicar a otros desarrolladores como levantar la aplicacion, esto se explica en el archivo README.md donde se especifica los pasos y lo que se tiene que instalar
+    ademas de especificar los comandos
+
+
