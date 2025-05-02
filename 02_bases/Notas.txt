@@ -77,4 +77,9 @@ Para no estar ante cualquier cambio de nuestro proyecto, estar ejecutando el com
     Como constumbre, para explicar a otros desarrolladores como levantar la aplicacion, esto se explica en el archivo README.md donde se especifica los pasos y lo que se tiene que instalar
     ademas de especificar los comandos
 
-
+Factory Functions
+    Para la implementacion de este ejemplo que estamos haciendo requerimos paquetes de terceros (Igual en Node es inevitable usar paquetes de terceros), uno es para generar los IDs
+    ademas de otro paquete para calcular la fecha (En la vida real si algo lo podemos obtener directamente usando Js, lo mejor es hacerlo asi para no cargar el proyecto con dependencias
+    ya que el chiste es tratar las dependencias al minimo)
+        * npm install uuid
+        * npm install --save get-age
