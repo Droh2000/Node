@@ -45,3 +45,6 @@ Hay personas que usan los siguientes nombres:
 Incluso se puede mandar a llamar Scripts desde otros Scripts
 
 Estos comandos de la seccion de "Scripts" son los que usamos para levantar la aplicacion, desplegar la aplicacion, correrla en modo de produccion, testing
+
+Seguimos con la creacion de archivos donde cada uno tenga una unica responsabilidad (aplicando el principio de responsabilidad unica) en donde cada funcion o archivo, haga una cosa y la haga bien
+En este caso vamos a crearnos un archivo donde simularemos que nos regrese un Email
