@@ -22,7 +22,7 @@ const {getUserById} = require('./js-foundation/03-callbacks');
 const id = 1;
 
 // Un Callback es una funcion que se pasa como argumento, donde especificamos en este caso para atrapar en caso de tener un mensaje de error o tener el usuario
-getUserById( 1, function( error, user ){
+getUserById( id, ( error, user ) => {
     if( error ){
         // Este tipo de errores seria conveniente que los almacenemos en un sistema de LOG que sea persistente en el File_sistem
         // porque al desplegar la aplicacion no se podra dar seguimiento a todos estos errores 
@@ -30,4 +30,7 @@ getUserById( 1, function( error, user ){
         throw new Error( error );
     }
     console.log(user);
+    // Supongamos que queremos pra mas usuarios entonces tenemos que volvel a llamar la funcion, y hacer anidamiento y esto conlleva al Callback_hell
+    // Esto de tener Callbacks dentro de Callbacks se empieza a complicar la lectura del codigo, en ese caso es mejor trabajar con promesas que mas facil
+    // de leer el codigo
 });
