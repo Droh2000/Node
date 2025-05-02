@@ -15,3 +15,33 @@ En este archivo podemos especificar cuales son los comandos que podemos usar par
 crear un comando para diferentes areas, como para levantar la aplicacion a produccion, todos los diferentes procesos lo podemos meter en un comando
 asi no tenemos que estar recordando que pasos hacer, solo con ejecutar ese comando se aplicaria todos los pasos.
 
+Dentro del package.json, en una aplicacion de Node el apartado de Scripts es de las primeras cosas que vamos a ver porque aqui nos dice como correr la aplicacion
+o si hay alguna comando especial, o para realizar alguna tarea
+Otra cosa es que hay que estructurar bien el FileSystem de carpetas en el proyecto, podemos aplicar cualquier tipo de patron 
+    * Raiz -> Aqui vamos a tener archivos de configuracion 
+    * SRC -> Dentro de esta carpeta vamos a meter nuestro codigo
+             El archivo principal se llama Index o App
+    
+Para ejecutar el archivo tendriamos que ejecutar el comando
+    * node src/app.js
+Pero para no estar escribiendo ese comando largo, mejor lo configuramos en el archivo package.json en la seccion de Scripts
+asi solo tenemos que ejecutar:
+    * npm start
+(Para que lo de arriba funcione tiene que estar Node instalado de manera global en nuestra PC para que eso se reconosca)
+
+Hay que fijarse que el nombre que le dimos al comando de "start" es especial, ya que si creamos otro con otro nombre no funciona por ejemplo si dentro de "scripts"
+        * "dev": "echo 'Hola mundo desde dev'"
+Al ejecutar
+    - npm dev -> No funcionara
+
+El comando "start" es especial y por defecto funciona para levantar la aplicacion, como recommandacion el "start" hay que usarlo como el que levanta la aplicacion en produccion
+y para los demas comandos que creemos tenemos que ejecutarlos de la siguiente manera "npm run NOMBRE_COMANDO"
+Asi que para ejecutar el coamdno de ejemplo tenemos:
+    * npm run dev
+
+Hay personas que usan los siguientes nombres:
+    - "start:dev": "INSTRUCCION"
+    - "start:stag": "INSTRUCCION"
+Incluso se puede mandar a llamar Scripts desde otros Scripts
+
+Estos comandos de la seccion de "Scripts" son los que usamos para levantar la aplicacion, desplegar la aplicacion, correrla en modo de produccion, testing
