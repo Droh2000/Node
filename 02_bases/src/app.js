@@ -34,3 +34,5 @@ getUserById( id, ( error, user ) => {
     // Esto de tener Callbacks dentro de Callbacks se empieza a complicar la lectura del codigo, en ese caso es mejor trabajar con promesas que mas facil
     // de leer el codigo
 });
+
+require('./js-foundation/05-factory');
