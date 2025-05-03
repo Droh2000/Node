@@ -3,7 +3,7 @@
 
 // Si ponemos solo el return en la parte de "pokemon.name" nos regresa undefined toda la funcion, esto es porque el valor de retorno esta amarrada al callback donde se implementa
 // no a la funcion general que es "getPokemonById", hay varias formas de resolver esto, en este caso ponemos como argumento un Callback
-const getPokemonById = ( id, callback ) => {
+/*const getPokemonById = ( id, callback ) => {
     const url = `https://pokeapi.co/api/v2/pokemon/${ id }`;
 
     // El fetch es un promesa
@@ -19,7 +19,34 @@ const getPokemonById = ( id, callback ) => {
         });
     });
     // Si no ponemos un return explicito en la funcion, en cada llamada de esta funcion nos estara regresando un undefined
+}*/
 
+// Formar limpia de trabajar con Promesas
+const getPokemonById = ( id, callback ) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${ id }`;
+
+    fetch(url).then( ( response ) => {
+        // Como nos interesa obtener los datos, retornamos este objeto, pero al retornar una promesa dentro de una promesa
+        // Esto nos permite poner otro Then en cadena
+        return response.json();
+    })
+    // Aqui podemos acceder con la informacion que nos retornan arriba
+    .then( (pokemon) => {
+        callback( pokemon.name );
+    });
 }
 
-module.exports = getPokemonById;
+// Forma sin trabajar con un Callback
+const getPokemonById2 = ( id ) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${ id }`;
+
+    // Regresamos una promesa
+    return fetch(url)
+        .then( ( response ) => response.json() )
+        .then( (pokemon) => pokemon.name ); // De lo que se retorna arriba tomamos estos datos y los retonamos igualmente
+
+    // Que pasa si requerimos procesar algo basado en esa respuesta, en este caso no nos va a ayudar mucho estas promesas en cadena porque
+    // tenemos que hacer alguno procedimiento dentro de un callback, esto se resuelve con el Async/await
+}
+
+module.exports = {getPokemonById, getPokemonById2};

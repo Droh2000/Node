@@ -52,12 +52,19 @@ const john = makePerson( obj );
 console.log({ john });
 
 // Promesas
-const getPokemonById = require('./js-foundation/06-promises');
+const {getPokemonById, getPokemonById2} = require('./js-foundation/06-promises');
 
 // const name = getPokemonById(1);
 // console.log({ name });
 
 // Le mandamos un callback para poder obtener el valor que nos regresa la promesa interna de la respuesta del Fetch
-getPokemonById(4, ( pokemon ) => {
+/*getPokemonById(4, ( pokemon ) => {
     console.log({ pokemon });
-});
+});*/
+
+// Como esto es una promesa porque es lo que ahora estamos retornando, entonces para obtenr los datos que nos retorna llamamos el .then
+// asi ya no tenemos que usar un callback 
+getPokemonById2(4)
+    .then( (pokemon) => console.log({ pokemon }))
+    .catch( (err) => console.log(err) )
+    .finally( () => console.log('Finalmente') );
