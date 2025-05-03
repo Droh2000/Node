@@ -50,3 +50,14 @@ const obj = {name: 'John', birthdate: '1985-10-21' };
 const john = makePerson( obj );
 
 console.log({ john });
+
+// Promesas
+const getPokemonById = require('./js-foundation/06-promises');
+
+// const name = getPokemonById(1);
+// console.log({ name });
+
+// Le mandamos un callback para poder obtener el valor que nos regresa la promesa interna de la respuesta del Fetch
+getPokemonById(4, ( pokemon ) => {
+    console.log({ pokemon });
+});
