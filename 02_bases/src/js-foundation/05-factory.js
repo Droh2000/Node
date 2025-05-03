@@ -3,8 +3,12 @@
 // un factory solo es una funcion que crea otra funcion
 
 // En esta importacion estamos renombrando el paquete para usarlo mejor con un nombre
-const { v4: uuidv4 } = require('uuid');
-const getAge = require('get-age')
+// const { v4: uuidv4 } = require('uuid');
+// const getAge = require('get-age')
+
+// const { getAge } = require('../plugins/get-age.plugin'); // Como nos regresa un objeto tomamos lo que nos interesa desestructurando
+// const { getUUID } = require('../plugins/get-id.plugin');
+const { getAge, getUUID } = require('../plugins');
 
 // Como ejemplo veamos la construccion de los atributos de una persona
 
@@ -14,7 +18,7 @@ const buildPerson = ({ name, birthdate }) => {
     // Regresamos una nueva persona
     return {
         //id: new Date().getTime(), // Sacamos un ID de manera Random con la fecha actual
-        id: uuidv4(),
+        id: getUUID(),
         name,
         birthdate,
         // La Edad la calculamos tomando el anio actual y le restamos la fecha que recibimos como argumentos

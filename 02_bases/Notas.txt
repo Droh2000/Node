@@ -83,3 +83,8 @@ Factory Functions
     ya que el chiste es tratar las dependencias al minimo)
         * npm install uuid
         * npm install --save get-age
+
+    Se busca hacer aplicaciones mantenibles, escalables y tolerantes a cambios, esto es lo que busca cualquier principio de arquitectura de software
+    A la hora de trabajar con dependencias de terceros, idealmente queremos crearnos algun tipo de capa y proteccion que en este caso se llama el patron adaptador
+    en el cual creamos nuestro propio codigo que adapta una dependencia de terceros para que nuestro codigo no depende de codigos de terceros, para cuando queramos
+    cambiar de libreria sea facil de remover la que teniamos implementada
