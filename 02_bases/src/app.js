@@ -36,3 +36,17 @@ getUserById( id, ( error, user ) => {
 });
 
 require('./js-foundation/05-factory');
+
+// Esta es la funcion que vamos a usar para crear nuevos objetos de personas
+const { buildMakePerson } =require('./js-foundation/06-factory-aplicado');
+
+// Aqui usamos la dependencias que requerimos
+const { getAge, getUUID } = require('./plugins');
+
+const makePerson = buildMakePerson({ getUUID, getAge });
+
+const obj = {name: 'John', birthdate: '1985-10-21' };
+
+const john = makePerson( obj );
+
+console.log({ john });

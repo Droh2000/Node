@@ -14,3 +14,4 @@ module.exports = {
     getAge
 }
 // Con esto implementamos el patron adaptador
+// Asi facilmente modificamos un unico archivo y no tenemos que ir a cambiar la referencia a todos donde se usa
