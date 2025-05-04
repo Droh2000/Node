@@ -52,7 +52,7 @@ const john = makePerson( obj );
 console.log({ john });
 
 // Promesas
-const {getPokemonById, getPokemonById2} = require('./js-foundation/06-promises');
+const {getPokemonById, getPokemonById2, getPokemonById3} = require('./js-foundation/06-promises');
 
 // const name = getPokemonById(1);
 // console.log({ name });
@@ -67,4 +67,11 @@ const {getPokemonById, getPokemonById2} = require('./js-foundation/06-promises')
 getPokemonById2(4)
     .then( (pokemon) => console.log({ pokemon }))
     .catch( (err) => console.log(err) )
+    .finally( () => console.log('Finalmente') );
+
+getPokemonById3(4)
+    .then( (pokemon) => console.log({ pokemon }))
+    // Tenemos varias formas de controlar las promesas y asegurarnos que nunca fallen, pero cuando se van a otra parte donde no tenemos control
+    // vamos a tener que manejar este catch
+    .catch( (err) => console.log(err) ) // En el momento que ocurra un error en la funcion se recibe en este catch
     .finally( () => console.log('Finalmente') );

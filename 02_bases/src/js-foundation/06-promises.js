@@ -49,4 +49,22 @@ const getPokemonById2 = ( id ) => {
     // tenemos que hacer alguno procedimiento dentro de un callback, esto se resuelve con el Async/await
 }
 
-module.exports = {getPokemonById, getPokemonById2};
+// Funcion Async/Await (Estas implicitamente regresan una promesa) 
+// por defecto el valor de retorno sera una promesa
+const getPokemonById3 = async ( id ) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${ id }`;
+
+    // Con el AWAIT hacemos un codigo bloqueante en el cual cuando llega a esta linea, no continua la logica hasta que no se resuelva
+    const resp = await fetch(url);
+    const pokemon = await resp.json();
+    // Vemos como con esto evitamos el callback hell (Tener promesas anidadas dentro de otras promesas)
+
+    return pokemon.name;
+}
+
+
+module.exports = {
+    getPokemonById, 
+    getPokemonById2,
+    getPokemonById3
+};
