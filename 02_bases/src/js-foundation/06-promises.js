@@ -62,9 +62,22 @@ const getPokemonById3 = async ( id ) => {
     return pokemon.name;
 }
 
+// Usando el patron adaptador con el Fetch API
+const { http } = require('../plugins');
+
+const getPokemonById4 = async ( id ) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${ id }`;
+
+    // Asi si en el futuro nos piden cambiar FetchAPI por Axios, solo modificamos el archivo 
+    // Plugin y no modificar cada uno de los archivos donde se usa la peticion
+    const pokemon = await http.get(url);
+    
+    return pokemon.name;
+}
 
 module.exports = {
     getPokemonById, 
     getPokemonById2,
-    getPokemonById3
+    getPokemonById3,
+    getPokemonById4
 };
