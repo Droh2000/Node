@@ -19,6 +19,35 @@ const httpClientPlugin = {
     delete: async (url) => {},
 }
 
+// Usando Axios
+const axios = require('axios');
+
+const httpClientPlugin2 = {
+    get: async (url) => {
+        const { data } = axios.get(url);
+        return data // Axios por defecto nos da en JSON
+    },
+
+    post: async (url, body) => {},
+    put: async (url, body) => {},
+    delete: async (url) => {},
+}
+
+// Nosostros puede que tengamos aplicaciones autenticadas con Token de acceso y otras peticiones que son publicas
+// podriamos pensar en crearnos dos clientes y por tanto tener duplicado el codigo de arriba pero eso quiebra varios principios 
+// de buen codigo y nos es factible para mantener los codigos
+// Para resolver esto
+// Donde nos creamos una funcion donde recibimos en el header los token de acceso y ahi regresariamos todo nuestro cliente
+// el parametro seria opcional
+const buildHttpClient = (headers) => {
+    return {
+        // Aqui en la peticiones insertariamos el header segun si el parametro esta definido o no
+    }
+}
+
+
+
 module.exports = {
-    http: httpClientPlugin // Aqui lo renombramos para ponerle un nombre mas facil
+    http: httpClientPlugin, // Aqui lo renombramos para ponerle un nombre mas facil
+    http2: httpClientPlugin2,
 }
