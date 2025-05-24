@@ -92,3 +92,22 @@ Factory Functions
 Siempre hay que tener bien en claro cuales paquetes vamos a usar, no llenar el proyecto con un monton porque si
 ya que con cada paquete agregado hacemos que nuestro proyecto herede problemas que ese paquete tenga, vulnerabilidades, peso, etc
 En este caso vamos a cambiar Fetch a Axios
+
+Siempre que tomemos un proyecto de Node de un repositorio de Github debemos de ejecutar el comando
+    - npm install
+Porque los paquetes del proyecto y la carpeta de node_modules no se suben al repositorio y asi con el comando obtenemos los paquetes necesarios para ejecutar el programa
+
+Node Logger - Winston
+
+    Cuando nuestra aplicacion ya esta montada en algun servidor y de repente algo no sale no sale que esperabamos o nos da errores, podriamos implementar Console.Log, esto esta bien 
+    en desarrollo pero cuando estamos en produccion no le podemos dar seguimiento a esto y no podremos encontrar donde ocurrio el error, para esto tenemos el paquete de Winston
+    Ademas:
+        - Que pasaria si requirimos los Logs en un archivo de texto independiente
+        - O si requerimos los Logs en una base de datos para acceder a ellos mas facil
+        - o si queremos solo registrar siertos tipos de errores 
+
+    Por lo de arriba el uso de console.log no es eficiente
+
+    Instlacion del paquete
+        - npm i winston
+    

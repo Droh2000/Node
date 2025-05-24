@@ -80,3 +80,14 @@ getPokemonById4(4)
     .then( (pokemon) => console.log({ pokemon }))
     .catch( (err) => console.log(err) )
     .finally( () => console.log('Finalmente') );
+
+// Usamos el logger
+const { buildLogger } = require('./plugins');
+
+const logger = buildLogger('app.js'); // Este ese el archivo donde lo estamos mandando a llamar
+
+// Al ejecutar el programa veremos que dentro del directorio, combined.log (Aqui tenemos el contenido donde esta el logger), 
+// error.log
+// Como el Logger en el "log" lo creamos entre {} nos muestra los datos como un JSON, asi podemos recorrer mejor el contenido de estos archivos
+// hacer una serializacion, obtener cuales servicios son los que nos estan fallando
+logger.log('Hola Mundo');
