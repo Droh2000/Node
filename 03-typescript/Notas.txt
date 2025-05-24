@@ -1,0 +1,40 @@
+Pasos de manera normal
+    * npm init -y
+    (Con -y ponemos todos los valores por defecto en el "package.json" y ya lo tenemos definido
+     en este archivo agregamos los Scripts, Dependencias, entre otras cosas)
+
+Para ejecutar el proyecto normal
+    * node src/app
+
+Instalamos el paquete para no estar ejecutando el comando a cada rato de la ejecucion
+    * npx nodemon src/app
+
+Pasos para usar Node con Typescript
+    Instalar TypeScript y tipos de Node, como dependencia de desarrollo
+        (-D son Dependencias de desarrollo y el @types es cuando es una libreria que no esta escrita en Typescript)
+            * npm i -D typescript @types/node
+    Inicializar el archivo de configuración de TypeScript ( Se puede configurar al gusto)
+        (El "outDir" es donde vamos a generar el archivo de produccion que vamos a subir al servidor, ademas le decimos que solo este pendiente de la carpeta SRC
+        que es donde tenemos el codigo, no de las demas carpetas)
+            * npx tsc --init --outDir dist/ --rootDir src
+    Opcional - Para traspilar el código, se puede usar este comando
+            * npx tsc
+        Despues de ejecutar este comando veremos que se creo la carpeta de distribucion y dentro tenemos la version de nuestro archivo de TS a JS
+            * npx tsc --watch (Para ver los cambios que implementamos en nuestro codigo)
+    Configurar Nodemon y Node-TS (Podriamos usar directamente nodemon pero tenemos esta mejo forma)
+            * npm install -D ts-node nodemon
+    Crear archivo de configuración de Nodemon - nodemon.json
+        {
+            "watch": ["src"],
+            "ext": ".ts,.js",
+            "ignore": [],
+            "exec": "npx ts-node ./src/app.ts"
+        }
+    Crear script para correr en desarrollo en el package.json
+        "dev": "nodemon"
+        "dev": "npx nodemon" // En caso de no querer instalar nodemon
+    Instalar rimraf (Herramienta que funciona similar al rm -f) eliminar directorio
+            * npm install -D rimraf
+    Crear scripts en el package.json para construir e iniciar en producción
+        "build": "rimraf ./dist && tsc",
+        "start": "npm run build && node dist/app.js"
