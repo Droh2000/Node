@@ -43,3 +43,8 @@ Pasos para usar Node con Typescript
             "start": "npm run build && node dist/app.js" (Este es para levantar el servicio en modo de produccion)
 
     Cuando usamos frameworks como NEST ya todo esto viene configurado por defecto
+
+Cuando ya queramos ejecutar nuestro proyecto en el servidor, no se recomiendo hacerlo con el TS-Node porque es mas lento y hay una capa adicional 
+que estamos agregando para que lo pueda ejecutar, lo mejor es crear el build de produccion, en este caso es ejecutamos el comando de "npm start"
+Despues de ejecutar ese comando en la carpeta Dist veremos las carpetas y los archivos pero los archivos de TS convertidos a TS
+

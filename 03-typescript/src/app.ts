@@ -1,20 +1,4 @@
-const heroes = [
-    {
-        id: 1,
-        name: 'Ironman',
-        owner: 'Marvel'
-    },
-    {
-        id: 2,
-        name: 'Batman',
-        owner: 'DC'
-    },
-];
-
-// Tipado en Typescript
-const findHeroById = ( id:number ) => {
-    return heroes.find( (heroe) => heroe.id === id );
-}
+import { findHeroById } from "./services/hero.services";
 
 const heroe = findHeroById(2);
 
