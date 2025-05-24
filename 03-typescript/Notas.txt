@@ -21,9 +21,9 @@ Pasos para usar Node con Typescript
             * npx tsc
         Despues de ejecutar este comando veremos que se creo la carpeta de distribucion y dentro tenemos la version de nuestro archivo de TS a JS
             * npx tsc --watch (Para ver los cambios que implementamos en nuestro codigo)
-    Configurar Nodemon y Node-TS (Podriamos usar directamente nodemon pero tenemos esta mejo forma)
+    Configurar Nodemon y Node-TS (Podriamos usar directamente nodemon pero tenemos esta mejo forma, donde con "ts-node" podemos ejecutar TS en Node)
             * npm install -D ts-node nodemon
-    Crear archivo de configuración de Nodemon - nodemon.json
+    Crear archivo de configuración de Nodemon - nodemon.json (En el Root de la aplicacion nos creamos el archivo "nodemon.js")
         {
             "watch": ["src"],
             "ext": ".ts,.js",
@@ -31,10 +31,15 @@ Pasos para usar Node con Typescript
             "exec": "npx ts-node ./src/app.ts"
         }
     Crear script para correr en desarrollo en el package.json
-        "dev": "nodemon"
+        "dev": "nodemon" // Si ya lo tenemos instalado usamos este
         "dev": "npx nodemon" // En caso de no querer instalar nodemon
+        (Despues de esto podemos ejecutar el comando: npm run dev)
     Instalar rimraf (Herramienta que funciona similar al rm -f) eliminar directorio
             * npm install -D rimraf
     Crear scripts en el package.json para construir e iniciar en producción
-        "build": "rimraf ./dist && tsc",
-        "start": "npm run build && node dist/app.js"
+        (Al revisar la logica del comando de abajo veremos que vamos a eliminar la carpeta de distribucion si existe y luego ejecutamos TS compiler)
+            "build": "rimraf ./dist && tsc", (Con esto generamos lo que terminariamos subiendo en un servidor)
+        (Con este nos aseguramos primero que tengamos la carpeta de distribucion con los ultimos cambios y lo otro levantamos la carpeta de produccion)
+            "start": "npm run build && node dist/app.js" (Este es para levantar el servicio en modo de produccion)
+
+    Cuando usamos frameworks como NEST ya todo esto viene configurado por defecto
