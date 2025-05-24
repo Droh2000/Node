@@ -1,8 +1,14 @@
 const winston = require('winston');
+// Esto lo importamos para poder obtener la fecha de cuando ocurrio el error
+const { combine, timestamp, json } = winston.format;
 
 const logger = winston.createLogger({
   level: 'info',
-  format: winston.format.json(),
+  // Con el Combine podemos combinar todos los formatos que requiramos
+  format: combine(
+    timestamp(), // La fecha igual la podriamos agregar manualmente en la propiedad "error" del objeto
+    json()
+  ),
   // Aqui es donde sabemos cual es el archivo que dio error
   // defaultMeta: { service: 'user-service' },
   transports: [
@@ -26,6 +32,12 @@ module.exports = function buildLogger(service) {
         log: (message) => {
             // Estos son los datos que vamos a mostrar, el servicio es con el cual sabremos en que archivo ocurrio el error
             logger.log('info', {message, service});
-        }
+        },
+        // Esto es para crearnos nuestra forma de errores
+        // Cuando trabajamos con LOGS algo fundamental es tener registrada la fecha de cuando ocurrio el error
+        // los logs nos deben de ayudar a identificar bien cuando y como ocurrieron los errores
+        error: (message) => {
+            logger.error('info', {message, service});
+        },
     }
 }

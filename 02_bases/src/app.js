@@ -87,7 +87,10 @@ const { buildLogger } = require('./plugins');
 const logger = buildLogger('app.js'); // Este ese el archivo donde lo estamos mandando a llamar
 
 // Al ejecutar el programa veremos que dentro del directorio, combined.log (Aqui tenemos el contenido donde esta el logger), 
-// error.log
+// error.log (AQui solo veremos los Logger.error)
 // Como el Logger en el "log" lo creamos entre {} nos muestra los datos como un JSON, asi podemos recorrer mejor el contenido de estos archivos
 // hacer una serializacion, obtener cuales servicios son los que nos estan fallando
 logger.log('Hola Mundo');
+
+// Esto es cuando ocurre un error
+logger.log('Esto es algo malo');

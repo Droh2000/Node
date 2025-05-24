@@ -110,4 +110,6 @@ Node Logger - Winston
 
     Instlacion del paquete
         - npm i winston
-    
+
+En los paquetes de node que veamos que salga el icono de "DT" esto quiere decir que el paquete tiene un archivo de definicion de typescript donde podemos acceder a su autocompletado
+la gran mayoria veremos estan escritos en TS para ayudarnos con el tipado y autocompletado
