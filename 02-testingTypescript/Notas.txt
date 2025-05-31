@@ -47,3 +47,11 @@ Tenemos este proyecto de la seccion anterior que creamos originalmente en Js y l
 para correrlo:
     - npm run dev (Esto en el package.json nos corre nodemon ejecutando la logica que tenemos en el "app.ts")
 El testing lo vamos a ejecutar a los archivos que tenemos en la carpeta de "js-fundation"
+
+Configurar el sistema de pruebas
+    Cuando estamos usando un framework de Node se recomienda usar el testing que ya utilizan por defecto para evitar estar haciendo configuraciones
+    En este caso vamos a usar JEST, los pasos los seguimos de: https://gist.github.com/Klerith/98d7b1bc0f1525e892f260813cad1007
+
+    Para ejecutar las pruebas:
+        * npm run test
+        (Esto nos ejecuta todos los archivos que tengamos en la carpeta Test, vemos los mensajes y si pasaron las pruebas)
