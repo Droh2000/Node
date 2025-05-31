@@ -57,3 +57,8 @@ Configurar el sistema de pruebas
             (Esto nos ejecuta todos los archivos que tengamos en la carpeta Test, vemos los mensajes y si pasaron las pruebas)
         * npm run test:watch
             (Esto entra al test en modo Observable y nas da una serie de opciones donde indicamos como queremos ejecutar las pruebas)
+
+Vamos a hacer una prueba por cada uno de los archivos de "js-foundation", si nuestro codigo es altamente acoplado, es dificil de probar y por eso mucho no hacen testing
+porque puede que para hacer una prueba tienen que hacer muchas importaciones y hay mucho codigo que es imposible de desligar de otra parte
+    Se recomiendo crear la misma estrcutura del FileSystem que tenemos dentro de la carpeta "SRC" en la carpeta "Tests" ademas con los mismo nombres de archivos originales solo
+    agregandole en el nombre el ".test", por esto es lo que busca JEST cuando estamos ejecutando las pruebas, segun la libreria que usemos tendremos que usar un nombre u otro
