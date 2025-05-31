@@ -24,6 +24,20 @@ describe('js-foundation/03-callbacks', () => {
         });
          
     });
+    
+    // Ahora vamos a probar para un caso de existo donde si tenemos un usuario
+    test('getUserById should return user by id 1', () => {
+        const id = 1;
+
+        getUserById( id, (err, user) => {
+            expect( err ).toBeUndefined();
+            // Para evaluar objetos no podemos usar el toBe
+            expect(user).toEqual({
+                id,
+                name: 'John Doe',
+            });
+        });
+    });
 });
 
 
