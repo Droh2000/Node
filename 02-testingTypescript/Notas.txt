@@ -1,0 +1,49 @@
+Pruebas Unitarias y de Integracion
+
+    Unitarias: Estan enfocadas en pequeñas funcionalidades
+        Aqui solo hacemos pruebas de manera atomicas es decir solo en pequeñas partes
+        que una clase genera la instancia que nosotros esperamos, una funcion trabaje como 
+        esperamos, esperamos que ese comportamiento funcione de la manera mas pequena posible
+        y asi vamos a ir creaciendo poco a poco hacia afuera
+
+    Esto quiere decir que cuado lleguemos a las pruebas de
+    Integracion: Enfocadas en como reaccionan varias piezas en conjunto
+
+    Caracteristicas de las pruebas
+        1. Sean Faciles de escribir
+        2. Faciles de leer
+        3. Confiables
+        4. Rapidas
+        5. Principalmente unitarias: Esto es porque como empezamos de lo mas pequeños , seria lo mas facil de probar
+            y cuando ya vamos avanzando hacia afuera ya la mayoria estaria aprobado y solo llamariamos los elementos correspondientes
+            ya no vamos a probar cosas que hayan sido probadas previamente
+    Para lograr esto tenemos la tecnologia de A.A.A
+        * Arrange (Arreglar): Aqui tomamos el sujeto de prueba, inicializamos variables y vamos a realizar todas las importaciones necesarias 
+                              para poder preparar la prueba, es decir el estado inicial que puede ser el ir a tomar la clase emtonces vamos a
+                              importar esa clase, tomamos la funcion que queremos probar, tomar el objeto que queremos evaluar  
+
+        * Act (Actuar): Vamos a aplicar estimulos, llamar metodos, simular clicks, realizar acciones sobre el paso anterior con el sujeto de pruebas,
+                        es decir si tenemos una funcion, la parte de actuar seria invocar la funcion, si tenemos una clase, este paso seria crear la 
+                        instancia de la clase con los argumentos que nosotros esperamos 
+        * Assert (Afirmar): Aqui vamos a observar el comportamiento resultante por ejemplos si llamamos una funcion y le mandamos un argumento, estariamos 
+                            esperando que el resultado de esa funcion sea lo que estamos esperando, aqui escribimos el codigo que se asegure 
+                            que lo que estamos esperando lo cumpla, pero aqui solo vamos evaluar el resultado del paso anterior, es decir si aplicamos un 
+                            estilo nosotros evaluaremos ese producto del estimulo tambien si estamos llamando algo y esperamos que nada suceda, eso de 
+                            que nanda pase tambien puede ser una afirmacion que podemos evaluar
+    Es importante saber que el como escribamos la logia de las pruebas, si nos equivamos al escribirla, nos dara errores aunque la logia de la aplicacion
+    este funcionando correctamente
+    Los archivos de testing nunca debe de llegar a produccion
+    Si seguimos buenas practicas de programacion deberia de ser facil aplicar pruebas (Mox = Crear una BD ficticias)
+    Cuando la aplicacion es muy grande nos enfocaremos en probar la ruta critica, que serian las funcionalidades principales de la aplicacion
+    luego de ahi vamos expandiendo las pruebas a demas modulos
+
+    El chiste esta en que conforme creamos la aplicacion la vamos probando normalmente, pero lo que ocurre y principalmente en un proyecto creado por un equipo de 
+    desarrolladores es que no pensamos que otra persona pudo hacer una modificacion que rompio la logica de algo que ya habiamos probado manualmente usandolo 
+    despues de terminarlo de programar, porque hacemos una logica, la terminamos, vemos que funciones y continuamos con otra logica, sin pensar que por modificaciones
+    puede romper logica ya creada por nosotros, entonces para eso estan estas pruebas al ejecutarlas y que pasan por todo lo que se supone debe estar funciones y de 
+    otra forma no nos dariamos cuenta si solo probamos una vez y de ahi no volvemos a ver  
+
+Tenemos este proyecto de la seccion anterior que creamos originalmente en Js y lo pasamos a TS
+para correrlo:
+    - npm run dev (Esto en el package.json nos corre nodemon ejecutando la logica que tenemos en el "app.ts")
+El testing lo vamos a ejecutar a los archivos que tenemos en la carpeta de "js-fundation"
