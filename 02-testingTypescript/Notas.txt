@@ -62,3 +62,14 @@ Vamos a hacer una prueba por cada uno de los archivos de "js-foundation", si nue
 porque puede que para hacer una prueba tienen que hacer muchas importaciones y hay mucho codigo que es imposible de desligar de otra parte
     Se recomiendo crear la misma estrcutura del FileSystem que tenemos dentro de la carpeta "SRC" en la carpeta "Tests" ademas con los mismo nombres de archivos originales solo
     agregandole en el nombre el ".test", por esto es lo que busca JEST cuando estamos ejecutando las pruebas, segun la libreria que usemos tendremos que usar un nombre u otro
+
+Si ejecutamos el siguiente comando
+    * npm run test:cover
+Esto lanzara todo nuestro testing pero obtendremos un resumen general de nuestro codigo de todas las pruebas
+Ademas si nos fijamos en nuestra carpeta de directorios tendremos que se nos genero la carpeta de "Coverage"
+Aqui si abrimos el Index.html veremos un reporte en resumen de todas las pruebas del codigo, debemo de asegurarnos que el porcentaje
+esto por lo menos arriba del 70% cumpliendo el objetivo de los tests
+Ademas podemos hacer click en los nombres de los archivos y ahi se nos mostrara el codigo que tiene problemas o que no ah sido probado en el Testing
+
+La idea es que cuando ya tengamos el testing implementado, si este funciona exitosamente, solo ahi podemos pasar al paso de construccion y solo entonces se levanta la aplicacion en modo de produccion
+Asi si el testing falla no tenemos porque crear la aplicacion en modo para produccion
