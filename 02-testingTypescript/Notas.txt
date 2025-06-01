@@ -73,3 +73,10 @@ Ademas podemos hacer click en los nombres de los archivos y ahi se nos mostrara 
 
 La idea es que cuando ya tengamos el testing implementado, si este funciona exitosamente, solo ahi podemos pasar al paso de construccion y solo entonces se levanta la aplicacion en modo de produccion
 Asi si el testing falla no tenemos porque crear la aplicacion en modo para produccion
+
+Le agregamos una configuracion al tsconfig.json para que incluya y excluya ciertos archivos y ademas para excluya ciertos archivos
+Tambien en el .gitignore debemos de indicarle que ignore la carpeta del "coverage"
+En el package.json conectamos los procedimientos de las pruebas para generar el build de produccion, lo que hicimos es que cuando lo lanzamos a produccion use el comando de "Build" que es para construirlo
+y ademas use el comando de "Start" para levantarlo pero si llamamos el Start va a volver a ejecutar todo el proceso de construccion entonces no tiene mucho sentido
+asi que cuando estamos desplegando a un servidor usalmente el comando de Start ya a va suponer que se paso el proceso de construccion previa (Por eso le quitamos la parte que ejecutaba el Build) 
+
