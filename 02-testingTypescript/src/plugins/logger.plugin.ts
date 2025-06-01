@@ -2,8 +2,8 @@ import winston, { format } from 'winston';
 
 const { combine, timestamp, json } = format;
 
-
-const logger = winston.createLogger({
+// Lo exportamos para poder hacer la prueba
+export const logger = winston.createLogger({
   level: 'info',
   format: combine(
     timestamp(),
