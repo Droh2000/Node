@@ -39,4 +39,25 @@ console.log(yarg.b);
 async function main() {
   console.log("Main Ejecutado");
   // Aqui podriamos llamar cualquier libreria o cosa asyncrona sin problemas
+  /*
+    Al ejecutar el comando "nom run dev" podriamos ver que en consola se mira igual que antes
+    pero si dejamos el cursor encima del objeto "yarg" en la documentacion tenemos:
+        [x: string]: unknown;     -> Esto siginifica que podemos tener llaves dinamicas pero el tipo es "unknown" y eso es porque nos creo "b" y "base" (Alias)          
+        b: number;                -> Aqui tenemos el argumento con el tipo de dato definido 
+        _: (string | number)[];
+        $0: string;
+    Si en el "package.json" le borramos los argumentos, al ejecutar el comando, en la terminal nos saldra un mensaje como ayuda
+      "missing required argument: b"
+    Asi podemos ver con el vomando Help los argumentos que espera
+      * npx ts-node src/app --help
+    Asi le podemos mandar los datos
+      * npx ts-node src/app --base 100
+    Cuando queremos mandar argumentos booleanos, con solo especificar el nombre significara que queremos que sea True
+      * npx ts-node src/app --base 10 -s
+
+  */
+  console.log(yarg);
+  
+  // Asi podemos tomar los datos
+  const  { b, base } = yarg;
 }

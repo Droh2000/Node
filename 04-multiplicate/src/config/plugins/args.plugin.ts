@@ -1,5 +1,5 @@
 // Solo aqui vamos a manejar el paquete de tercero, si el dia de mañana cambiamos de paquete, solo aqui vamos a modificar
-import yargs from 'yargs';
+import yargs, { alias, describe } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 /*
@@ -12,4 +12,29 @@ import { hideBin } from 'yargs/helpers';
 
 // Si le mandamos el "hideBin" nos va a ocultar el Bin Folder, por lo que al ejecutar el comando
 // ya no veremos rutas de archivos
-export const yarg = yargs(hideBin(process.argv)).parseSync();
+export const yarg = yargs(hideBin(process.argv))
+    // Hay varias formas que tiene Yargs para configurarse
+    .options('b', {
+        // Aqui indicamos como debe de funcioar el argumento "b", cuando le mandamos "-b" esto es lo que va a pasar
+        alias: 'base', // Nombre completo
+        type: 'number', // El tipo de dato del que sera tomado el argumento
+        demandOption: true, // Sea oblogatorio y si no se pasa nos dara error
+        describe: 'Multiplication table base',
+    })
+    // En las opciones no obligatorias podemos mandar valores por defecto
+    .option('l', {
+        alias: 'limit',
+        type: 'number',
+        // Al ejecutar en la terminal el comando nos saldra la informacion de los valores que tomo
+        default: 10, // Este es el valor que tendra si no se lo mandamos
+        describe: 'Multiplication table limit'
+    })
+    // Esta opcion es para mostrar la tabla si la persona quiere
+    .option('s', {
+        alias: 'show',
+        type: 'boolean',
+        default: false, // este es el valor por defecto
+        describe: 'Show Multipication Table'
+    })
+
+    .parseSync();
