@@ -18,3 +18,25 @@ import { yarg } from "./config/plugins/args.plugin";
 // Como estamos usando el "hideBin" podemos llamar directamente del objeto el argumento
 console.log(yarg);
 console.log(yarg.b);
+
+/*
+  Funcion anonima autoinvocada
+    En Node por defecto todo lo que se ejecuta en nuestro archivo app.ts, todo es syncrono, si queremos ejecutar Asyn/Await
+    por defecto en el root de la aplicacion no lo podemos hacer:
+      await Promise.resolve()
+    Esto solo se puede hacer si estamos dentro de una funcion asyncrona
+    Pero si tenemos ue trabajar a fuerzas de forma asyncrona se resuelve con una funcion anonima autoinvocada asyncrona
+
+    Esto es un codigo comun cuando requerimos ejecutar cosas asyncronas desde el root de la aplicacion
+*/
+(async()=>{
+  //console.log("Ejecutado");
+  await main();
+  console.log("Fin del programa")
+})();
+
+// Ahora podemos crear funciones y meterlas dentro de la autoinvocada
+async function main() {
+  console.log("Main Ejecutado");
+  // Aqui podriamos llamar cualquier libreria o cosa asyncrona sin problemas
+}
