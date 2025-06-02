@@ -15,4 +15,29 @@ Despues configuramos Typescript en el proyecto, siguiendo los pasos en:
 Creamos el archivo y drectorio: app.ts
 Levantamos la aplicacion: 
     - npm run dev
-En salida de consola mostramos contenido
+En salida de consola mostramos contenido, estas son herramientas que nos sirven para automatizar algun tipo de proceso, cuando se llaman por consola
+muchas veses se requiere que podamos mandarle argumentos donde el comportamiento cambia segun las banderas que le pasemos o no
+queremos que esta aplicacion de consola acepte banderas parametrizando todo lo que podamos parametrizar
+
+Llamando al objeto "process" podemos acceder a las variables de entorno que son un monton "env" ademas podemos acceder
+"argv" que es el de Arguments Value, al ejecutar con nodemon veremos los argv que fueron utilizados para ejcutar la aplicacion
+Como estamos usando "ts-node" para ejecutar la  APP este es el primer argumento y como estamos ejecutando la aplicacion sale "app.ts"
+(Estos son los argumentos que se mandaron de la parte de Node para ejecutarse)
+Tenemos el comando del Build que nos crea el archivo de distribucion (Al ejecutar ese comando solo nos crea el directorio: "dist/app.js")
+Esto lo podemos ejecutar directamente con el comando "node" no con ts-node como:
+     node dist/app.js (El archivo es el mismo solo que es el de distribucion)
+Ahora le podemos mandar una bandera
+     node dist/app.js --base 10
+No importa lo que le mandemos, la aplicacion los va a recibir pero no va a pasar nada porque no los esta esperando el programa
+Estas son formas comunes de mandar argumentos
+     node dist/app.js --base 10 -l=100 --file=hola.txt -s
+Cuando empeizan dos lineas como --base es que es una palabra espacio un valor
+con "-l" es el limite, este solo es un guion porque es la forma corta del argumento
+El "--file" es considerado el "hola.txt" un string, igual se pueden poner comillas para poner espacios
+"-s" es un valor booleano
+
+Como prueba levantamos la aplicacion con:
+    * npm run dev
+Modificamos el "package.json" y en el comando "dev" mandamos al final "-b 10", con esto por defecto le estamos mandando la base de 10
+entonces cada vez que ejecutemos el comando de arriba le estamos mandando estos argumentos por defecto
+Ahora en el archivo "app.ts" vamos a tomar el valor de ese argumento

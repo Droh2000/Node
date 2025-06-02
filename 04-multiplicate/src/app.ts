@@ -1,28 +1,11 @@
-const fs = require('fs');
+console.log(process.argv);
 
-let data = "";
+// Si queremos tomar los argumentos que nos mandan por consola, tendremos que ver que hay logica involucrada solo en esto tan pequeno
+// como ver si los argumentos son opcionales que pueden venir o no y si nos vienen lanzar un error
+// Aplicando desestructuracion sacar cual fue el comando que se utilizo (En este caso TsNode), app (Seria el archivo que se ejecuto)
+// luego tendriamos los argumentos
+const [ tsnode, app, ...args ] = process.argv;
 
-let outputMessage = '';
-const base = 5;
-const headerMessage = `
-==================================
-        Tabla del ${ base }
-==================================\n
-`;
-
-for (let i = 1; i <= 10; i++) {
-  outputMessage += `${ base } X ${ i } = ${ base * i }\n`
-}
-
-outputMessage = headerMessage + outputMessage;
-console.log(outputMessage);
-
-// El contenido lo almacenamos en un archivo de TXT
-// La ruta es: outputs/tabla-5.txt
-
-// Tomamos el directorio para decirle al script que si no existe lo cree
-const outputPath = "outputs";
-fs.mkdirSync(outputPath, {recursive: true});// Recursiva en True por si tenemos varias subcarpetas dentro
-
-fs.writeFileSync(`${outputPath}/tabla-${base}.txt`, data);
-console.log("File Created");
+// Aqui vemos que tenemos los argumentos que nos dieron por consola, lo que pasa es que pueden venir en cualquier orden
+// y el usuario mandarloss en el orden como se le de gana 
+console.log(args);
