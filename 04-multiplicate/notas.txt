@@ -1,0 +1,17 @@
+Creamos la carpeta del proyecto
+Ejecutamos el comando:
+    * npm init -y
+El package.json no es nesesaria para aplicaciones simples, en si nos sirve el archivo para crear una aplicacion ya estructurada en Node
+Despues configuramos Typescript en el proyecto, siguiendo los pasos en:
+    - https://gist.github.com/Klerith/47af527da090043f604b972b22dd4c01
+        * De aqui configuramos nodemone (Aunque no lo requerimos en esta aplicacion)
+            - Para no usar nodemon solo configuramos en el package.json en la parte de "dev"
+                * "dev": "ts-node src/app.ts"
+              Arriva es como lo configuramos y abajo pusimos una copia de respaldo del comando node:
+                * "dev:nodemon": "nodemon"
+              Esto lo hacemos asi porque como nos vamos a crear una aplicacion de consola eventualmente queremos mandarle argumentos que los mandariamos a llamar 
+              como los comandos que ejecutamos en la terminal
+        * Configuramos los comandos en el package.json para correr la aplicacion
+Creamos el archivo y drectorio: app.ts
+Levantamos la aplicacion: 
+    - npm run dev
