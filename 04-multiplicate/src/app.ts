@@ -54,7 +54,8 @@ async function main() {
       * npx ts-node src/app --base 100
     Cuando queremos mandar argumentos booleanos, con solo especificar el nombre significara que queremos que sea True
       * npx ts-node src/app --base 10 -s
-
+    Si verificamos lanzando una base que no esta permitida veremos el masaje del error que pusimos en la validacion
+      * npx ts-node src/app --base -10 -s
   */
   console.log(yarg);
   

@@ -36,5 +36,12 @@ export const yarg = yargs(hideBin(process.argv))
         default: false, // este es el valor por defecto
         describe: 'Show Multipication Table'
     })
+    // Agregar validaciones
+    // Entre los argumentos que podemos recibir estan: "argv" para sacar los parametros y "options" son todas las opciones de nuestro objeto de configuracion "yarg"
+    .check(( argv, options ) => {
+        // No aceptaremos que el usuario nos mande bases negativas
+        if( argv.b < 1 ) throw 'Error: base must be greather than 0';// Aqui podemos meter mensajes de error
 
+        return true;
+    })
     .parseSync();
