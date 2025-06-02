@@ -41,3 +41,17 @@ Como prueba levantamos la aplicacion con:
 Modificamos el "package.json" y en el comando "dev" mandamos al final "-b 10", con esto por defecto le estamos mandando la base de 10
 entonces cada vez que ejecutemos el comando de arriba le estamos mandando estos argumentos por defecto
 Ahora en el archivo "app.ts" vamos a tomar el valor de ese argumento
+
+Para manejar todos estos datos facilmente tenemos la libreria de "Yargs", nosotros tenemos que analizar si vale la pena agregar un nuevo paquete al proyecto o 
+vale la pena mejor programarlo nosotros.
+Este paquete nos sirve para procesar los argumentos que recibimos y facilmente definir los comandos que queremos usar o las opciones, convertir el valor que recibimos
+al tipo de dato que mandamos
+Lo instalamos:
+    * npm i yargs
+Si queremos especificamente una version podemos indicarlo asi:
+    * npm i yargs@17.1.1
+Siguiendo las buenas practicas, NO QUEREMOS que nuestro proyecto dependa de este paquete si el dia de mañana queremos cambiar a otro paquete
+para esto creamos el directorio
+        - src/config/plugins
+    Dentro creamos el archivo para el paquete pertinente
+        - args.plugin.ts
