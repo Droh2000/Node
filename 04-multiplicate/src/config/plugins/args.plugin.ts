@@ -36,6 +36,18 @@ export const yarg = yargs(hideBin(process.argv))
         default: false, // este es el valor por defecto
         describe: 'Show Multipication Table'
     })
+    .option('n', {
+        alias: 'name',
+        type: 'string',
+        default: 'multiplication-table',
+        describe: 'File Name'
+    })
+    .option('d', {
+        alias: 'destination',
+        type: 'string',
+        default: 'outputs',
+        describe: 'File Destination'
+    })
     // Agregar validaciones
     // Entre los argumentos que podemos recibir estan: "argv" para sacar los parametros y "options" son todas las opciones de nuestro objeto de configuracion "yarg"
     .check(( argv, options ) => {

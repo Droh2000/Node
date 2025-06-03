@@ -66,7 +66,7 @@ async function main() {
   const  { b, base } = yarg;
   */
   // Gracias a esto la dependencias con esta libreria solo esta aqui en este archivo
-  const { b:base, l:limit, s:showTable } = yarg;
+  const { b:base, l:limit, s:showTable, n:name, d:destination } = yarg;
 
-  ServerApp.run({ base, limit, showTable }); // Aqui le mandamos lo argumentos que escribirmos al ejecutar el comando
+  ServerApp.run({ base, limit, showTable, name, destination }); // Aqui le mandamos lo argumentos que escribirmos al ejecutar el comando
 }

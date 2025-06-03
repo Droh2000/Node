@@ -6,6 +6,8 @@ interface RunOptions {
     base: number;
     limit: number;
     showTable: boolean;
+    name: string,
+    destination: string,
 }
 
 
@@ -14,7 +16,7 @@ export class ServerApp {
 
     // Cuando se llame este metodo queremos ver este mensaje
     // A este metodo le pasamos lo que vamos a usar de Yarg para solo usar esa libreria en una parte
-    static run({ base, limit, showTable }: RunOptions){
+    static run({ base, limit, showTable, name, destination }: RunOptions){
         console.log('Server Running');
         // Aqui queremos ejecutar los casos de uso
         // Aqui hariamos la inyeccion de dependencias y llamamos el metodo correspondiente pasandole los datos
@@ -24,7 +26,8 @@ export class ServerApp {
         const wasCreated = new SaveFile()
                 .execute({ 
                     fileContent: table,
-                    fileDestination: `outputs/table-${base}`
+                    fileDestination: destination,
+                    fileName: name
                 });
         
         if( showTable ) console.log(table);
