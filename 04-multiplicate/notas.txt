@@ -75,3 +75,12 @@ El problema que tenemos en el archivo "app.logic.ts"
         Debemos de detectar facilmente que puede cambiar el destino de los archivos, por tanto al caso de uso de guardar archivos
         debemos de mandarle el destino donde se quiere el archivo, con esto la funcion y el codigo 
         no deben de verse afectado solo por esa pequeña parte afectada
+
+        Cuando lanzamos la aplicacion queremos crear la tabla
+        Tambien hay que indicar que cuando comparamos proyectos con diferentes arquitecturas limpias las arquitecuras de directorios
+        varian, el principio de arquitectura limpia busca la separacion de responsabilidad no que tengamos ciertos directorios
+        Como la carpeta Presentation es lo que mas estara expuesto al usuario final.
+        Empezando con los casos de uso 
+            * domain -> En esta carpeta vamos a tener las reglas que van a mandar otras capas exteriores, dentro creamos la carpeta:
+                - use-cases: El objetivo de los casos de uso es que hagan una tarea en particular, como esta es una aplicacion pequeña no vamos a crear directorios por cada accion
+                             sino que creamos directamente los archivos

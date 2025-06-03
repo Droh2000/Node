@@ -24,9 +24,6 @@ const headerMessage = `
 ==================================\n
 `;
 
-for (let i = 1; i <= limit; i++) {
-  outputMessage += `${ base } X ${ i } = ${ base * i }\n`
-}
 
 outputMessage = headerMessage + outputMessage;
 
