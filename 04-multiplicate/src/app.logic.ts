@@ -1,4 +1,3 @@
-const fs = require('fs');
 
 // Vamos a ver como usar Yarg para modificar logica de nuestro codigo usando un script como el que vimos
 import { yarg } from "./config/plugins/args.plugin";
@@ -29,12 +28,3 @@ outputMessage = headerMessage + outputMessage;
 
 if(show) console.log(outputMessage);
 
-// El contenido lo almacenamos en un archivo de TXT
-// La ruta es: outputs/tabla-5.txt
-
-// Tomamos el directorio para decirle al script que si no existe lo cree
-const outputPath = "outputs";
-fs.mkdirSync(outputPath, {recursive: true});// Recursiva en True por si tenemos varias subcarpetas dentro
-
-fs.writeFileSync(`${outputPath}/tabla-${base}.txt`, outputMessage);
-console.log("File Created");
