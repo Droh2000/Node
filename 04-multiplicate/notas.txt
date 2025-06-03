@@ -63,4 +63,15 @@ El problema que tenemos en el archivo "app.logic.ts"
         - Nos creamos la carpeta "presentation" esto es lo que vera el que consuma nuestra aplicacion, cuando trabajemos con servidores REST, aqui vamos a tener la parte de Express y vamos a tratar
           que cada capa cumpla un objetivo
         - El comando de Nodemon en el "package.json" le agregamos unos parametros en duro para poder ir probando la aplicacion
-        
+    Arquitectura limpia:
+        Uno de los principales problemas que tienen las arquitecturas es que nos llenan de archivos, aqui como introduccion vamos a ver los casos de uso
+            El software de cada de los casos de uso contiene las reglas de negocio especificas de la aplicacion
+            condensa e implementa todos los casos de uso del sistema, estos casos de uso orquestan el flujo dentro
+            y hacia las entidades
+
+        Los casos de uso en nuestra aplicacion son: 
+            - Crear la Tabla
+            - Guardar los datos en un archivo de texto
+        Debemos de detectar facilmente que puede cambiar el destino de los archivos, por tanto al caso de uso de guardar archivos
+        debemos de mandarle el destino donde se quiere el archivo, con esto la funcion y el codigo 
+        no deben de verse afectado solo por esa pequeña parte afectada
