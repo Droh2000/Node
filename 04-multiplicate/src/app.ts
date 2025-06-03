@@ -11,7 +11,9 @@
 //      console.log(args);
 
 // Exportamos la libreria que nos ayudara a manejar los argumentos
+import { Server } from "http";
 import { yarg } from "./config/plugins/args.plugin";
+import { ServerApp } from "./presentation/server-app";
 
 // Al ejecutar el comando de: nom run dev ya veremos como automaticamente los argumentos y nos convierte
 // el valor a su tipo de dato con su argumento, abajo tenemos el script que se ejecuto
@@ -36,8 +38,9 @@ console.log(yarg.b);
 })();
 
 // Ahora podemos crear funciones y meterlas dentro de la autoinvocada
+// El Main es el punto de entrada de la aplicacion
 async function main() {
-  console.log("Main Ejecutado");
+  // console.log("Main Ejecutado");
   // Aqui podriamos llamar cualquier libreria o cosa asyncrona sin problemas
   /*
     Al ejecutar el comando "nom run dev" podriamos ver que en consola se mira igual que antes
@@ -56,9 +59,14 @@ async function main() {
       * npx ts-node src/app --base 10 -s
     Si verificamos lanzando una base que no esta permitida veremos el masaje del error que pusimos en la validacion
       * npx ts-node src/app --base -10 -s
-  */
+
   console.log(yarg);
   
   // Asi podemos tomar los datos
   const  { b, base } = yarg;
+  */
+  // Gracias a esto la dependencias con esta libreria solo esta aqui en este archivo
+  const { b:base, l:limit, s:showTable } = yarg;
+
+  ServerApp.run({ base, limit, showTable }); // Aqui le mandamos lo argumentos que escribirmos al ejecutar el comando
 }

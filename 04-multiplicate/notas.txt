@@ -55,3 +55,12 @@ para esto creamos el directorio
         - src/config/plugins
     Dentro creamos el archivo para el paquete pertinente
         - args.plugin.ts
+
+El problema que tenemos en el archivo "app.logic.ts"
+    El archivo no es Testeble ni mantenible porque tenemos altamente acopable todas las cosas y las piezas funcionales de la aplicacion, lo mejor es aplicar algun patron de arquitectura
+    no importa cual, todas se basan en que el codigo sea escalable mantenible y entendible por personas en el futuro
+        - Ya teniamos configurado el punto de entrada de nuestra aplicacion (Metodo "main" del archivo "app.ts")
+        - Nos creamos la carpeta "presentation" esto es lo que vera el que consuma nuestra aplicacion, cuando trabajemos con servidores REST, aqui vamos a tener la parte de Express y vamos a tratar
+          que cada capa cumpla un objetivo
+        - El comando de Nodemon en el "package.json" le agregamos unos parametros en duro para poder ir probando la aplicacion
+        
