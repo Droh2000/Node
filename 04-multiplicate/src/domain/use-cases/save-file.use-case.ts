@@ -16,6 +16,7 @@ export interface Options{
 
 export class SaveFile implements SaveFileUseCase {
     
+    // Este archivo no deberia de crear el FileSystem, deberia de hacerlo un repositorio que es el que haria toda la logica
     constructor(
         /**
          *  Aqui debemos de tener la inyeccion de dependencias que deberia de ser el repositorio en el cual nosotros vamos a guardar la informacion
