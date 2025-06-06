@@ -84,3 +84,22 @@ El problema que tenemos en el archivo "app.logic.ts"
             * domain -> En esta carpeta vamos a tener las reglas que van a mandar otras capas exteriores, dentro creamos la carpeta:
                 - use-cases: El objetivo de los casos de uso es que hagan una tarea en particular, como esta es una aplicacion pequeña no vamos a crear directorios por cada accion
                              sino que creamos directamente los archivos
+
+Testing
+    Vamos a ver las carpetas:
+        - app: Cuando se ejcute podriamos asegurarnos el RUN App haya sido llamado con los argumentos que queremos
+        - create-tabe.use-case.ts: En archivos como casos de uso podemos probar de manera aislada y luego tambien insertar inyeccion de dependencias
+                    ficticias en el constructor (Esto aplica para clases donde si tengamos inyecciones de dependencias y asegurarnos que esas dependencias 
+                    hayan sido llamadas) Como esta clase no tiene ID, solo creamos la instancia del caso de uso y si llamamos el metodo "excecute"
+                    estariamos esperando un resultado en particular
+        - save-file.use-case:  Podemos simular que el metodo "mkdirSync" haya sido llamado, podemos crear el archivo verificarlo y evaluar los valores del resultado
+                    (Solo con Testing, crear el archivo, evaluarlo y borrarlo)
+        - args.plugin.ts: Este nesecita el "process.argv" y en el Testing vamos a probar varios casos, mandandole los argumentos por consola, nosotros vamos a simular los ArgsV
+                    y despues ejectuamos "yarg" tomando el objeto y el resultado del valor resultante, la parte mas dificil sera la de Check aunque en el testing podemos modificar
+                    el codigo para que sea mas facil de probar (En este caso podriamos evaluar si da un error o extraer esa parte a una funcion independiente y evaluarlo pasandole los argV)
+                    Lo que ocupamos evaluar es que si le mandamos mediante argV los argumentos queremos tener el objeto configurado como esperamos 
+        - server-app.ts: Vamos a evaluar que nos manden la informacion del metod RUN y que esos valores hagan lo que esperamos, Como en este caso estamos llamando dos instancias,
+                    ya deberiamos de tener probado esas instancias por lo cual no necestiamos ejectuarlo, solo con verificar que el metodo haya sido llamado con los argumentos esperados
+                    para las condiciones solo verificar que si se cumple hagan lo que tienen que hacer
+Para ejecutar nuestro Script:
+    - npx ts-node src/app.ts AQUI_VAN_ARGUMENTOS 
