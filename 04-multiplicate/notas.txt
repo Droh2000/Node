@@ -113,3 +113,6 @@ Para ejecutar los Test:
 
 Si tenemos nuestros archivos de testing debajo de cada archivo normal, cuando ejecutamos la carpeta de produccion: "npm run build" veremos que tambien nos hace la transpilacion de los archivos
 de Test, asi que para modificar esto, nos vamos al archivo de tsconfig.json en el "exclude"
+    -  "dist", "src/**/*.test.ts" -> IMPORTANTE: Estas lineas hay que agregarlas al final cuando vayamos a construir la carpeta de produccion
+
+Como recomendacion empezar con los archivos mas pequeños y que no tienen relacion con otros archivos

@@ -29,9 +29,13 @@ export class CreateTable implements CreateTable{
         // Creamos los datos que vamos a mandar despues a un archivo
         let outputMessage = '';
         for (let i = 1; i <= limit; i++) {
-            outputMessage += `${ base } X ${ i } = ${ base * i }\n`
+            // Gracias al testing nos dimos cuenta que estamos generando un salot de linea de mas
+            outputMessage += `${ base } X ${ i } = ${ base * i }`;
+
+            if( i < limit ) outputMessage += '\n';
         }
         return outputMessage;
     }
-
+    // Cuando hacemos Testing literalmente nuestro codigo de los archivos se esta ejecutando, esto tendra sentido cuando trabajemos con los Spies y Moks Return Value
+    // donde podemos fingir que una funcion es llamada y regresa lo que nosotros le indiquemos
 }
