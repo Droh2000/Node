@@ -4,18 +4,33 @@ import fs from 'fs';
 // El objetivo es probar nuestras piezas o casos de uso de manera aislada
 describe('SaveFileUseCase', () => {
 
+    // Estas variables las ponemos aqui para personalizar nuestros tests segun estos valores
+    const options = {
+        fileContent: 'custom content',
+        fileDestination: 'custom-outputs/file-destination',
+        fileName: 'custom-table-name',
+    }
+    // Esta es la ruta que queremos evaluar, con la extencion del archivo
+        const filePath = `${options.fileDestination}/${options.fileName}.txt`;
+
     // Solucion del Falso positivo en el que analizar la carpeta "outputs/Archivo" ya creado de un test anterior
     // para esto en las pruebas hay ciclos de vida para que pase algo, antes,durante, despues de las pruebas
     // Despues de cada prueba vamos a hacer una limpieza 
     afterEach(() => {
+        // Verificamos si ya existe
+        const outputFolderExists = fs.existsSync('outputs');
         // Borramos de manera recursiva la carpeta de outputs
-        fs.rmSync('outputs', { recursive: true, force: true });
+        if( outputFolderExists ) fs.rmSync('output', { recursive: true });
+
+        const customOutputFolderExists = fs.existsSync(options.fileDestination);
+        if( customOutputFolderExists ) fs.rmSync(options.fileDestination, { recursive: true });
     });
 
     // Probar guardar el archivo con los valores por defecto
     test('should save file with default values', () => {
         const saveFile = new SaveFile();
         const filePath = 'outputs/table.txt';
+        // Esta variable va a remplazar a la variable "option" de mas arriba (Asi funciona el Scope en JS), esto solo pasa en este archivo
         const options = {
             fileContent: 'test content', // Esta es la porpiedad obligatoria que espera
         }
@@ -35,5 +50,18 @@ describe('SaveFileUseCase', () => {
         expect( fileContent ).toBe( options.fileContent );
 
     });
+
+    test('should save file with custom values', () => {
+
+        const saveFile = new SaveFile();
+
+        const result = saveFile.execute(options);
+        const fileExists = fs.existsSync(filePath);
+        const fileContent = fs.readFileSync(filePath, { encoding: 'utf-8' });
+
+        expect( result ).toBe( true );
+        expect( fileExists ).toBe( true );
+        expect( fileContent ).toBe( options.fileContent );
+    });    
 
 });
