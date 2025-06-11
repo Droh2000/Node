@@ -70,5 +70,43 @@ describe('Server App', () => {
             fileName: options.name,
         });
         // Esta es una prueba de integracion que se esta uniendo con diferentes piezas
+
+        // La idea es probar el metodo del RUN y esperar que sea ejecutado de la manera que esperamos
+        // incluso podemos asumir los valores de retorno y asegurarnos de que la siguiente funcion sea llamada con ese valor
+        test('should run with custom values mocked', () => {
+            // Para hacer una prueba unitaria y que no sea de integracion nos creamos los mocks
+            // Estas "jest.fn()" nos dicen si la funcion fue llamada o con que fue llamada (Es mas facil que de la forma de arriba crear estas funciones ficticias)
+            // Hacemos eso por cada uno de los Execute que tenemos
+            // Le concatenamos el "mock" para que no nos regrese undefined
+            const createMock = jest.fn().mockReturnValue('1 x 2 = 2');
+            // Simulamos para ver si se creo el archivo (Obtenemos un True si se creo correctamente)
+            const saveFileMock = jest.fn().mockReturnValue(true);
+            // Tambien podemos evaluar los Logs
+            const logMock = jest.fn();
+            const logErrorMock = jest.fn();
+
+            // Conectamos estas funciones all execute
+            CreateTable.prototype.execute = createMock;
+            SaveFile.prototype.execute = saveFileMock;
+            console.log = logMock;
+            console.error = logErrorMock;
+
+            // Ejecutamos las acciones
+            ServerApp.run(options);
+
+            // Evaluamos
+            expect( logMock ).toHaveBeenLastCalledWith('Server running...'); // Estamos creando un mock para esta funcion por tanto estasmos sobrescribiendo y no obtenemos el mensaje
+            expect( createMock ).toHaveBeenCalledWith({ "base": options.limit, "limit": options.limit });
+            expect( saveFileMock ).toHaveBeenLastCalledWith({
+                // El valor de retorno es el que le asignamos arriba para que no nos regrese undefined
+                fileContent: expect.any(String),
+                fileDestination: options.destination,
+                fileName: options.name
+            });
+            expect( logMock ).toHaveBeenCalledWith('File Created!');
+            // Estamos esperando que el error nunca haya sido llamado
+            expect( logErrorMock ).not.toHaveBeenCalledWith();
+        });
+
     });
 });
