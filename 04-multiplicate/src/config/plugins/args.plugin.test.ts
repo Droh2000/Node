@@ -18,6 +18,17 @@ describe('Test args.plugin.ts', () => {
     // En algunos caso con el objetivo de que las pruebas sean mas faciles podriamos extraer ciertos objetos
     // Colocando dentro del sujeto de pruebas otra ".option" y dentro especificando los argumentos que nos interesa
     // No tiene nada de malo refactorizar nuestro codigo con el objeto de que las pruebas sean mas faciles
+
+    // Para que la prueba no falle, cada vez que ejecutamos, por la logica de: process.argv = [ ...process.argv, ...args ];
+    // estamos esparciendo el Argv anterior con los nuevos, eso se significa que cada vez que se llama el "process.argv" vamos a tener mas argumentos
+    // Debemos de asegurarnos que despues de cada prueba hacer una limpieza como estaba anteriormente y que cada Test este en su modo mas limpio
+    // porque cada test se ejecuta en secuencia
+    const originalArgv = process.argv;  
+    beforeEach(() => {
+        // Antes de cada prueba va a ser igual a sus valores originales
+        process.argv = originalArgv;
+        jest.resetModules(); // reseteamos todo a su modo original
+    });
     
     // Aqui nos enfocaremos que cuando se mande a llamar ya deberiamos de tener unos datos en particular
     // Si queremos evaluar que vengan las propiedades especificadas: "alias" "type" "demandOption" "describe", nos creariamos un objeto con estas props
@@ -44,4 +55,18 @@ describe('Test args.plugin.ts', () => {
         );
     });
 
+    test('should return configuration with custom values', async () => {
+        // Aqui le mandamos valores personalizados por nosotros  
+        const argv = await runComand(['-b', '5', '-l', '20', '-s', '-n', 'custom-name', '-d', 'custom-dir']);
+
+        // Estos son los valores que esperamos que para exito deberia de ser los mismos 
+        expect(argv).toEqual(expect.objectContaining({
+            b: 5,
+            l: 20,
+            s: true,
+            n: 'custom-name',
+            d: 'custom-dir',
+        }));
+    })
+    
 });
