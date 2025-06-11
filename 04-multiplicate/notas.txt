@@ -116,3 +116,7 @@ de Test, asi que para modificar esto, nos vamos al archivo de tsconfig.json en e
     -  "dist", "src/**/*.test.ts" -> IMPORTANTE: Estas lineas hay que agregarlas al final cuando vayamos a construir la carpeta de produccion
 
 Como recomendacion empezar con los archivos mas pequeños y que no tienen relacion con otros archivos
+
+Para generar el nivel de covertura
+    * npm run test:coverage 
+En la documentacion que podemos ver en el navegador podremos ver en el archivo donde hacemos test y mirar la parte del codigo que no hemos testeado
