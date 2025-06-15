@@ -1,0 +1,68 @@
+Aplicacion de motoreo 
+    Esto es un sistema que este al pendiente de procedimientos importantes de nuestra aplicacion
+    Por ejemplo:
+        - Si se cae la BD
+        - Algun servicio RESt se cae
+        - O GraphQL endpoint 
+    Podemos tener un procedimiento que cada cierto este haciendo un chequeo de todo
+    en el momento que algo falla, podemos hacer cambios, seremos notificados, muchas cosas
+
+    Aplicaremos Arquitectura Limpia:
+        * Para que facilmente podamos cambiar piezas, actualizarlo, las diferentes perosonas del equipo puedan
+            trabajar de forma colarivorativa y sepan como funcionan las cosas
+    
+Sistema de notificaciones (NOC -> Network Operation Center)
+    Aqui vamos a poder crear procedimientos que se pueden ejecutar cada Hora, al final del dia, todos los dias, etc
+    ese codigo que sera un caso de uso puede ser, el estar pendiente de la BD, conectarse a algun endpoint, verificar que se
+    puedan insertar datos, si el Restfull o GraphQL estan activos, si hay problemas con el sistema de autenticacion
+    Nos podemos crear esta serie de casos de uso que se ejecuten cuando queramos
+
+Lo que nosotros haremos aqui es:
+    - Monitorear una API
+    - Crear nuestros propios procesos de monitoreo
+    - Enviar Correos
+
+Los Datasources que usaremos para grabar los LOGS donde se registra todo lo que esta pasa es:
+    - fileSystem
+    - MongoDB
+    - PostgreSQL
+
+Un caso que nos puede ocurrir es que nosotros ya tenemos nuestro sistema de NOC donde ya estamos al pendiente de los servicios que nos interesa
+y nuestro jefe nos dice que trabajemos nuestros LOGs en "FileSystem" pero luego se le complican las cosas y nos dice que cambiemos a "MongoDB"
+pero resulta que MongoDB crece mucho y nos empieza a costar dinero mantenerlo, entonces decidimos pasarnos a "PostgreSQL".
+    - Con el hecho de cambiar de una base de datos no relacionar a una relacionar tenemos una serie de problemas que podremos resolver facilmente gracias a la arquitectura limpia
+Pero resulta que se nos complica a un nivel en el que nos dicen: Donde quieren seguir trabajar ciertos LOGS en Filesystem y todavia tenemos que trabajar con MongoDB
+mientras hacemos la migracion completa a PostgreSQL
+    - Aparte queremos estar mandando esta informacion por correo electronico
+
+Vamos a entrar a la arquitectura limpia siguiendo el patron repositorio (Repository Pattern)
+    Tenemos que separar toda nuestra logica en capa
+    Nosotros queremos conseguir un flujo donde podamos facilmente cambiar facilmente la base de datos o cambiar muy facil aspectos que ve el usuario
+    En esta arquitectura vamos a tener:
+        - LogEntity: Una entidad puede ser una representacion de lo que vamos a querer meter en la base de datos donde vamos a tener el nivel de severidad, mensaje del suceso
+                     y Cuando paso
+        - Use Cases: Los casos de uso serian como Grabar Logs, Leer logs por severidad, Enviar Mail
+        - Presenters: Capa de presentacion que seria nuestra aplicacion de consola
+        - DataBase: La base de datos es donde nuestra informacion sera guardada que serian FileSystem, MongoDB, PostgreSQL
+
+Algunas consideraciones cuando estamos trabajando con algun tipo de arquitectura limpia deberiamos de pensar: No deberia de afectar nuestra aplicacion si:
+    - Cambiamos de la base de datos
+    - Cambiamos del motor de correo
+    - Agregamos o eliminamos tareas
+    - Queremos trabajar con multiples origines de datos
+Si ocurre alguno cambio en alguna de estas cosas no tiene porque afectar a las demas partes del codigo
+
+Nos vamos a crear un archivo "Entity" que seria como un registro que vamos a manejar en base de datos
+"DataSource" Vamos a tabajar con el patros de repositorio donde podemos definir como luce el data source, esta es la informacion de la firma de como nuestro origen de datos se debe de comportar
+no importa que tipo de origen de datos tengamos, siempre tendra los metodos que le especifiquemos
+"Repository" este habla con el origen de datos donde podamos conectarnos y mandarle un DataSource donde no importa el tipo
+"Casos de Uso" estos van a tener acceso al repositorio, donde el repositorio ya viene previemente configurado con el Datasource que va a usar
+pero al caso de uso no le va a importar que tipo de base de dato o el DataSource al cual le esta pidiendo que llame sus metodos, el caso de uso solo hace su tarea
+y notifica a quien le decimos que tiene que notificar
+
+Crear la aplicacion
+    - npm init -y (Creamos el package.json con la configuracion por defecto)
+Uso de Typescript de forma simplificada, sin usar Nodemon y mejor usar Ts-Node-Dev que es especializado para TS
+    - https://gist.github.com/Klerith/3ba17e86dc4fabd8301a59699b9ffc0b
+Ejecutar la aplicacion
+    - npm run dev
