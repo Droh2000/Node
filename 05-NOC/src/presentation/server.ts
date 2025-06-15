@@ -15,6 +15,11 @@ export class Server {
             () => {
                 // Llamamos nuestro caso de uso cada 5 segundo que por ahora sera a este servicio
                 new CheckService().execute('https://google.com');
+
+                // Consumir el Endpoint que creamos con la libreria de JSON-SERVER (Esta en la carpeta 06)
+                // Asi podemos bajar el servicio y veremos como entra la parte del Catch y verificacion del error
+                // si lo volvemos a levantar el servicio veremos que vuelve a detectar que todo esta OK
+                // new CheckService().execute('http://localhost:3000');
             }
         );
     }
