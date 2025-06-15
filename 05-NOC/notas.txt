@@ -79,3 +79,11 @@ Inyeccion de Dependencias
     Le agregamos dependencias a la clase para que funcione de la forma que esperamos 
 
     En nuestra clase de "check-service.ts" queremos cuando el caso de uso falla o que accion queremos realizar si el caso de uso funciona exitosamente
+
+Registro de LOGs
+    Los Logs unicamente tenerlos en consola no es conveniente, nuestros casos de uso deberian de recibir de alguna manera en donde queremos guardar el LOG, entonces
+    tenemos que crear un caso de uso donde tengamos un destino en particular como una base de datos, que en si esto al implementarlo solo seria una inyeccion de dependencias
+    (Nuestro caso de uso recibiria esa dependencia para poder funcionar donde le pasariamos una funcion para que grabe en la base de datos)
+
+     Este caso de uso es mas robusto que nos permita tomar los LOGS mandarlos por correo, guardarlos en BD, asi cuando estamos creciendo entonces tenemos que aplicar un principio de arquitectura
+     (En un principio de arquitectura tratamos de seguir la idea de la arquitectura pero no implementarla en su totalidad)

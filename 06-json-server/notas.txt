@@ -1,0 +1,16 @@
+Esta carpeta solo se creo para probar la libreria de JSON-SERVER
+
+Este mecanismo nos va a servir para saber si nuestro servicio esta arriba o abajo, en este caso vamos a crear un servicio de desarrollo que es el JSON SERVER
+es un paquete que toma los JSON y basado en ese archivo nos crea los Restfull API Endpoint, donde podemos montar un servidor Rest como un prototipo (Asi podemos crear rapidamente un CRUD endpoint
+rapidamente para probarlo en nuestra aplicacion de frontend)
+
+Instalacion:
+    - https://www.npmjs.com/package/json-server
+
+El codigo del JSON lo sacamos de la misma documentacion de arriba
+
+Al package.json le agregamos la parte para levantar el servidor
+
+Al ejecutar el comando de arranque, veremos por consola como nos genera los endpoints del JSON que podemos consumir de ahi
+que si cancelamos la ejecucion e intentamos hacer una peticion a esos endpoints nos dara error, tenemos que tener levantado el 
+servidor con "npm start" para poder consmir los endpoints
