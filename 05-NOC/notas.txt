@@ -66,3 +66,9 @@ Uso de Typescript de forma simplificada, sin usar Nodemon y mejor usar Ts-Node-D
     - https://gist.github.com/Klerith/3ba17e86dc4fabd8301a59699b9ffc0b
 Ejecutar la aplicacion
     - npm run dev
+
+CRON Task -> Con este paquete podemos hacer que se ejecute cada cierto tiempo el analisis de nuestra aplicacion
+    - https://www.npmjs.com/package/cron
+Cuando tenemos instalados paquetes de tercero en nuestro proyecto deberia de haber un unico archivo el cual lo utilize, ese sera el que adapte
+este paquete para que lo implemenete nuestra aplicacion y asi cuando queramos cambiar de paquete entonces deberia de ser un unico lugar donde tendriamos que hacer cambios
+lo que seria la implementacion del Patron Adaptador
