@@ -14,7 +14,12 @@ export class Server {
             '*/5 * * * * *',
             () => {
                 // Llamamos nuestro caso de uso cada 5 segundo que por ahora sera a este servicio
-                new CheckService().execute('https://google.com');
+                // Despues de la implementacion de la inyeccion de dependencias le mandamos las funciones correspondientes
+                const url = 'https://google.com';
+                new CheckService(
+                    () => console.log(`${url} success`),
+                    ( error ) => console.log( error ),
+                ).execute(url);
 
                 // Consumir el Endpoint que creamos con la libreria de JSON-SERVER (Esta en la carpeta 06)
                 // Asi podemos bajar el servicio y veremos como entra la parte del Catch y verificacion del error

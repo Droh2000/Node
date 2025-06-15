@@ -72,3 +72,10 @@ CRON Task -> Con este paquete podemos hacer que se ejecute cada cierto tiempo el
 Cuando tenemos instalados paquetes de tercero en nuestro proyecto deberia de haber un unico archivo el cual lo utilize, ese sera el que adapte
 este paquete para que lo implemenete nuestra aplicacion y asi cuando queramos cambiar de paquete entonces deberia de ser un unico lugar donde tendriamos que hacer cambios
 lo que seria la implementacion del Patron Adaptador
+
+Inyeccion de Dependencias
+    Vamos a inyectar una dependencia en nuestro caso de uso, estas tradicionalmente se realiza en un constructor, en JS puro se haria con un FactoryFunction que recibe las dependencias
+    y luego crea la funcion con las dependencias inyectadas
+    Le agregamos dependencias a la clase para que funcione de la forma que esperamos 
+
+    En nuestra clase de "check-service.ts" queremos cuando el caso de uso falla o que accion queremos realizar si el caso de uso funciona exitosamente
