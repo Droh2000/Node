@@ -1,3 +1,4 @@
+import { CheckService } from "../domain/use-cases/checks/check-service";
 import { CronService } from "./cron/cron-service";
 
 export class Server {
@@ -12,8 +13,8 @@ export class Server {
         CronService.createJob(
             '*/5 * * * * *',
             () => {
-                const date = new Date();
-                console.log('5 seconds', date);
+                // Llamamos nuestro caso de uso cada 5 segundo que por ahora sera a este servicio
+                new CheckService().execute('https://google.com');
             }
         );
     }
