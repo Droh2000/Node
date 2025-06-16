@@ -100,3 +100,7 @@ Nuestros Datasources es el origen de datos
     que seria para Cada caso uso tendria su inyeccion al repositorio
         Asi Fluye:
             Caso de Uso -> Repository -> Data Source
+
+Carpeta Domain:
+    Aqui tenemos todo lo que rige el dominio de la empresa (Como va a funcionar, que tipo de datos vamos a tener) toda la parte de reglas de negocios esta aqui
+    (Esta seria la carpeta que nos encontramos como Models)
