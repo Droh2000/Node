@@ -87,3 +87,16 @@ Registro de LOGs
 
      Este caso de uso es mas robusto que nos permita tomar los LOGS mandarlos por correo, guardarlos en BD, asi cuando estamos creciendo entonces tenemos que aplicar un principio de arquitectura
      (En un principio de arquitectura tratamos de seguir la idea de la arquitectura pero no implementarla en su totalidad)
+
+Nuestros Datasources es el origen de datos
+    Nosotros vamos a empezar con un origen de datos que es de fileSystem, donde estaran los LOGs, Tendremos los Logs y queremos poder tomarlo y grabarlo en FileSystem o tomarlo y grabarlo
+    en una base de datos relacionar o no, sea como sea el LOG es el mismo y el mecanismo para grabar en LOG deberia de ser igual sin importar cual origen de datos tengamos
+    vamos a poder tener la capacidad de poder cambiar cualquier pieza del codigo sin afectar en cascada las demas partes.
+
+    Aqui estaremos usando el patron repositorio, donde nos vamos a crear un repositorio que le vamos a conectar un data source y el caso de uso llama el repositorio, de esta manera cuando llamemos 
+    los casos de uso, estos ya saben cual reposotorio llamar y el resporitorio ya sabe a cual datasource llegar
+
+    Al Repositorio le podemos conectar diferentes Remote Data Source, pudieramos tener varios que se conecten a diferentes fuentes, el repository se va a estar comuncando con nuestros casos de uso
+    que seria para Cada caso uso tendria su inyeccion al repositorio
+        Asi Fluye:
+            Caso de Uso -> Repository -> Data Source
