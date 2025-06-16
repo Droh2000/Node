@@ -104,3 +104,8 @@ Nuestros Datasources es el origen de datos
 Carpeta Domain:
     Aqui tenemos todo lo que rige el dominio de la empresa (Como va a funcionar, que tipo de datos vamos a tener) toda la parte de reglas de negocios esta aqui
     (Esta seria la carpeta que nos encontramos como Models)
+    - "datasources": Va a contener los origenes de datos (Postgrses, MongoDb, Filesystem), el lugar de donde mandaremos y tomaremos los datos
+    -  "repository": Es donde vamos a mandar a llamar el DataSource porque nosotros directamente nos llegaremos al DataSoruces sino que mandamos a llamar al Repository
+
+    En la parte de Domain solo son las reglas de como van a funcionar, aqui no hacemos la implementacion a diferencia de la entidad, Solo creamos las clases abstractas o interfaces
+    que nos permiten poner las reglas de como queremos que los origenes de datos funcione
