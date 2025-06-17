@@ -109,3 +109,9 @@ Carpeta Domain:
 
     En la parte de Domain solo son las reglas de como van a funcionar, aqui no hacemos la implementacion a diferencia de la entidad, Solo creamos las clases abstractas o interfaces
     que nos permiten poner las reglas de como queremos que los origenes de datos funcione
+
+Vamos a segurarnos que la clase nos cree los archivos donde vamos a guardar los LOGs
+    Queremos implementar el datasource usando el de tipo Filesystem, para esto nos creamos un nuevo directorio
+    "Infraestructure", asi tenemos el llamado entre carpetas como nos salen en el explorador:
+        Presentacion -> llama -> Infraestructure -> llama -> Domain
+    Aqui ya tenemos la logica implementada
