@@ -7,7 +7,7 @@ export class FileSystemDatasource implements LogDatasource {
 
     private readonly logPath = 'logs/'; // Esta es la ruta donde estaran guardados los Paths
     // Por nuestra logica implementada, tendremos tres diferentes de directorios por cada tipo de Log que especificamos en el ENUM
-    private readonly allLogsPath = 'logs/logs-low.log';
+    private readonly allLogsPath = 'logs/logs-all.log';
     private readonly mediumLogsPath = 'logs/logs-medium.log';
     private readonly highLogsPath = 'logs/logs-high.log';
 
@@ -36,8 +36,26 @@ export class FileSystemDatasource implements LogDatasource {
         });
     }
 
-    saveLog(log: LogEntity): Promise<void> {
-        throw new Error("Method not implemented.");
+    async saveLog( newLog: LogEntity): Promise<void> {
+
+        // Como copiamos varias veses esta linea, para no dependen que en el futuro al midificarla lo hagamos en varios lugares,
+        // lo implementamos como duro en un solo lugar
+        const logAsJson = `${ JSON.stringify(newLog) }\n`;
+
+        // Agregaremos el LOG basado en el nivel jerarquico de alerta, de acuerdo a nuestra logica todos los LOGS los vamos a guardar
+        // dentro de "allLogsPath" (Por eso le cambiamos el nombre)
+        // Con el metodo "appendFilesSync" es para agregar una linea al final y asi no tenemos que recorrer todo el archivo para leerlo
+        // aqui directamente guarda el contenido al final, el contenido lo guardamos como un JSON y al final le damos salto de linea
+        fs.appendFileSync( this.allLogsPath, logAsJson);
+
+        // Verificamos el nivel jerarquico del LOG usando el ENUM que creamos
+        if( newLog.level === LogServerityLevel.low ) return;
+
+        if( newLog.level === LogServerityLevel.medium ) {
+            fs.appendFileSync( this.mediumLogsPath, logAsJson);
+        } else {
+            fs.appendFileSync( this.highLogsPath, logAsJson);
+        }
     }
 
     getLogs(severityLevel: LogServerityLevel): Promise<LogEntity[]> {
