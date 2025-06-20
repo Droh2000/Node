@@ -10,8 +10,9 @@ interface CheckServiceUseCase {
 }
 
 // Especificamos que informacion es la que nos pueden inyectar (Esto es lo que vamos a recibir en el constructor)
-type SuccessCallback = () => void; // Esto pasara cuando todo salga bien
-type ErrorCallback = ( error: string ) => void; // Para el caso que ocurra un error
+// Queremos hacer que estos dos sean opcionales (Para evitar ponerlos tendriamos que poner Undefined)
+type SuccessCallback = (() => void) | undefined; // Esto pasara cuando todo salga bien
+type ErrorCallback = (( error: string ) => void) | undefined; // Para el caso que ocurra un error
 
 export class CheckService implements CheckServiceUseCase{
 
@@ -42,14 +43,14 @@ export class CheckService implements CheckServiceUseCase{
             // Si todo sale Okey guardamos un LOG
             const log = new LogEntity(`Service ${ url } working`, LogServerityLevel.low);
             this.logRepository.saveLog( log );
-            this.successCallback(); // llamamos la funcion que nos inyectaron
+            this.successCallback && this.successCallback(); // llamamos la funcion que nos inyectaron
             return true;
         }catch( error ){
             const errorMessage = `${ url } Not Found. ${ error }`;
             const log = new LogEntity( errorMessage, LogServerityLevel.high );
             this.logRepository.saveLog(log);
 
-            this.errorCallback(errorMessage);
+            this.errorCallback && this.errorCallback(errorMessage);
             return false;
         }
     }

@@ -115,3 +115,11 @@ Vamos a segurarnos que la clase nos cree los archivos donde vamos a guardar los 
     "Infraestructure", asi tenemos el llamado entre carpetas como nos salen en el explorador:
         Presentacion -> llama -> Infraestructure -> llama -> Domain
     Aqui ya tenemos la logica implementada
+
+Depuracion de la Aplicacion
+    * Ponemos un breakpoint en las lineas de codigo que queremos probar
+    * Lanzamos la paleta de comandos -> Escribimos: Debug: Debug npm script
+    * Elegimos "dev" -> Aqui entra inmediatamente donde pusimos el breack point
+        (Damos click en la flecha para ir paso por paso y en el trangulo para ir al siguiente breackpoint que pusimos)
+
+En los archivos de LOGs no queremos que sean ruidosos porque en realidad no guardamos Logs de existo, solo cuando falla algo
