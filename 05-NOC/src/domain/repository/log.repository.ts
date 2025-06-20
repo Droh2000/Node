@@ -6,6 +6,9 @@ import { LogEntity, LogServerityLevel } from "../entities/log.entity";
     porque nosotros no llegamos directamente al Datasource sino que vamos a llegar mediane el repositorio
     Ya que en el Repository tenemos el Datasource que asi lo podemos cambiar facilmente porque cualquier otro
     y asi no tenemso que cambiar otra logica
+
+    Los metodos del LogRepository y LogDatasource tienen el mismo nombre porque el Repository va a terminar llamando el Datasource
+    por tanto son los mismos metodos que esperamos, solo la implementacion es la que varia
 */
 export abstract class LogRepository {
     abstract saveLog( log: LogEntity ): Promise<void>;
