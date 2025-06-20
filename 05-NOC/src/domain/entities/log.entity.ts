@@ -23,6 +23,18 @@ export class LogEntity {
         this.createdAt = new Date();
     }
 
+    // Al mandar a llamar este metodo nos va a regresar una instancia del LogEntity (Esto es conocido como un FactoryConstructor)
+    // Aqui estamos recibiendo cada linea del archivo de LOG como un String
+    static fromJson = ( json: string ): LogEntity => {
+        // Convertimos para obtener un objeto literal
+        const { message, level, createdAt } = JSON.parse( json );
+        // Podriamos verificar la data con validaciones pero no ponemos a crear la instancia directamente (ya que las propiedades son tipo ANY)
+        const log = new LogEntity( message, level );
+        log.createdAt = new Date( createdAt ); // creamos la fecha basado en ese string para la instancia
+        return log;
+    }
+
+
     // Asi si en el futuro cambiamos nuestro origen de datos, no nos va a afectar porque ese origen va a mapear a esta entidad
     // y esto es lo que vamos a usar, no vamos a usar un objeto de la base de datos directamente
 }

@@ -58,8 +58,37 @@ export class FileSystemDatasource implements LogDatasource {
         }
     }
 
-    getLogs(severityLevel: LogServerityLevel): Promise<LogEntity[]> {
-        throw new Error("Method not implemented.");
+    /*
+        Se nos va a estar generando archivos LOGs en una carpeta LOGs donde dentro vamos a tener formato JSON (Pero no es JSON) con cada una de las propiedades que especificamos
+        y por cada LOG que se vaya a generar se va a estar actualizando el archivo agregandole un salto de linea por cada registro, este archivo tendria el formato de un objeto de JS
+        pero cuando estamos trabajando con el metodo "gertLogs" requerimos regresar el "LogEntity" como un arreglo (regresar esa entidad) que las propiedades son las mismas pero no es
+        lo mismo que tener el tipo de datos como la Entidad porque ahi tenemos acceso a metodos y en el objeto no tenemos nada, por eso hacemos la conversion
+
+        Este metodo de abajo es para implementar la logica de recorrer el archivo y regresarlo como un LOG
+        el proceso es identico para cada nivel solo cambia la ruta
+    */
+    private getLogsFromFile = ( path: string ): LogEntity[] => {
+        const content = fs.readFileSync( path, 'utf-8' );// Aqui tenemos un String que contiene todo lo almacenado por el archivo
+        // Para crearle una instancia por cada linea, esto lo implementamos en la entidad para hacer la conversion mas facilmente pero lo de recorrer linea a linea 
+        // si lo vamos a implementar aqui, identificado que al final tenemos un '\n' para cortar por linea
+        const logs = content.split('\n').map(
+            log => LogEntity.fromJson(log)
+        );
+        return logs;
     }
 
+    async getLogs(severityLevel: LogServerityLevel): Promise<LogEntity[]> {
+        // Segun el nivel que tengamos en el "severityLevel"
+        switch( severityLevel ){
+            case LogServerityLevel.low:
+                return this.getLogsFromFile(this.allLogsPath);
+            case LogServerityLevel.medium:
+                return this.getLogsFromFile(this.mediumLogsPath);
+            case LogServerityLevel.high:
+                return this.getLogsFromFile(this.highLogsPath);
+            // Ponemos el Default mas que todo para que esto sea expandible por si se quiere agregar mas niveles
+            default:
+                throw new Error(`${ severityLevel } not implemented`);
+        }
+    }
 }
