@@ -123,3 +123,27 @@ Depuracion de la Aplicacion
         (Damos click en la flecha para ir paso por paso y en el trangulo para ir al siguiente breackpoint que pusimos)
 
 En los archivos de LOGs no queremos que sean ruidosos porque en realidad no guardamos Logs de existo, solo cuando falla algo
+
+Variables de entorno
+    Supongamos que en el "esrver.ts" en algun momnto en el tiempo como a media noche  que seria
+    un correo electronico con todos los LOS Criticos y como supocicion al empezar el dia se borrarian los LOGs para empezar el dia sin impormacion
+    para eso estan las variables de entorno donde tenemos llaves privadas y publicas, configuraciones que van a dependenr segun del ambiente 
+    porque en Testing, produccion y desarrollo tengamos ambientes diferentes, la idea es que las variables de entorno las podamos cambiar facilmente 
+    segun el entorno y no queremos ir al codigo fuente a hacer las modificaciones de esas variables de entorno
+        Lo que solemos cambiar comunmente son credenciales, puertos 
+    A las variables de entorno no se les da seguimiento en el repositorio entonces, es por eso que creamos el archivo
+        * .env.template
+    Donde tenemos las variables que se tienen que definir para que funcione el proyecto, algunas solo especificado el nombre y otras con valores por defecto que puedan tener
+    Para acceder a las variables de entorno 
+        process.env.VARIABLE
+    Lo que pasa es que por defecto no estaran las que definimos nosotros y nos sale undefined y no tenemos el autocompletado
+    para solucionar esto tenemos paquetes a nuestra disposicion
+        - https://www.npmjs.com/package/dotenv
+    Con el paquete de arriba tenemos acceso a las variables de entorno que nosotros definimos con el objeto que mostramos arriba, pero veremos que los valores que no sean String
+    nos los esta dando todos como String, este problema se resuelve con este paquete de abajo
+        - https://www.npmjs.com/package/env-var
+    Este peaquete nos permite hacer validaciones con los datos que definamos en las variables de entorno y ademas para que la aplicacion no se levante si las variables de entorno
+    no son las que nosotros esperamos
+        (Despues de la instalacion de los paquetes hay que implementarlos con el patron adaptador)
+    Asi nos aseguramos que cuando hagamos un deployment a produccion siempre vamos a tener las variables de entorno que nuestra aplicacion requiere, con el tipo de dato que encesita
+    
