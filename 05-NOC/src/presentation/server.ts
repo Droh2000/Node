@@ -1,5 +1,14 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
+import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
+
+// Instancia para mandarsela a todos los UseCases que puedan reqeurir este repositorio (Aqui creamos todas las instancias de las implementaciones)
+const fileSystemLogRepository = new LogRepositoryImpl(
+    // Este es nuestro origen de datos que cuando se manda a llamar verifica si existen los archivos y toda la logica
+    // Aqui es donde podremos cambiar segun donde queremos almacenar los datos
+    new FileSystemDatasource()
+);
 
 export class Server {
 
@@ -17,6 +26,7 @@ export class Server {
                 // Despues de la implementacion de la inyeccion de dependencias le mandamos las funciones correspondientes
                 const url = 'https://google.com';
                 new CheckService(
+                    fileSystemLogRepository,
                     () => console.log(`${url} success`),
                     ( error ) => console.log( error ),
                 ).execute(url);

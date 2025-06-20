@@ -1,6 +1,9 @@
 // Este es uno de nuestros casos de uso (Un codigo que esta especializado en una tarea)
 // Aqui es donde vamos a verificar algun servicio de la aplicacion con el que podemos probar si esta todo OK o hay fallos
 
+import { LogEntity, LogServerityLevel } from "../../entities/log.entity";
+import { LogRepository } from "../../repository/log.repository";
+
 // Para mejora la legibilidad y demostrar como funciona el codigo creamos las interfaces
 interface CheckServiceUseCase {
     execute( url: string ): Promise<boolean>;
@@ -14,6 +17,10 @@ export class CheckService implements CheckServiceUseCase{
 
     // Inyectamos las dependencias
     constructor(
+        // Casi siempre los Casos de uso van a terminar implementando un Caso de uso, asi podemos recibir cualquier repostorio que implemente el 
+        // los metodos "saveLog" y "getLogs", ademas no trabajamos directamente con los Datasources, esto accedemos directamente desde los Repositories
+        //      Use Case -> Repository -> Data Source
+        private readonly logRepository: LogRepository,
         // Es private readonly para que se modifiquen los valores desde los metodos de la clase
         private readonly successCallback: SuccessCallback,
         private readonly errorCallback: ErrorCallback,
@@ -31,11 +38,18 @@ export class CheckService implements CheckServiceUseCase{
                 // La idea de este Throw es manejar toda la Excepcion en un mismo lugar (Todo caera dentro del catch)
                 throw new Error(`Error on Check service ${ url }`);
             }
+
+            // Si todo sale Okey guardamos un LOG
+            const log = new LogEntity(`Service ${ url } working`, LogServerityLevel.low);
+            this.logRepository.saveLog( log );
             this.successCallback(); // llamamos la funcion que nos inyectaron
             return true;
         }catch( error ){
-            console.log(`${error}`); // EStos logs los tenemos que evitar en produccion
-            this.errorCallback(`${error}`);
+            const errorMessage = `${ url } Not Found. ${ error }`;
+            const log = new LogEntity( errorMessage, LogServerityLevel.high );
+            this.logRepository.saveLog(log);
+
+            this.errorCallback(errorMessage);
             return false;
         }
     }
