@@ -17,10 +17,12 @@ export class Server {
     public static start(){
         console.log('Server started...');
 
+        // Aqui es donde vamos a mandar el email
+
         // El CronSeervice usa el "ChildProcess" donde puede crear otro proceso como multihilos separados
         // para cuando tenemos que estar ejecutando varios Jobs a la vez
-        CronService.createJob(
-            '*/5 * * * * *',
+        /*CronService.createJob(
+            '* / 5 * * * * *',
             () => {
                 // Llamamos nuestro caso de uso cada 5 segundo que por ahora sera a este servicio
                 // Despues de la implementacion de la inyeccion de dependencias le mandamos las funciones correspondientes
@@ -36,6 +38,6 @@ export class Server {
                 // si lo volvemos a levantar el servicio veremos que vuelve a detectar que todo esta OK
                 // new CheckService().execute('http://localhost:3000');
             }
-        );
+        );*/
     }
 }
