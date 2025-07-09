@@ -41,13 +41,21 @@ export class CheckService implements CheckServiceUseCase{
             }
 
             // Si todo sale Okey guardamos un LOG
-            const log = new LogEntity(`Service ${ url } working`, LogServerityLevel.low);
+            const log = new LogEntity({
+                message: `Service ${ url } working`, 
+                level: LogServerityLevel.low,
+                origin: 'check-service.ts'
+            });
             this.logRepository.saveLog( log );
             this.successCallback && this.successCallback(); // llamamos la funcion que nos inyectaron
             return true;
         }catch( error ){
             const errorMessage = `${ url } Not Found. ${ error }`;
-            const log = new LogEntity( errorMessage, LogServerityLevel.high );
+            const log = new LogEntity({ 
+                message: errorMessage, 
+                level: LogServerityLevel.high,
+                origin: 'check-service.ts' 
+            });
             this.logRepository.saveLog(log);
 
             this.errorCallback && this.errorCallback(errorMessage);
