@@ -146,4 +146,12 @@ Variables de entorno
     no son las que nosotros esperamos
         (Despues de la instalacion de los paquetes hay que implementarlos con el patron adaptador)
     Asi nos aseguramos que cuando hagamos un deployment a produccion siempre vamos a tener las variables de entorno que nuestra aplicacion requiere, con el tipo de dato que encesita
-    
+
+Correos Electronicos
+    Vamos a Refactorizar el codigo 
+        Cuando una Entidad cambia nos puede traer problemas dolorosos que desencadenaria una serie de incovenientes en cascada (Gracias a Typescript por indicarnos los errores sabriamos donde 
+        tendriamos que cambiar)
+    Despues de los cambiamos tendremos incovenientes en todos los lugares donde estamos usando el archivo "log.entity.ts"
+    que por ahora solo ocurrio en el caso de uso "check-service.ts" esto es porque en los archivos de la carpeta "datasource" estamos usando la entidad completamenten y como en el "log.repository.impl.ts"
+    si no recibieramos la Entidad completa y solo seria el String entonces ahi seria uno de los archivos afectados, que como mandamos la entidad directamente no hay ningun cambio
+    todos los cambios ya vienen implicitos (Por eso usamos toda la entidad desde el inicio)
