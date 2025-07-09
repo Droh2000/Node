@@ -187,3 +187,6 @@ Correos Electronicos
         Tambien hay que saber que si la libreria que estamos instalando no tiene en la pagina de Node el icono de TS azul sino Blanco
         quiere decir que no fue escrito en TS originalmente entonces al importarla nos dara error pero porque tenemos que instalar aparte
         el archivo de definicion
+
+        En este punto como esta el codigo podriamos usarlo perfectmanete con la inyeccion de depdendencia del repositorio en la entidad para enviar mensajes
+        pero como estamos trabajando con arquitectura limpia, idealmente quedriamos tener un caso de uso que sea para el envio de correos a personar o LOGS

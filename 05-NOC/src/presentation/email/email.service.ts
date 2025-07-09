@@ -35,7 +35,7 @@ export class EmailService {
     constructor(
         // Vamos a hacer una inyeccion de dependencias que sera el repositorio
         // Hay varias formas de hacerlo y vamos a empezar de la forma mas facil
-        private readonly logRepository: LogRepository
+        // private readonly logRepository: LogRepository
     ){}
 
     async sendEmail(options: SendMailOptions):Promise<boolean> {
@@ -58,7 +58,7 @@ export class EmailService {
                 message: 'Email Sent',
                 origin: 'email.service.ts',
             });
-            this.logRepository.saveLog(log);
+            // this.logRepository.saveLog(log);
             
             return true;    
         } catch (error) {
@@ -68,7 +68,7 @@ export class EmailService {
                 message: 'Email not Sent',
                 origin: 'email.service.ts',
             });
-            this.logRepository.saveLog(log);
+            // this.logRepository.saveLog(log);
 
             // Podriamos usar nuestro sistema de Logs para registrar en caso que no se haya podido mandar el correo electoronico
             return false;

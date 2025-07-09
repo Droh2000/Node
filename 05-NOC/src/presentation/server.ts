@@ -1,4 +1,5 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
@@ -11,6 +12,14 @@ const fileSystemLogRepository = new LogRepositoryImpl(
     new FileSystemDatasource()
 );
 
+// Aqui es donde vamos a mandar el email (Lo hizimos en instancia y no en metodo estatico porque despues haremos una inyeccion de dependencias)
+// Nuestro caso de uso tiene la tarea de mandar a llamar el log, asi que no requerimos que el Email Service dependa del repository 
+// y asi el EmailService solo se encargara de enviar el correo electronico y eso es todo
+const emailService = new EmailService();
+/*emailService.sendEmailWithFileSystemLogs(
+    ['droh2000@gmail.com']
+);*/
+
 export class Server {
 
     // Este es el punto de inicio de nuestra aplicacion
@@ -18,11 +27,13 @@ export class Server {
     public static start(){
         console.log('Server started...');
 
-        // Aqui es donde vamos a mandar el email (Lo hizimos en instancia y no en metodo estatico porque despues haremos una inyeccion de dependencias)
-        //const emailService = new EmailService( fileSystemLogRepository );
-        //emailService.sendEmailWithFileSystemLogs(
-        //    ['droh2000@gmail.com']
-        //);
+        // Enviar el correo electronico desde el Caso de Uso
+        /*new SendEmailLogs(
+            emailService,
+            fileSystemLogRepository
+        ).execute(
+            ['droh2000@gmail.com']
+        )*/
 
         // El CronSeervice usa el "ChildProcess" donde puede crear otro proceso como multihilos separados
         // para cuando tenemos que estar ejecutando varios Jobs a la vez
