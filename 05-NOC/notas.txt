@@ -154,4 +154,29 @@ Correos Electronicos
     Despues de los cambiamos tendremos incovenientes en todos los lugares donde estamos usando el archivo "log.entity.ts"
     que por ahora solo ocurrio en el caso de uso "check-service.ts" esto es porque en los archivos de la carpeta "datasource" estamos usando la entidad completamenten y como en el "log.repository.impl.ts"
     si no recibieramos la Entidad completa y solo seria el String entonces ahi seria uno de los archivos afectados, que como mandamos la entidad directamente no hay ningun cambio
-    todos los cambios ya vienen implicitos (Por eso usamos toda la entidad desde el inicio)
+    todos los cambios ya vienen implicitos (Por eso usamos toda la entidad desde el inicio).
+
+    Preparacion para el envio de correos electronicos
+        
+        Hay varias empresas que se dedican a enviar correos masivamente, ninguna es gratis aunque tengan una version de kit gratuito por una cierta cantidad por mes, Estos servicios los podemos conectar
+        con el paquete de Nodemailer.
+        
+        En este caso usaremos nuestra cuenta de Gmail para no tener que pagar junto al paquete mencionado, ademas podemos utilizar nuestro correos instucionales si tenemos el dominio SMTP (Para que el 
+        correo no se vaya a Spam), el puerto que nos de el Hosting, entre otras configuraciones
+        Asi que vamos a mandar un correo autenticado de nuestra cuenta de Gmail y desde nuestra aplicacion de Node
+
+        Vamos a requerir algunas configuraciones donde empezaremos por las variables de entorno, entre esas esta un Secret_Key que google nos dara para poder enviar el correo y asi evitar poner nuestro Password
+        de la cuenta
+
+            Configuracion en la cuenta de Google
+                Cuenta -> Seguridad (Tenemos que tener activada la verificacion en dos pasos para que esto funcione)
+                Acedemos a: https://myaccount.google.com/u/0/apppasswords
+                    Establecemos un nivel de acceso a una aplicacion
+                        Elegimos: Correo y Otra
+                    Esto nos generar un codigo el cual solo lo veremos en ese momento y nunca mas, si lo perdemos tenemos que volverlo a generar:
+                        * bebr beew ikzd jkjt -> Este lo ponemos en la variable de entorno, MAILER SECRET KEY sin espacios ni guoines
+                    En el caso de borrar, accedemos al mismo link
+                En la variable de entorno ponemos el correo
+                Hay que asegurarnos que nuestras variable de entorno esten configuradas en: config/plugins/envs.plugin.ts
+                y si nos queremos asegurar mas podemos ir a "server.ts" e imprimirlas con:
+                    console.log( env.MAILER_SECRET_KEY, envs.MAILER_EMAIL );
