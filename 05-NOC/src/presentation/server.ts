@@ -2,6 +2,7 @@ import { CheckService } from "../domain/use-cases/checks/check-service";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
+import { EmailService } from "./email/email.service";
 
 // Instancia para mandarsela a todos los UseCases que puedan reqeurir este repositorio (Aqui creamos todas las instancias de las implementaciones)
 const fileSystemLogRepository = new LogRepositoryImpl(
@@ -17,7 +18,17 @@ export class Server {
     public static start(){
         console.log('Server started...');
 
-        // Aqui es donde vamos a mandar el email
+        // Aqui es donde vamos a mandar el email (Lo hizimos en instancia y no en metodo estatico porque despues haremos una inyeccion de dependencias)
+        const emailService = new EmailService();
+        emailService.sendEmail({
+            to: 'droh2000@gmail.com',
+            subject: 'Logs del sistema',
+            htmlBody: `
+                <h3>Logs de sistema - NOC</h3>
+                <p>Este es un correo de prueba, mandado desde la aplicacion de Node</p>
+                <p>Se podran ver los Logs adjuntos</p>
+            `,
+        });
 
         // El CronSeervice usa el "ChildProcess" donde puede crear otro proceso como multihilos separados
         // para cuando tenemos que estar ejecutando varios Jobs a la vez

@@ -180,3 +180,10 @@ Correos Electronicos
                 Hay que asegurarnos que nuestras variable de entorno esten configuradas en: config/plugins/envs.plugin.ts
                 y si nos queremos asegurar mas podemos ir a "server.ts" e imprimirlas con:
                     console.log( env.MAILER_SECRET_KEY, envs.MAILER_EMAIL );
+
+        Instalacion de NodeMailer
+            * https://www.npmjs.com/package/nodemailer
+        (En el momento que instalemos una dependencia tenemos que envolverla para evitar problemas a futuro)
+        Tambien hay que saber que si la libreria que estamos instalando no tiene en la pagina de Node el icono de TS azul sino Blanco
+        quiere decir que no fue escrito en TS originalmente entonces al importarla nos dara error pero porque tenemos que instalar aparte
+        el archivo de definicion
