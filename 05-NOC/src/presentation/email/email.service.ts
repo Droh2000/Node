@@ -2,6 +2,8 @@
 // evitar que la libreria de NodeMailer sea implementada en un monton de lados
 import nodemailer from 'nodemailer';
 import { envs } from '../../config/plugins/envs.plugin';
+import { LogRepository } from '../../domain/repository/log.repository';
+import { LogEntity, LogServerityLevel } from '../../domain/entities/log.entity';
 
 // Como esperamos varias opciones para especificar el mail entonces mejor nos creamos una interfaces
 interface SendMailOptions{
@@ -29,6 +31,13 @@ export class EmailService {
         }
     });
 
+    // A parte de mandar el correo queremos que este monitoreado por si sale bien o mal durante el envio
+    constructor(
+        // Vamos a hacer una inyeccion de dependencias que sera el repositorio
+        // Hay varias formas de hacerlo y vamos a empezar de la forma mas facil
+        private readonly logRepository: LogRepository
+    ){}
+
     async sendEmail(options: SendMailOptions):Promise<boolean> {
 
         const {to, subject, htmlBody, attachments = [] } = options;
@@ -43,9 +52,24 @@ export class EmailService {
             });
 
             // console.log(sentInformation);
+            // El problema de esta forma es que aqui tenemos que crear el LOG
+            const log = new LogEntity({
+                level: LogServerityLevel.low,
+                message: 'Email Sent',
+                origin: 'email.service.ts',
+            });
+            this.logRepository.saveLog(log);
             
             return true;    
         } catch (error) {
+
+            const log = new LogEntity({
+                level: LogServerityLevel.high,
+                message: 'Email not Sent',
+                origin: 'email.service.ts',
+            });
+            this.logRepository.saveLog(log);
+
             // Podriamos usar nuestro sistema de Logs para registrar en caso que no se haya podido mandar el correo electoronico
             return false;
         }

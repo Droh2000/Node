@@ -14,3 +14,4 @@
 {"message":"Service https://google.com working","level":"low","createdAt":"2025-07-09T01:13:05.426Z"}
 {"message":"Service https://google.com working","level":"low","createdAt":"2025-07-09T01:13:10.527Z"}
 {"message":"Service https://google.com working","level":"low","createdAt":"2025-07-09T01:13:15.441Z"}
+{"message":"Email Sent","level":"low","createdAt":"2025-07-09T21:51:58.233Z","origin":"email.service.ts"}

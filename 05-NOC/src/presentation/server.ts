@@ -19,7 +19,7 @@ export class Server {
         console.log('Server started...');
 
         // Aqui es donde vamos a mandar el email (Lo hizimos en instancia y no en metodo estatico porque despues haremos una inyeccion de dependencias)
-        //const emailService = new EmailService();
+        //const emailService = new EmailService( fileSystemLogRepository );
         //emailService.sendEmailWithFileSystemLogs(
         //    ['droh2000@gmail.com']
         //);
