@@ -19,16 +19,10 @@ export class Server {
         console.log('Server started...');
 
         // Aqui es donde vamos a mandar el email (Lo hizimos en instancia y no en metodo estatico porque despues haremos una inyeccion de dependencias)
-        const emailService = new EmailService();
-        emailService.sendEmail({
-            to: 'droh2000@gmail.com',
-            subject: 'Logs del sistema',
-            htmlBody: `
-                <h3>Logs de sistema - NOC</h3>
-                <p>Este es un correo de prueba, mandado desde la aplicacion de Node</p>
-                <p>Se podran ver los Logs adjuntos</p>
-            `,
-        });
+        //const emailService = new EmailService();
+        //emailService.sendEmailWithFileSystemLogs(
+        //    ['droh2000@gmail.com']
+        //);
 
         // El CronSeervice usa el "ChildProcess" donde puede crear otro proceso como multihilos separados
         // para cuando tenemos que estar ejecutando varios Jobs a la vez
