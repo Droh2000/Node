@@ -190,3 +190,20 @@ Correos Electronicos
 
         En este punto como esta el codigo podriamos usarlo perfectmanete con la inyeccion de depdendencia del repositorio en la entidad para enviar mensajes
         pero como estamos trabajando con arquitectura limpia, idealmente quedriamos tener un caso de uso que sea para el envio de correos a personar o LOGS
+
+Resumen de lo que tenemos hecho
+    * app.ts -> Este es el inicio de nuestra aplicacion donde manda a llamar el Main
+    Carpetas:
+        * config -> Aqui agregamos funciones globales
+        * domain -> Reglas con las cuales vamos a regir la aplicacion a un nivel macro, alegjandose del Fronted, de las capas externas, seria como el origen de datos, como lucen los modelos
+                    las entidades que son las que se relacionan con la BD, el Repository que es el como queremos trabajar con el Datasources, luego tenemos los 
+                    use-cases donde dentro tenemos cada una de las logicas que utiliza la aplicacion para ejecutar las tareas que tiene que realizar, como el chequeo para verificar servicios,
+                    el de email para enviar los correos y  el de Log para generarlos
+        * infraestructure -> Aqui tenemos las implementaciones del acciones Datasources (Aqui es donde ejecutamos toda la logica, donde nos conectamos al origen de datos, lo procesamos, 
+                    repuerar los datos y demas) y repository (Nos permite cambiar el datasources facilmente e interactuar con el)
+        * presentacion -> Seria la aplicacion de consola, el servidor (Aqui va con lo que va a interactuar el usuario) 
+                        Tambien el EmailService lo creamos aqui para que a futuro solo copiemos y peguemos el archivo donde lo queremos usar, ademas podemos hacerle algunas modificacion donde estamos
+                        usando la variable de entorno porque tenemos lo que se conoce como dependencia oculta, ya que al usar el EmailService podriamos pensar que no requiere nada externo y si no tenemos
+                        vien la variable de entorno nos dara errores y para resolver esto seria que en lugar de tomar de la variable de entorno leyemos los datos desde el constructor y asi los usuarios 
+                        saben que tiene que proporcionar.
+                        Ademas comentamos su creacion de Logs porque no los estamos usando ya desde el servicio

@@ -53,21 +53,21 @@ export class EmailService {
 
             // console.log(sentInformation);
             // El problema de esta forma es que aqui tenemos que crear el LOG
-            const log = new LogEntity({
+            /*const log = new LogEntity({
                 level: LogServerityLevel.low,
                 message: 'Email Sent',
                 origin: 'email.service.ts',
-            });
+            });*/
             // this.logRepository.saveLog(log);
             
             return true;    
         } catch (error) {
 
-            const log = new LogEntity({
+            /*const log = new LogEntity({
                 level: LogServerityLevel.high,
                 message: 'Email not Sent',
                 origin: 'email.service.ts',
-            });
+            });*/
             // this.logRepository.saveLog(log);
 
             // Podriamos usar nuestro sistema de Logs para registrar en caso que no se haya podido mandar el correo electoronico
