@@ -241,4 +241,13 @@ Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
         pegamos en la varibale de entorno MONGO_URL que en alguno lugares usaremos esta coneccion mas facilmente y en otro usaremos el usuario y contrasena
     
     Veremos que en nuestro proyecto se creo la carpeta de mongo que es donde se almacenaran los datos, objetos colecciones, como esto es codigo auto-generado no lo queremos subir al repositorio
-    
+
+    Uso de Mongoose
+        Con este paquete creamos una abstraccion de la base de datos y cuando queramos insertar lo hacemos mediante unos objetos de mongoose, de esta forma nos aseguramos de injecciones de SQL
+        guardar solo ciertos datos y con el formato que queremos, cuando llamamo la instacia del modelo podemos guardar en la Base de datos
+
+        Si abrimos el "Server.ts" veremos que tenemos el FileSystemDatasource() que esta guardando en Filesystem, nos gustaria quitar esa dependencia y poner MongoDB, con eso podremos sin ninguna otra modificacion
+        seguir trabajando en la aplicacion sin ningun problema, la BD no deberia de tener proder sobre la logica de negocio y ser indifirente si cambiamos por una base de datos u otra
+        Instalarlo:
+            * npm install mongoose --save
+        Esto esta escrito en Ts portanto no tenemos que hacer una instalacion extra de archivo de definicion
