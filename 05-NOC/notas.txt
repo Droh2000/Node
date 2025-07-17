@@ -215,3 +215,14 @@ Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
     asi ademas gracias a la logica de nuestra aplicacion podemos usar las tres formas para almacenar los LOGs    
 
     En el package.json le agregamos una bandera al script "--clear" para que cada vez que se ejecute un cambio se limpie automaticamente la consola
+
+    Para usar Docker en nuestro proyecto creamos el archivo compose.yml, aqui dentro de este archivo la tabulacion es importante
+    Entre las instrucciones que usamos son: 
+        - "restart: always" -> Aqui decimos que cuando el dockerDesktop se levante inmediatamente va a levantar esta imagen lista para empezar a trabajar
+        - "environtment" -> Configuramos variables de entrono, estas son la configuracion por defecto que queremos cuando la imagen se levante, estas configuraciones
+                            las agregamos primero en la variable de entrono para que desde ahi las llame, estas estan entre ${VARIABLE_ENTORNO}
+        - "volumes" -> Se crean para que no se nos cree un contenedor y va a insertar la imagen pero cuando destruyamos este contenedor tambien vamos a destruir la Data que guardamos en la BD
+                       usulamente queremos bajar y subir la BD sin perder los datos, asi que para eso nos creamos estos Volumenes para que la informacion no la guarde directamente en el disco del contenedor
+                       mejor que lo guarde en este volumen que seria como una especie de disco duro externo, en el docker componse le decimos que se creo una carpeta llamado "mongo" y todo se guardara en "data/db" 
+        - "ports" -> Como los contenedores estan complementamente sellados, les tenemos que abrir algun puerto para poder comunicarnos con su contenido, solo por medio del puerto indicado es por donde nos vamos a comunicar
+                     en mongoDB el puerto por defecto ese el 27017
