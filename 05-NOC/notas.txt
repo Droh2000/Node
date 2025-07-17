@@ -254,3 +254,9 @@ Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
     
     Para trabajar con Mongo tenemos que crearnos Schemas y Modelos, los Schemas es una forma de conectarnos a una coleccion que seria muy similar a una tabla en una BD relacional y asi podemos guardar datos
     ademas en las no relacionadas podemos trabajar antes de crear las colecciones y documentos, ya directamente con la base de datos
+
+    Despues de todas las modificaciones de codigo si nos vamos al Db Compass
+    por defecto se nos crea la base de datos llamada NOC y dentro tenemos un carpeta llamda Logs
+    mongoose por defecto cuando usa el modelo toma la palabra que le pasamos entre comillas en ".model('Log')" y la convierte en plural agregandole una S
+    dentro de Logs tenemos los registros
+    Con esto que hemos visto tenemos que ir a crear un dataSource que implemente el metodo de saveLog y getLog, para despues crearnos un MongoLogDatasource y poder trabajar con Mongo
