@@ -226,3 +226,19 @@ Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
                        mejor que lo guarde en este volumen que seria como una especie de disco duro externo, en el docker componse le decimos que se creo una carpeta llamado "mongo" y todo se guardara en "data/db" 
         - "ports" -> Como los contenedores estan complementamente sellados, les tenemos que abrir algun puerto para poder comunicarnos con su contenido, solo por medio del puerto indicado es por donde nos vamos a comunicar
                      en mongoDB el puerto por defecto ese el 27017
+    
+    Probar MongoDB en el contenedor
+        En la terminal no vamos a la carpeta de nuestro proyecto
+        * docker --version -> Verificar que tengamos docker corriendo
+        * docker compose up -> Creamos la imagen que especificamos en el archivo compose
+                                Despues de esto verificamos que en el docker desktop este corriendo la imagen
+         Si cerramos la terminal, se nos cierra la imagen de docker, asi que mejor ejecutamos el siguiente comando y cancelamos antes el de arriba
+        * docker compose up -d
+    
+    Conectarnos a la BD usamos Mongo DB compass
+        Agregamos una nueva coneccion que ya por defecto nos da: mongodb://localhost:27017 que es el mismo puerto que especificamos en Docker, pero tambien le especificamos las credenciales
+        en Advance Connection Options y ponemos el mismo usuario y contrasena de las variables de entorno, luego precionamos Save & Connect, la cadena de coneccion que nos da la copiamos y la 
+        pegamos en la varibale de entorno MONGO_URL que en alguno lugares usaremos esta coneccion mas facilmente y en otro usaremos el usuario y contrasena
+    
+    Veremos que en nuestro proyecto se creo la carpeta de mongo que es donde se almacenaran los datos, objetos colecciones, como esto es codigo auto-generado no lo queremos subir al repositorio
+    
