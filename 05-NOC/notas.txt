@@ -207,3 +207,11 @@ Resumen de lo que tenemos hecho
                         vien la variable de entorno nos dara errores y para resolver esto seria que en lugar de tomar de la variable de entorno leyemos los datos desde el constructor y asi los usuarios 
                         saben que tiene que proporcionar.
                         Ademas comentamos su creacion de Logs porque no los estamos usando ya desde el servicio
+
+Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
+    En lugar de guardar en Filesystem vamos a hacer que los LOGs se guarden en una base de datos
+        - Mongo: Es una base de datos no relacional y para conectarnos con node esta el paquete Mongose que como alternativa tenemos prisma
+    Las bases de datos las sacaremos de imagenes Docker para tenerlas ejecutadas las dos al mismo tiempo para poder cambiar entre si facilmente
+    asi ademas gracias a la logica de nuestra aplicacion podemos usar las tres formas para almacenar los LOGs    
+
+    En el package.json le agregamos una bandera al script "--clear" para que cada vez que se ejecute un cambio se limpie automaticamente la consola
