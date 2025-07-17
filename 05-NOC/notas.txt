@@ -251,3 +251,6 @@ Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
         Instalarlo:
             * npm install mongoose --save
         Esto esta escrito en Ts portanto no tenemos que hacer una instalacion extra de archivo de definicion
+    
+    Para trabajar con Mongo tenemos que crearnos Schemas y Modelos, los Schemas es una forma de conectarnos a una coleccion que seria muy similar a una tabla en una BD relacional y asi podemos guardar datos
+    ademas en las no relacionadas podemos trabajar antes de crear las colecciones y documentos, ya directamente con la base de datos
