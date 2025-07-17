@@ -58,6 +58,16 @@ export class LogEntity {
         return log;
     }
 
+    // Manejar los Logs de Mongo y Moongose creando este mapper de un objeto a otro
+    static fromObject = ( object: {[key: string]: any} ): LogEntity => {
+        const { message, level, createdAt, origin } = object;
+
+        const log = new LogEntity({
+            message, level, createdAt, origin
+        });
+
+        return log;
+    }
 
     // Asi si en el futuro cambiamos nuestro origen de datos, no nos va a afectar porque ese origen va a mapear a esta entidad
     // y esto es lo que vamos a usar, no vamos a usar un objeto de la base de datos directamente
