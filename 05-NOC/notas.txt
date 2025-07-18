@@ -264,3 +264,12 @@ Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
     Con esta pequeña implementacion veremos que no hicimos ningun cambio en el codigo, asi nuestro caso de uso sigue estando totalmente ajeno a la base de datos que estamos usando a la estructura de datos 
     que estamos usando, a donde lo estamos guardando, no tenemos que hacer ninguna modificacion y para verificar veremos que en MongoCompass tendremos los registros
     (Gracias al patron repositorio podremos hacer estos cambios facilmente)
+
+    Configuracion de PostgreSQL en Docker
+
+        En el mismo nivel de tabulacion donde esta mongo le agregamos un nuevo servicio que es ahora para PostgreSQL
+        la ruta que especificamos en los volumenes la obtenemos en la documentacion de PostgreSQL y el puerto pro defecto
+
+        Despues de los cambios en el archivo YML, ejecutamos en la terminal estando en la carpeta del proyecto
+            * docker compose up -d
+
