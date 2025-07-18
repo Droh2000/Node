@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Por defecto la libreria nos crea esta variable con la cadena de coneccion PostgreSQL, la cadena de conexion la modificamos nosotros por nuestras credenciales
+  // y movimos el contenido a la variable que ya habiamos creado
+  url      = env("POSTGRES_URL")
+}
+
+// Enumeracion para el campo respectivo (Aqui vamos a probar un cambio poniendo en mayusculas en lugar de Minusculas)
+enum SeverityLevel {
+ LOW
+ MEDIUM
+ HIGH 
+}
+
+// Creacion del modelo donde especificamos los campos que requerimos almacenar usando el ORM
+model Logmodel {
+  id Int @id @default(autoincrement())
+  message String 
+  origin String
+  level SeverityLevel
+  createdAt DateTime @default(now())
+}
+// Despues de creado el modelo ejecutamos la migracion
+//      - npx prisma migrate dev --name init
+// Cuando hacemos la migracion tambien automaticamente nos hace la generacion del PrismaClient
+// esto es lo que ocupamos para trabajar con la BD
