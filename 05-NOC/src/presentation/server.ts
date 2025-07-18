@@ -1,15 +1,19 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
 import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
+import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
 import { EmailService } from "./email/email.service";
 
 // Instancia para mandarsela a todos los UseCases que puedan reqeurir este repositorio (Aqui creamos todas las instancias de las implementaciones)
-const fileSystemLogRepository = new LogRepositoryImpl(
+const logRepository = new LogRepositoryImpl(
     // Este es nuestro origen de datos que cuando se manda a llamar verifica si existen los archivos y toda la logica
     // Aqui es donde podremos cambiar segun donde queremos almacenar los datos
-    new FileSystemDatasource()
+    // new FileSystemDatasource()
+    // Ahora vamos a cambiar el Filesystem por el de Mongo
+    new MongoLogDatasource(),
+
 );
 
 // Aqui es donde vamos a mandar el email (Lo hizimos en instancia y no en metodo estatico porque despues haremos una inyeccion de dependencias)
@@ -38,13 +42,13 @@ export class Server {
         // El CronSeervice usa el "ChildProcess" donde puede crear otro proceso como multihilos separados
         // para cuando tenemos que estar ejecutando varios Jobs a la vez
         /*CronService.createJob(
-            '* / 5 * * * * *',
+            '* /5 * * * * *',
             () => {
                 // Llamamos nuestro caso de uso cada 5 segundo que por ahora sera a este servicio
                 // Despues de la implementacion de la inyeccion de dependencias le mandamos las funciones correspondientes
                 const url = 'https://google.com';
                 new CheckService(
-                    fileSystemLogRepository,
+                    logRepository,
                     () => console.log(`${url} success`),
                     ( error ) => console.log( error ),
                 ).execute(url);

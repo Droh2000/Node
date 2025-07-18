@@ -260,3 +260,7 @@ Manipulacion y cambio de la base de datos MongoDB y PostgreSQL
     mongoose por defecto cuando usa el modelo toma la palabra que le pasamos entre comillas en ".model('Log')" y la convierte en plural agregandole una S
     dentro de Logs tenemos los registros
     Con esto que hemos visto tenemos que ir a crear un dataSource que implemente el metodo de saveLog y getLog, para despues crearnos un MongoLogDatasource y poder trabajar con Mongo
+
+    Con esta pequeña implementacion veremos que no hicimos ningun cambio en el codigo, asi nuestro caso de uso sigue estando totalmente ajeno a la base de datos que estamos usando a la estructura de datos 
+    que estamos usando, a donde lo estamos guardando, no tenemos que hacer ninguna modificacion y para verificar veremos que en MongoCompass tendremos los registros
+    (Gracias al patron repositorio podremos hacer estos cambios facilmente)
