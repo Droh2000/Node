@@ -1,5 +1,6 @@
 import { envs } from "./config/plugins/envs.plugin";
 import { LogModel, MongoDatabase } from "./data/mongo";
+import { PrismaClient } from "./generated/prisma/client";
 import { Server } from "./presentation/server";
 
 (async ()=>{
@@ -28,7 +29,25 @@ async function main(){
     // const logs = await LogModel.find();
     // console.log(logs);
 
-    Server.start();
+    // Uso de PostresSQL (Aqui usamos el objeto de Prisma ORM)
+    // Este cliente tiene toda la configuracion basado en el Schema que definimos 
+    // const prisma = new PrismaClient();
+    // Creamos el objeto que almacenaremos
+    /*const newLog = await prisma.logmodel.create({
+        // Estos son los datos requeridos para crear el registro
+        data: {
+            message: 'Test Message',
+            origin: 'App.ts',
+            //level: 'HIGH',
+        }
+    });*/
+    //console.log({ newLog })
+
+    // Para leer la base de datos
+    /*const logs = await prisma.logmodel.findMany();
+    console.log(logs);*/
+
+    //Server.start();
     // Ejemplo de como acceder a las variables (Gracias a la libreria tenemos el tipado las validaciones pero tambien si no especificamos
     // las variables que son obligatorias nuestra aplicacion se crashea y no arrancara)
     console.log( envs.PORT );
