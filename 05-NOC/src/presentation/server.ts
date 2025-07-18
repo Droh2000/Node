@@ -2,6 +2,7 @@ import { CheckService } from "../domain/use-cases/checks/check-service";
 import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
+import { PostgresLogDatasource } from "../infraestructure/datasources/postgres-log.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
 import { EmailService } from "./email/email.service";
@@ -12,8 +13,8 @@ const logRepository = new LogRepositoryImpl(
     // Aqui es donde podremos cambiar segun donde queremos almacenar los datos
     // new FileSystemDatasource()
     // Ahora vamos a cambiar el Filesystem por el de Mongo
-    new MongoLogDatasource(),
-
+    // new MongoLogDatasource(),
+    new PostgresLogDatasource(),
 );
 
 // Aqui es donde vamos a mandar el email (Lo hizimos en instancia y no en metodo estatico porque despues haremos una inyeccion de dependencias)
@@ -41,8 +42,8 @@ export class Server {
 
         // El CronSeervice usa el "ChildProcess" donde puede crear otro proceso como multihilos separados
         // para cuando tenemos que estar ejecutando varios Jobs a la vez
-        /*CronService.createJob(
-            '* /5 * * * * *',
+        CronService.createJob(
+            '*/5 * * * * *',
             () => {
                 // Llamamos nuestro caso de uso cada 5 segundo que por ahora sera a este servicio
                 // Despues de la implementacion de la inyeccion de dependencias le mandamos las funciones correspondientes
@@ -58,6 +59,6 @@ export class Server {
                 // si lo volvemos a levantar el servicio veremos que vuelve a detectar que todo esta OK
                 // new CheckService().execute('http://localhost:3000');
             }
-        );*/
+        );
     }
 }
