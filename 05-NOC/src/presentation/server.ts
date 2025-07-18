@@ -1,4 +1,5 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple";
 import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
@@ -14,6 +15,19 @@ const logRepository = new LogRepositoryImpl(
     // new FileSystemDatasource()
     // Ahora vamos a cambiar el Filesystem por el de Mongo
     // new MongoLogDatasource(),
+    new PostgresLogDatasource(),
+);
+
+// Para cuando queramos usar varios LogRepository al mismo tiempo
+const fsLogRepository = new LogRepositoryImpl(
+    new FileSystemDatasource(),
+);
+
+const mongoLogRepository = new LogRepositoryImpl(
+    new MongoLogDatasource(),
+);
+
+const postgresLogRepository = new LogRepositoryImpl(
     new PostgresLogDatasource(),
 );
 
@@ -48,8 +62,8 @@ export class Server {
                 // Llamamos nuestro caso de uso cada 5 segundo que por ahora sera a este servicio
                 // Despues de la implementacion de la inyeccion de dependencias le mandamos las funciones correspondientes
                 const url = 'https://google.com';
-                new CheckService(
-                    logRepository,
+                new CheckServiceMultiple(
+                    [ fsLogRepository, mongoLogRepository, postgresLogRepository ],
                     () => console.log(`${url} success`),
                     ( error ) => console.log( error ),
                 ).execute(url);
