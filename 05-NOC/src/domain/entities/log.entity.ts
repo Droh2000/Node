@@ -45,6 +45,11 @@ export class LogEntity {
     // Al mandar a llamar este metodo nos va a regresar una instancia del LogEntity (Esto es conocido como un FactoryConstructor)
     // Aqui estamos recibiendo cada linea del archivo de LOG como un String
     static fromJson = ( json: string ): LogEntity => {
+        // Poniendo un breack point nos dimos cuentas que llegaba un JSON vacio, esto al cambiar de Mongo a Filesystem para almacenar los LOGs
+        json = ( json === '' ) ? '{}': json;
+        // Si viene vacio nos creara una entidad vacia y por tanto en el LOG solo nos saldra un String vacio
+        // Para solucionar esto implementamos en el archivo "file-system.datasource.ts"
+
         // Convertimos para obtener un objeto literal
         const { message, level, createdAt, origin } = JSON.parse( json );
         // Podriamos verificar la data con validaciones pero no ponemos a crear la instancia directamente (ya que las propiedades son tipo ANY)
