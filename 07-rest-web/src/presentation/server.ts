@@ -1,17 +1,32 @@
 import express from 'express'; // Para usarlo tenemos que instalar el archivo de definicion de TS
 import path from 'path';
 
+// Recibimos los datos desde la variable de entorno
+interface Options {
+    port: number;
+    publicPath: string;
+}
+
 export class Server {
 
     // Solo vamos a tener Express en muy pocos archivos, y lo ponemos aqui para que no afecta la logica de negocio
     private app = express();
+    // readonly porque una vez asignado el valor no se les volvera a cambiar
+    private readonly port: number;
+    private readonly publicPath: string;
+
+    constructor(options: Options){
+        const { port, publicPath = 'public' } = options;
+        this.port = port;
+        this.publicPath = publicPath;
+    }
 
     async start() {
         // Creamos el web server
         // Mostrar todo lo que tenemos en la carpeta publica
         // Usaremos un middleware que son funciones que se ejecutan en todo momento que se pasa por una ruta, ademas colocaremos
         // en su disposicion a los usuarios que lo soliciten, la carpeta public
-        this.app.use( express.static( 'public' ) );
+        this.app.use( express.static( this.publicPath ) );
 
         // En esta aplicacion de WebServer vamos a usar una aplicacion de React que se creo pero solo son los archivos
         // que se subirian a produccion, el problema que tenemos es su sistema de rutas nuevo, que mientras nos movemos en la aplicacion todo funciona
@@ -24,14 +39,14 @@ export class Server {
             // El problema es cuando se recarga el navegador en una ruta que no es el Root de la aplicacion, entonces cae dentro de este metodo
             // Vamos a retornar el Path al index que tenemos en la carpeta public pero tiene que ser un path absoluto
             // Es "__dirname" porque tiene que ser un path absoluto y son 3 "../../../" porque estamos en server.ts y queremos llegar al root del proyecto
-            const indexPath = path.join( __dirname + '../../../public/index.html' );
+            const indexPath = path.join( __dirname + `../../../${ this.publicPath }/index.html` );
             res.sendFile(indexPath); // solo podemos llamar esto una vez
             // Con esto podemos recargar en cualquier parte la aplicacion y no falla porque el Router de React tiene el control
         });
 
         // Ponemos la aplicacion a escuchar peticiones
-        this.app.listen(3000, () => {
-            console.log(`Server running on port ${ 3000 }`)
+        this.app.listen(this.port, () => {
+            console.log(`Server running on port ${ this.port }`)
         });
 
         // Con solo esto, ya tenemos todo lo habiamos hecho en los archivos anteriores, solo que ahora estamos en el protocolo HTTP1

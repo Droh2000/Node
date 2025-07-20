@@ -24,3 +24,7 @@ Diferencias de los diferentes protocoloas HTTP
     - Http: Es el tradicional que usamos
     - Https: Con este tenemos un certificado CSL en la cual los usuarios tienen encriptacion punto a punto, abrir puertos personalizado, etc
     - Http2: Es un nuevo protocolo en el cual podemos mandar informacion y hacer pushes, esto ayuda a los navegadores a manejar el cache, es mas rapido, eficiente 
+
+Aqui configuramos variables de entorno para no mandar en duro datos que puedan cambiar de la aplicacion o cosas que se pueden configurar desde afuera
+Hacemos dos instalaciones, una es para establecer y tomar las variables de entorno
+    - npm i dotenv env-var
