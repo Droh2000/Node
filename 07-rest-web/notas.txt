@@ -28,3 +28,13 @@ Diferencias de los diferentes protocoloas HTTP
 Aqui configuramos variables de entorno para no mandar en duro datos que puedan cambiar de la aplicacion o cosas que se pueden configurar desde afuera
 Hacemos dos instalaciones, una es para establecer y tomar las variables de entorno
     - npm i dotenv env-var
+
+Si queremos desplegar nuestra aplicacion a un WebServer gratuito
+    * Configurar correctamente el ".gitignore"
+    * Subir a un repositorio de Github
+    * En github nos creamos el repositorio
+    * En el proyecto escribir un README.md donde indiquemos las instrucciones requeridas para ejecutar el proyecto
+    * Agregamos el proyecto al repositorio de github
+        Desde Gihub haremos un Deployment de aplicaciones de Node
+    * Desplegar en Railway
+        Esta es para hacer una prueba, es mas facil crearnos una cuenta y asociarla a la cuenta de Github
