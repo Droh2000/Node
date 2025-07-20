@@ -1,66 +1,44 @@
-import http from 'http';
+import http2 from 'http2';
 import fs from 'fs';
 
+// La implementacion del HTTP2 tenemos que tomar en cuenta que hay navegadores que no soportan cuando no esta encriptado, estamos obligados a usar el 
+// createSecureServer (Cuando vayamos a usar el RestFull Api endpoint en aplicaciones de IOS o Android, tienemos que tener SSL sino Apple o Goggle nos rechazaran la app )
 // req -> request es lo que solicita
 // res -> es lo que vamos a responder
-const server = http.createServer((req, res) => {
-    console.log(req.url); // Mostramos lo que el usuario esta pidiendo
+const server = http2.createSecureServer({
+    // Tenemos que ganerar un Key y Certificado, esto lo sacamos del Link: https://gist.github.com/Klerith/bc65ca4f398cadd7f292c26a04d62012
+    // En Windows tenemos que activar el OpenSSL
+    // ese comando lo ejecutamos en la terminal y vamos a llenando los datos que nos pide y al finalizar nos generara los archivos
+    key: fs.readFileSync('./keys/server.key'),
+    cert: fs.readFileSync('./keys/server.crt'),
+    // Despues de esta implementacion podemos ejectuar la pagina como: https://localhost:8080
+}, (req, res) => {
+    console.log(req.url);
     
-    // Con el "req.url" sabemos cual pagina es la que el usuario esta solicitando
-    // Vamos a decirle al navegador que tipo de informacion es la respuesta
-    // especificamos el codigo del estatus, luego la informacion que va a ir en la respuesta
-    /*res.writeHead(200, {
-        'Content-type': 'text/html'
-    });*/
-    // Esto seria Server and Rendering porque cuando hacemos la solicitud a la pagina, esto esta creado del lado del servidor
-    // y el servidor nos regresa ya el contenido formateado, en la pagina no encontraremos nada de JS
-    /*res.write(`<h1>Hola Mundo! URL: ${req.url}</h1>`); // mandaremos un HTML
-    res.end();*/
-
-    // Una forma mas corta de hacer lo de arriba
-    //  const data = { name: 'John Doe', age: 30, city: 'New York' };
-    // Haremos como si fuera un REST server, es decir mandar la informacion en formato JSON para que las personas que manden a llamar el servidor
-    // puedan obtener la data en ese formato
-    //  res.writeHead(200, { 'Content-type': 'application/json' });
-    // Esto es como hacer el Write y luego el End
-    //  res.end( JSON.stringify(data) );
-
-    // Si tenemos un sitio web que es mas elavorado con recursos estaticos o mas informacion, entonces no podemos ponerlo todo en el app.ts
-    // En la carpeta public tenemos un HTML que queremos mostrar
-    if( req.url === '/' ){ // Si estamos en la pagina: localhost:8080
+    if( req.url === '/' ){
         const htmlFile = fs.readFileSync('./public/index.html', 'utf-8');
         res.writeHead(200, { 'Content-type': 'text/html' });
         res.end( htmlFile );
-        return; // Para evitar el else
-    }/*else{
-        res.writeHead(404, { 'Content-type': 'text/html' });
-        res.end();
-    }*/
-
-    // Verificamos si en la request viene el JS (Segun lo que se solicite tenemos que poner su content type)
-    // Tendremos un problema si el archivo HTML contiene Css y JS, que al hacer la solicitud no va a encontrar la direccion de esos archivos
-    // pero si estan en la request, estan entrando al servidor pero no los estamos sirviendo (Aqui solo servimos al "/")
+        return;
+    }
+    
     if( req.url?.endsWith('.js') ){
         res.writeHead(200, { 'Content-type': 'application/javascript' });
     } else if ( req.url?.endsWith('.css') ){
         res.writeHead(200, { 'Content-type': 'text/css' });
     }
 
-    // Todos los recursos adicionales que no son el ROOT van a estar dentro de la carpeta public, por lo anterior ya vienen en la URL
-    const responseContent = fs.readFileSync(`./public${ req.url }`, 'utf-8'); // Todabia tendriamos que verificar si existe el archivo pero aqui nos lo salteamos
-    res.end(responseContent);
-    
-    // Esto es un WebServer porque viene una peticion y le regresamos contenido estatico
-    // como esto asi es muy tedioso hay librerias que nos ayudan a simplificar el codigo, y la configuracion
+    // Esta implementacion nos dara error que el Favicon.ico no existe, asi que implementamos esto para que no se nos crashe toda la pagina y solo de el
+    // error en el elemento que no se encontro
+    try {
+        const responseContent = fs.readFileSync(`./public${ req.url }`, 'utf-8');
+        res.end(responseContent);   
+    } catch (error) {
+        res.writeHead(404, { 'Content-type': 'text/html' });
+        res.end();
+    }
 });
 
-// Indicamos el puerto por el que esucha
 server.listen(8080, () => {
     console.log('Server running on port 8080');
 });
-
-// Despues de este codigo, vamos al navegar y ponemos: localhost:8080
-// veremos que no nos muestra nada, pero en la terminal veremos que se hizo una peticion a "/"
-// si en la URL mandamos algo como: localhost:8080/algo -> Veremos en la terminal la solicitud "/algo"
-// Despues del "res.write()" no importa que URL pongamos, nuestro web server siempre responde con ese mensaje
-// tambien en la consola veremos que automaticamente nos sale que se solicita el Favicon.ico y luego el ServiceWorker
