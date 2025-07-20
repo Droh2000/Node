@@ -9,3 +9,18 @@ Configuramos TS en Node
     * https://gist.github.com/Klerith/3ba17e86dc4fabd8301a59699b9ffc0b
 Ejecutar la aplicacion
     * npm run dev
+
+Cuando hacemos una solicitud en una pagina, un servidor WEB tiene que recibirla y regresarnos lo que le estamos solicitando
+el WebServer sabe que hacer basado en los argumentos del URL y en una pagina nos regresa todos los elementos JS, CSS, JSON, Img,
+la mayoria los manda en el protocolo Http2.
+Tambien cuando estamos en pagina interactivas y escribimos en un buscador algo, al escribir se realizan peticiones HTTP adicionales
+que llegan a un endpoint y la informacion de la respuesta que escribimos
+Cuando estamos en una pagina web, todo esta basado en Request y response, es decir recargamos el navegador, hacemos una solicitud a la URL
+y el servidor nos responde con todo el contenido de la pagina, luego dentro hacemos otra solicitud, escribiendo en la barra de busquedad
+    - WebServer: Cuando recargamos el navegador web y nos manda la pagina inicial es un webServer
+    - RestServer: Cuando realizamos algun tipo de interaccion que solo llega a cargar sierta parte de la informacion
+
+Diferencias de los diferentes protocoloas HTTP
+    - Http: Es el tradicional que usamos
+    - Https: Con este tenemos un certificado CSL en la cual los usuarios tienen encriptacion punto a punto, abrir puertos personalizado, etc
+    - Http2: Es un nuevo protocolo en el cual podemos mandar informacion y hacer pushes, esto ayuda a los navegadores a manejar el cache, es mas rapido, eficiente 
