@@ -31,12 +31,27 @@ const server = http.createServer((req, res) => {
         const htmlFile = fs.readFileSync('./public/index.html', 'utf-8');
         res.writeHead(200, { 'Content-type': 'text/html' });
         res.end( htmlFile );
-        // Tendremos un problema si el archivo HTML contiene Css y JS, que al hacer la solicitud no va a encontrar la direccion de esos archivos
-        // pero si estan en la request, estan entrando al servidor pero no los estamos sirviendo (Aqui solo servimos al "/")
-    }else{
+        return; // Para evitar el else
+    }/*else{
         res.writeHead(404, { 'Content-type': 'text/html' });
         res.end();
+    }*/
+
+    // Verificamos si en la request viene el JS (Segun lo que se solicite tenemos que poner su content type)
+    // Tendremos un problema si el archivo HTML contiene Css y JS, que al hacer la solicitud no va a encontrar la direccion de esos archivos
+    // pero si estan en la request, estan entrando al servidor pero no los estamos sirviendo (Aqui solo servimos al "/")
+    if( req.url?.endsWith('.js') ){
+        res.writeHead(200, { 'Content-type': 'application/javascript' });
+    } else if ( req.url?.endsWith('.css') ){
+        res.writeHead(200, { 'Content-type': 'text/css' });
     }
+
+    // Todos los recursos adicionales que no son el ROOT van a estar dentro de la carpeta public, por lo anterior ya vienen en la URL
+    const responseContent = fs.readFileSync(`./public${ req.url }`, 'utf-8'); // Todabia tendriamos que verificar si existe el archivo pero aqui nos lo salteamos
+    res.end(responseContent);
+    
+    // Esto es un WebServer porque viene una peticion y le regresamos contenido estatico
+    // como esto asi es muy tedioso hay librerias que nos ayudan a simplificar el codigo, y la configuracion
 });
 
 // Indicamos el puerto por el que esucha
