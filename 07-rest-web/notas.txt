@@ -1,0 +1,11 @@
+WebServer
+    Este es un servidor en el cual podemos meter archivos que van a ser servidos mediante un protocolo HTTP/HTTP2/HTTPS
+    vamos a ver el como funciona y que es una respuesta (La informacion que es solicitada y como la regresamos)
+    Luego usaremos Express para ver como se nos simplifica la configuracion
+
+Para crear el package.json
+    * npm init -y
+Configuramos TS en Node
+    * https://gist.github.com/Klerith/3ba17e86dc4fabd8301a59699b9ffc0b
+Ejecutar la aplicacion
+    * npm run dev
