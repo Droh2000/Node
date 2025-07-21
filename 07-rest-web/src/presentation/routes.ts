@@ -1,6 +1,8 @@
 // Estas son las rutas que maneja la aplicacion
 
 import { Router } from "express";
+import { TodosController } from "./todos/controller";
+import { TodoRoutes } from "./todos/routes";
 
 export class Approutes{
 
@@ -11,16 +13,14 @@ export class Approutes{
         // una paeticion pase por aqui)
         const router = Router();
 
-        // Ahora aqui definimos las rutas
-        router.get('/api/todos', (req, res) => {
-            // Regresamos un par de todos como ejemplo
-            res.json([
-                { id: 1, text: 'Buy Milk', createdAt: new Date() },
-                { id: 2, text: 'Buy Bread', createdAt: null },
-                { id: 3, text: 'Buy Butter', createdAt: new Date() },
-            ]); // No podemos usar dos veses este metodo de enviar la respuesta, no estar creando cada una de las rutas
-        });
+        // Controlador
+        //const todoController = new TodosController();
+
+        // Ahora aqui definimos las rutas donde solo mandamos la referencia de la funcion
+        // router.get('/api/todos', todoController.getTodos);
         // Aqui solo deveriamos de definir las rutas y cual es el controlador
+        // por eso hacemos esta otra implementacion (Se usa "use" porque es un middleware que se ejecutara cuando la ruta pase por aqui) 
+        router.use('/api/todos', TodoRoutes.routes);
 
         return router;
     }

@@ -56,3 +56,10 @@ RestServer
 
     Tendemos la libreria de Express para crear el Restful API, pero esta libreria es "unopinionated" quiere decir que lo podemos programar como mejor nos guste (No estamos obligados a hacer lineamientos)
     pero es comun que se siga el patron MVC
+
+    Recaptulando de lo que acabamos de hacer por como hemos definido las rutas
+        Nosotros definimos las rutas de la aplicacion en "presentation/routes.ts", aqui dentro tenemos todas las rutas definidas y cada uno a punta a su clase de ruta definida 
+        si entra a cierta ruta veremos que esta siendo manejado por su respectivo archivo de rutas donde esta en cada una de las subcarpetas para cada una de las rutas con el mismo nombre del
+        archivo de rutas como "presentation/todos/routes" donde aqui no estamos definiendo el path porque aqui se asume que la ruta que nos esta mandando el middleware seria el punto de entrada
+        y eso nos permite que si en el futuro queremos cambiar una ruta, solo modificamos la ruta en "presentation/routes.ts", luego tenemos el controlador de la ruta que es el que va a manejar 
+        las peticiones 
