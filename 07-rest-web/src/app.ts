@@ -1,6 +1,7 @@
 // Uso de Express.js
 
 import { envs } from "./config/envs";
+import { Approutes } from "./presentation/routes";
 import { Server } from "./presentation/server";
 
 (async()=> {
@@ -14,6 +15,8 @@ function main(){
         // Valores que se los mandamos de las variables de entorno
         port: envs.PORT,
         publicPath: envs.PUBLIC_PATH,
+        // Mandamos las rutas
+        routes: Approutes.routes,
     });
     server.start();
 }

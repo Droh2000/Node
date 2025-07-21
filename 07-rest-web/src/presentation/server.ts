@@ -1,9 +1,10 @@
-import express from 'express'; // Para usarlo tenemos que instalar el archivo de definicion de TS
+import express, { Router } from 'express'; // Para usarlo tenemos que instalar el archivo de definicion de TS
 import path from 'path';
 
 // Recibimos los datos desde la variable de entorno
 interface Options {
     port: number;
+    routes: Router; // Para poder asociar el archivo de rutas
     publicPath?: string;
 }
 
@@ -14,11 +15,13 @@ export class Server {
     // readonly porque una vez asignado el valor no se les volvera a cambiar
     private readonly port: number;
     private readonly publicPath: string;
+    private readonly routes: Router;
 
     constructor(options: Options){
-        const { port, publicPath = 'public' } = options;
+        const { port, routes, publicPath = 'public' } = options;
         this.port = port;
         this.publicPath = publicPath;
+        this.routes = routes;
     }
 
     async start() {
@@ -31,16 +34,16 @@ export class Server {
         // Para tener un REST server debemos de poder regresar un JSON o algo que nos permita hacer un llamado en una peticion 
         //* Definir las Rutas
         // Como app esta como una propiedad de la clase, ponemos "this.app", luego le pasamos la URL que queremos hacer peticion
-        this.app.get('/api/todos', (req, res) => {
+        /*this.app.get('/api/todos', (req, res) => {
             // Regresamos un par de todos como ejemplo
             res.json([
                 { id: 1, text: 'Buy Milk', createdAt: new Date() },
                 { id: 2, text: 'Buy Bread', createdAt: null },
                 { id: 3, text: 'Buy Butter', createdAt: new Date() },
             ]); // No podemos usar dos veses este metodo de enviar la respuesta
-        });
+        });*/
         // Si definimos aqui directamente las rutas, esto nos va a crecer mucho en codigo, lo mejor es separar en archivos con responsabilidades propias
-
+        this.app.use( this.routes );
 
         // Esto hace que cualquier ruta no definida, va a pasar por aqui, esto ayuda a los SPA
         // En esta aplicacion de WebServer vamos a usar una aplicacion de React que se creo pero solo son los archivos
