@@ -111,4 +111,19 @@ export class TodosController {
 
         res.json( todo );
     }
+
+    // En el Delete no necesariamente se tiene eliminar, tambien es comun que se marque el registro como que ya no existe (Como inactivo)
+    // en nuestro caso lo queremos borrar fisicamente del listado
+    public deleteTodo = (req: Request, res: Response) => {
+        const id = +req.params.id; // Tomamos el Id del argumento
+
+        const todo = todos.find( todo => todo.id === id );
+        if( !todo ) return res.status(404).json({ error: `Todo with id ${ id } not found` });
+
+        // Si eixste cortamos el elemento del arreglo
+        todos.splice( todos.indexOf(todo), 1 );
+        
+        // Regresamos el Todo eliminado
+        res.json( todo );
+    }
 }
