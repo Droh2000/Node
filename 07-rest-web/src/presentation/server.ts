@@ -4,7 +4,7 @@ import path from 'path';
 // Recibimos los datos desde la variable de entorno
 interface Options {
     port: number;
-    publicPath: string;
+    publicPath?: string;
 }
 
 export class Server {
@@ -28,6 +28,21 @@ export class Server {
         // en su disposicion a los usuarios que lo soliciten, la carpeta public
         this.app.use( express.static( this.publicPath ) );
 
+        // Para tener un REST server debemos de poder regresar un JSON o algo que nos permita hacer un llamado en una peticion 
+        //* Definir las Rutas
+        // Como app esta como una propiedad de la clase, ponemos "this.app", luego le pasamos la URL que queremos hacer peticion
+        this.app.get('/api/todos', (req, res) => {
+            // Regresamos un par de todos como ejemplo
+            res.json([
+                { id: 1, text: 'Buy Milk', createdAt: new Date() },
+                { id: 2, text: 'Buy Bread', createdAt: null },
+                { id: 3, text: 'Buy Butter', createdAt: new Date() },
+            ]); // No podemos usar dos veses este metodo de enviar la respuesta
+        });
+        // Si definimos aqui directamente las rutas, esto nos va a crecer mucho en codigo, lo mejor es separar en archivos con responsabilidades propias
+
+
+        // Esto hace que cualquier ruta no definida, va a pasar por aqui, esto ayuda a los SPA
         // En esta aplicacion de WebServer vamos a usar una aplicacion de React que se creo pero solo son los archivos
         // que se subirian a produccion, el problema que tenemos es su sistema de rutas nuevo, que mientras nos movemos en la aplicacion todo funciona
         // correctamente pero si en cualquier ruta actualizamos la aplicacion, se pierde y nos dice que recurso no encontrado, esto es lo que queremos
