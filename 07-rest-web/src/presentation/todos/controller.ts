@@ -6,6 +6,9 @@ const todos = [
     { id: 1, text: 'Buy Milk', createdAt: new Date() },
     { id: 2, text: 'Buy Bread', createdAt: null },
     { id: 3, text: 'Buy Butter', createdAt: new Date() },
+    // Lo que requerimos en POST es insertar un nuevo TODO pero el ID lo debemos de determinar porque sabemos cual es el ultimo registro
+    // y tambien deberiamos de considerar si vamos a recibir el "createdAt" o no, porque si estamos creando uno nuevo no tiene sentido 
+    // crearlo completado
 ];
 
 export class TodosController {
@@ -47,10 +50,28 @@ export class TodosController {
             }
         */
         // Debemos de obtener el body de la peticion
-        const body = req.body;
+        const { text } = req.body;
+
+        // Si no viene el texto, lanzamos un error (le ponemos return para que no sigua ejecutando nada mas)
+        // Igual podriamos verificar que si vienen mas propiedades que de las que estamos esperando, lanze un error
+        if( !text ) return res.status(400).json({ error: `Text Property is required` });
+
+        // Tenemos un problema si queremos insertar el Body
+        //  todos.push( body );
+        // Si hacemos la prueba veremos que nos lo inserta de una forma que no es (De forma directa)
+        // hay que hacer validaciones, por eso es mejor desestructurar solo lo que nos interesa
+        // Portanto no insertamos directamente el body si no un nuevo TODO
+        const newTodo = {
+            id: todos.length + 1, // Esto es por ahora
+            text: text,
+            createdAt: null,
+        };
+
+        todos.push(newTodo);
+
         // Por defecto le tenemos que decir a Express como queremos manejar esa serializacion de las peticiones de POST
         // el como va a venir la informacion y como la esperamos (Lo mas comun es que sea JSON la comunicacion)
-        res.json( body );
+        res.json( newTodo );
     }
 
 }
