@@ -26,13 +26,23 @@ export class Server {
 
     async start() {
         // Creamos el web server
+
+        //* Middlewares
+        // Vamos a aplicar dos middleware
+        // Este nos sirve para parsear la informacion que viene en el body y la transforme en un objeto JSON
+        // cualquier peticion que pase por el servidor pasa por este middleware y si viene el Body lo serializa como un JSON
+        this.app.use( express.json() );// No podemos confiar que todo vendra bien, tenemos que hacer validaciones, como esta el texto, los campos
+        // Este otro es por si mandamos el body en formato: x-www-form-urlencoded en PostMan
+        this.app.use( express.urlencoded({ extended: true }) );
+
+        //* Public Folder 
         // Mostrar todo lo que tenemos en la carpeta publica
         // Usaremos un middleware que son funciones que se ejecutan en todo momento que se pasa por una ruta, ademas colocaremos
         // en su disposicion a los usuarios que lo soliciten, la carpeta public
         this.app.use( express.static( this.publicPath ) );
 
         // Para tener un REST server debemos de poder regresar un JSON o algo que nos permita hacer un llamado en una peticion 
-        //* Definir las Rutas
+        //* Definir las Rutas (Routes)
         // Como app esta como una propiedad de la clase, ponemos "this.app", luego le pasamos la URL que queremos hacer peticion
         /*this.app.get('/api/todos', (req, res) => {
             // Regresamos un par de todos como ejemplo
@@ -45,6 +55,7 @@ export class Server {
         // Si definimos aqui directamente las rutas, esto nos va a crecer mucho en codigo, lo mejor es separar en archivos con responsabilidades propias
         this.app.use( this.routes );
 
+        //* SPA
         // Esto hace que cualquier ruta no definida, va a pasar por aqui, esto ayuda a los SPA
         // En esta aplicacion de WebServer vamos a usar una aplicacion de React que se creo pero solo son los archivos
         // que se subirian a produccion, el problema que tenemos es su sistema de rutas nuevo, que mientras nos movemos en la aplicacion todo funciona

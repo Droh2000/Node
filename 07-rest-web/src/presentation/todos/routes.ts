@@ -15,6 +15,7 @@ export class TodoRoutes{
         // o segmentos de rutas, van a ser siempre string por lo que hay que convertirlo al tipo del ID
         // "/:id" -> esta es una sintaxis especial de express en la cual la ruta puede recibir un argumento llamado id
         router.get('/:id', todoController.getTodosById);
+        router.post('/', todoController.createTodo);
         
         return router;
     }

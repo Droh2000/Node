@@ -33,4 +33,24 @@ export class TodosController {
         // Tambien alguien nos puede mandar por argumento algo que no existe, en ese caso tenemso que regresar un 404
         (todo) ? res.json(todo) : res.status(404).json({ error: `TODO with id ${id} not found` })
     }
+
+    // Crear un recurso (Peticion POST)
+    public createTodo = (req: Request, res: Response) => {
+        // Cuando hacemos un POSt viene un tipo de payload (body), hay varias formas de mandar un body en Postman, en caso de elegir RAW
+        // cuando creamos el Backend tenemos que suponer que las personas que lo van a usar no son de confianza, suponiendo que nos van a mandar 
+        // informacion que tenemos que validar, para empezar es el Backend el que nos tiene que asignar el ID, no es el cliente
+        /*
+            {
+                "text": "Buy video games",
+                "hello": 'world',
+                "id": 12345678
+            }
+        */
+        // Debemos de obtener el body de la peticion
+        const body = req.body;
+        // Por defecto le tenemos que decir a Express como queremos manejar esa serializacion de las peticiones de POST
+        // el como va a venir la informacion y como la esperamos (Lo mas comun es que sea JSON la comunicacion)
+        res.json( body );
+    }
+
 }
