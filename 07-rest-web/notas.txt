@@ -38,3 +38,21 @@ Si queremos desplegar nuestra aplicacion a un WebServer gratuito
         Desde Gihub haremos un Deployment de aplicaciones de Node
     * Desplegar en Railway
         Esta es para hacer una prueba, es mas facil crearnos una cuenta y asociarla a la cuenta de Github
+
+RestServer
+    Vamos a convertir el webServer a un Rest Server, una de las perticulares de las peticiones REST en un API tradicional es que no tenga estado, es decir no sabemos
+    desde donde es llamado el endpoint, la sesion es pasiva, esto nos permite tener muchos usuarios, todos conectados en la aplicacion pero hasta que uno de ellos hace
+    la solicitud es donde vamos a emitir esa respuesta (Pddemos tener un alto volumen de perosonas pero su autenticacion es pasiva)
+
+    La parte del Restful API es que es una autenticacion pasiva, es decir cualquier persona puede mandar a llamar al servidor y es en el momento en el cual se hace la solicitud
+    en donde el servidor valida todo lo demas
+    Aqui vamos a preparar primero nuestra base de datos en memoria, todabia no nos vamos a conectar directamente, ejecutando un CRUD, luego implementaremos la BD
+
+    Ademas tendremos la implementacion de arquitecturas que podriamos pensar que al ver la estructura de carpetas, sea demaciado ya que lo mas dificil de comprender de una arquitectura 
+    es ver como se conecta todo entre si
+
+    Recordemos que estamos ejecutando una aplicacion que esta hecha con React que aunque sea un SPA, igual funciona como si fuera una aplicacion generada del lado del servidor
+    ya que no importa en que URL estemos, nos esta regesando los datos
+
+    Tendemos la libreria de Express para crear el Restful API, pero esta libreria es "unopinionated" quiere decir que lo podemos programar como mejor nos guste (No estamos obligados a hacer lineamientos)
+    pero es comun que se siga el patron MVC
