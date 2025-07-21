@@ -74,4 +74,41 @@ export class TodosController {
         res.json( newTodo );
     }
 
+    // Como estamos manipulando la data directamente en memoria y en JS, tnedremos que tener un par de conisideraciones
+    public updateTodo = (req: Request, res: Response) => {
+        // Si queremos actualizar un TODO es similar al GET, inicando cual ID y con el verbo PUT, ademas tenemos que mandar un Body
+        // que puede venir en los diferentes formatos que tenemos 
+        const id = +req.params.id;
+
+        if( isNaN(id) ) return res.status(400).json({ error: 'ID argument is not a number' });
+
+        const todo = todos.find( todo => todo.id === id ); // Veririficamos que el TODO exista
+        if( !todo ) return res.status(404).json({ error: `Todo with id ${ id } not found` });
+
+        // En JS cuando estamos trabajando con Objetos, esto se pasan por referencia, es decir si modificamos este "const todo"
+        // literalmente modificamos el Todo que esta en el listado de Todos de memoria, asi que no hay que hacer nada mas
+        // Con el campo "createdAt" si viene es que queremos actualizarlo pero si no lo mandamos, no nos tiene por que poner null ya que no lo queremos actualizar
+        // o tambien puede que no se quiere actualizar el Text sino solo el CreatedAt
+        const { text, createdAt } = req.body;
+        // if( !text ) return res.status(400).json({ error: 'Text property us required' });// Todas estas validaciones de verificacion mas adelante veremos como las optimizamos
+
+        // Aqui todo esta pasando por referencia (Esto es algo que no deberiamos de hacer)
+        //  todo.text = text;
+        // Esto seria igual al texto siempre y cuando venga el valor, sino seria igual al mismo valor que se tenga por defecto
+        todo.text = text || todo.text;
+        // Como la fecha puede ser nula, en ese caso queremos usar la fecha anterior si es que viene, asi que vamos a obligar que si quieren establecer la fecha a null o borrarla, el usuario nos
+        // lo tiene que mandar especificamente sino usariamos la fecha que ya viene
+        ( createdAt === 'null' ) 
+            ? todo.createdAt = null
+            : todo.createdAt = new Date( createdAt || todo.createdAt );// Si no tenemos el "createdAt" que utilize el valor que ya tenemos
+
+        // Para evitar actualizar por referencia (Manejarlo de una menra inmutable)
+        /*todos.forEach( (todo, index) => {
+            if( todo.id === id ){
+                todos[index] = todo;
+            }
+        });*/
+
+        res.json( todo );
+    }
 }

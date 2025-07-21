@@ -16,7 +16,8 @@ export class TodoRoutes{
         // "/:id" -> esta es una sintaxis especial de express en la cual la ruta puede recibir un argumento llamado id
         router.get('/:id', todoController.getTodosById);
         router.post('/', todoController.createTodo);
-        
+        router.put('/:id', todoController.updateTodo);
+
         return router;
     }
 }
