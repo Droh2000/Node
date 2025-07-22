@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from '../../data/postgres';
+import { CreateTodoDto } from '../../domain/dtos/todos/create-todo.dto';
 
 export class TodosController {
     constructor(){}
@@ -21,14 +22,20 @@ export class TodosController {
     }
 
     public createTodo = async (req: Request, res: Response) => {
-        const { text } = req.body;
-        if( !text ) return res.status(400).json({ error: `Text Property is required` });
+        // En este body pueden venir muchos campos inecesarios y en otros tipos de datos no esperados
+        // ademas puede que a futuro requieramos mandar mas propiedades
+        // Para esto nos crea un DTO donde tendremos toda la informacion requerida para crear un DTO
+        //  const { text } = req.body;
+        const [error, createTodoDto] = CreateTodoDto.create(req.body);
+        if( error ) return res.status(400).json({ error });
+
+        //if( !text ) return res.status(400).json({ error: `Text Property is required` });
 
         // Crear en BD, aqui en "body" tenemos el contenido
         // Despues vamos a ver los DTOs porque sabemos que todo lo que venga en "req.body" de la peticion, todos los campos son de tipo string
         // Como los datos no se reciben con el tipado esperado y ademas tenemos que validarlos
         const todo = await prisma.todo.create({
-            data: { text }
+            data: createTodoDto!
         });
 
         res.json( todo );
@@ -49,7 +56,7 @@ export class TodosController {
             where: { id },
             data: { 
                 text, 
-                // Aqui tenemos que tratar el formato de la fecha 
+                // Aqui tenemos que tratar el formato de la fecha (Esta validacion ya la deberiamos de tener validada)
                 createdAt: (createdAt) ? new Date(createdAt) : null
             } // Esta es la data que queremos actualizar
         });

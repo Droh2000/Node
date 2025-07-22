@@ -1,0 +1,8 @@
+En Express validator que es una libreira que podemos instalar, nos ayuda a ejecutar validaciones
+en los controladores
+    * https://express-validator.github.io/docs/
+con el express validator podriamos evitar el uso de los DTOs
+
+DTOs - Data Transfer Object
+    Es un objeto hecho para transferir informacion, por ejemplo en este caso la respuesta Body sea convertida a un tipo de objeto
+    que podamos expandirlo para trabajar con el, suponiendo que tenemos toda la data validada, transformada, etc
