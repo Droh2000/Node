@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from '../../data/postgres';
 import { CreateTodoDto } from '../../domain/dtos/todos/create-todo.dto';
+import { UpdateTodoDto } from "../../domain/dtos";
 
 export class TodosController {
     constructor(){}
@@ -42,8 +43,13 @@ export class TodosController {
     }
 
     public updateTodo = async (req: Request, res: Response) => {
+        // Vamos a crear un DTO que puede recibir el texto y el createdAT de manera opcional para que si lo recibimos hagamos la validacion de la fecha
+        // e igualmente con el texto, venga o no venga (El Id lo podemos tambien considerar para mandarlo ya preparado)
         const id = +req.params.id;
-        if( isNaN(id) ) return res.status(400).json({ error: 'ID argument is not a number' });
+        //if( isNaN(id) ) return res.status(400).json({ error: 'ID argument is not a number' });
+        const [ error, updateTodoDto ] = UpdateTodoDto.create({...req.body, id});
+
+        if( error ) return res.status(400).json({ error });
 
         // Verificamos si existe
         const todo = await prisma.todo.findFirst({
@@ -51,14 +57,16 @@ export class TodosController {
         });
         if( !todo ) return res.status(404).json({ error: `Todo with id ${ id } not found` });
 
-        const { text, createdAt } = req.body;
+        //const { text, createdAt } = req.body;
         const updateTodo = await prisma.todo.update({
             where: { id },
-            data: { 
+            data: /*{ 
                 text, 
                 // Aqui tenemos que tratar el formato de la fecha (Esta validacion ya la deberiamos de tener validada)
                 createdAt: (createdAt) ? new Date(createdAt) : null
             } // Esta es la data que queremos actualizar
+             */
+            updateTodoDto!.values
         });
 
         res.json( updateTodo );
