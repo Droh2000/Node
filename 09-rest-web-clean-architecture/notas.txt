@@ -1,0 +1,7 @@
+
+Aqui vamos a implementar toda la arquitectura limpia, patron repositorio con casos de uso
+Vamos a separar la Base de datos, que originalmente lo estamos aplicando en cada uno de los controladores 
+asi que vamos a desligar la base de datos con los controladores, con el objetivo que podamos usarlos mediante el caso de uso
+(En caso de no querer implementar casos de uso, lo podemos llamar directamente desde el repositorio)
+    * Como el cliente al final no sabe lo que realmente quiere tenemos que tener flexible el proyecto para que cualquier cambio se pueda aplicar facilmente
+
