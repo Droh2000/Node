@@ -11,3 +11,15 @@ Carpetas que creamos:
     - entites: Aqui van a estar nuestros objetos que estan bien apegados que no deberian de tener niguna injerencia del mundo exterior
                 Todo lo que hagamos dentro del directorio "domain" no deberia de tener nada de codigo externo que no sean importaciones de librerias
                 y todo con el lenguaje de programacion que usamos
+            
+                Lo que colocamos en la carpeta "domain" son reglas que se van a imponer sobre todo lo demas (Seria lo mas importante de la amplicacion)
+    - datasources: Es el origen de datos
+    - repositories: Son metodos que vamos a tener para poder llegar a datasources
+        Estas dos carpetas son las reglas para crear otros datasources (Es decir clases abstractas, el sentido es crearnos un objeto que sirva para obliga
+        a otros objetos que se miren de la apariencia que nosotros queramos)
+        
+    Algo a tomar en cuenta de aplicar la arquitectura limpia para mantener un codigo expandible, mantenible, tolerante a cambios, testeable
+    pero tenemos muchos panoramas, por en lugar de acceder a la base de datos (Prisma), tambien nos podemos crear servicios donde tengamos centralizado todo
+    la idea es que solo tengamos un lugar donde podamos acceder a toda la informacion para que si algo cambia, solo cambie en ese unico lugar, evitando un cambio
+    en cascada
+
