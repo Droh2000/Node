@@ -4,4 +4,10 @@ Vamos a separar la Base de datos, que originalmente lo estamos aplicando en cada
 asi que vamos a desligar la base de datos con los controladores, con el objetivo que podamos usarlos mediante el caso de uso
 (En caso de no querer implementar casos de uso, lo podemos llamar directamente desde el repositorio)
     * Como el cliente al final no sabe lo que realmente quiere tenemos que tener flexible el proyecto para que cualquier cambio se pueda aplicar facilmente
+Tecnicamente si cambiamos la libreria de Express, no deberia verse afectado mas que los archivos dentro del directorio de presentacion, las demas
+carpetas no deberian de afectarse en lo mas minimo
 
+Carpetas que creamos:
+    - entites: Aqui van a estar nuestros objetos que estan bien apegados que no deberian de tener niguna injerencia del mundo exterior
+                Todo lo que hagamos dentro del directorio "domain" no deberia de tener nada de codigo externo que no sean importaciones de librerias
+                y todo con el lenguaje de programacion que usamos
