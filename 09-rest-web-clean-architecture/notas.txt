@@ -23,3 +23,10 @@ Carpetas que creamos:
     la idea es que solo tengamos un lugar donde podamos acceder a toda la informacion para que si algo cambia, solo cambie en ese unico lugar, evitando un cambio
     en cascada
 
+El patron que implementamos con el controlador y el repositorio se llama Domain-Driven Design (DDD) que nos permite cambiar la BBDD sin dependender de esta
+pero para implementar la arquitectura limpia requerimos el usar los casos de uso (Hicimos una copia del controlador donde tenemos solo implementado el DDD y luego haremos cambios
+donde tendremos ya la implementacion con los casos de uso)
+    Lo que haremos ahora en el controlador es que en lugar de estar llamando al repositorio, vamos a terminar llamando casos de uso
+    asi cuando un desarrollador quiere saber como funciona el proyecto, solo ve los casos de uso y ya sabe como funciona el proyecto
+    La ides es que los use cases los podemos mandar a llamar desde cualquier lado de la aplicacion
+
