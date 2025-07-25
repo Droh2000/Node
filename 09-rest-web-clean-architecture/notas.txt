@@ -30,3 +30,18 @@ donde tendremos ya la implementacion con los casos de uso)
     asi cuando un desarrollador quiere saber como funciona el proyecto, solo ve los casos de uso y ya sabe como funciona el proyecto
     La ides es que los use cases los podemos mandar a llamar desde cualquier lado de la aplicacion
 
+Procedimiento de la arquitectura que implementamos
+    La arquitectura que hicimos hace que nos creemos muchos archivos, el sentido es ver que hay diferentes formas de programar, diferentes paradigmas
+    de una forma ordenada que nos permita expandir la aplicacion facilmente
+        - Cuando ya esta implementada, cuando se requiere algun cambio o modificasion, nosotros solo vamos creando casos de uso y usando el respositorio
+            y ya tenemos una manera bien estructurada para lograr los cambios
+    Mas adelante veremos otra forma mas sencilla de implementar la arquitectura que nos ayude a tener centralizada la informacion y usar si queremos casos de uso o llamar directamente un
+    servicio como lo es en Angular o Nest (Con el mecanismo de inyeccion de dependencias)
+
+    En Express.js ademas tenemos varios paquetes y consejos para mejorar la rapidez y performance
+        - https://expressjs.com/en/advanced/best-practice-performance.html
+        (Aqui se explica la razon para no usar funciones asyncronas y en su lugar manejan Promesas)
+    
+    El objetivo de crearnos una Entidad (src/domain/eentities/todo.entity.ts)
+    que es similar a la BD pero no es igual, la entidad es por si el dia de mañana requerimos alguna propiedad en la clase, entonces ese cambio en la entidad
+    no deberia de afectar la BD o si se modifica la BD entonces no deberiamos de tener esas modificaciones en cascada
