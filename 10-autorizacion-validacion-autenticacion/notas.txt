@@ -1,0 +1,23 @@
+Aqui nos vamos a enfocar en:
+    - Creacion de usuarios
+    - La encriptacion de la contraseña mediante un HASH de una sola via
+    - Generacion del JWT (Donde tomamos el Token y saber cual usuario es)
+La idea es que el usuario se pueda registrar por medio de su correo electronico
+Tambien veremos como crearnos un error personalizado con diferentes tipos de constructores
+
+Ademas veremos otra forma de trabajar usando solamente Inyeccion de dependencias para evitar usar el patron repositorio
+El proyecto por defecto se nos dio iniciado 
+    - Tenemos en la carpeta "config" tenemos la configuracion de las variables de entorno
+    - En la "presentation" tenemos la definicio de las rutas y el servidor
+    - El archivo app con la funcion asyncrona autoinvocada donde se manda a llamar el servidor
+    - El archivo de docker con dos BD para eligir si queremos usar PostgreSQL o Mongo
+Reconstruimos los modulos de Node:
+    - npm i
+
+En esta ocasion decidimos trabajar con MongoDB
+    - En el archivo de docker ya estan asignado el nombre de usuario y password para no sobrecargar la variable de entorno
+
+Levantamos la Base de datos
+    - docker compose up -d
+Arrancar la aplicacion  
+    - npm run dev
