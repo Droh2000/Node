@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { AuthRoutes } from './auth/routes';
 
 
 
@@ -11,7 +12,8 @@ export class AppRoutes {
     const router = Router();
     
     // Definir las rutas
-    // router.use('/api/todos', /*TodoRoutes.routes */ );
+    // Las rutas sera esta como principal y luego vendra la parte que definimos en "routes.ts"
+    router.use('/api/auth', AuthRoutes.routes );
 
 
 
