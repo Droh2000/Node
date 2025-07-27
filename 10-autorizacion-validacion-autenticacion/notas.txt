@@ -21,3 +21,6 @@ Levantamos la Base de datos
     - docker compose up -d
 Arrancar la aplicacion  
     - npm run dev
+
+Queremos mantener una total separacio de lo que viene en la BD con el como va fluir los datos de la aplicacion
+porque si la BD cambia, la aplicacion no deberia verse afectada y solo hacer los cambios en la carpeta "data" donde esta la estructura de la BD
