@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { RegisterUserDto } from '../../domain';
+import { CustomError, RegisterUserDto } from '../../domain';
 import { AuthService } from '../services/auth.service';
 
 // El controlador solo debe de encargarse de dar la respuesta al cliente
@@ -13,6 +13,17 @@ export class AuthController {
         public readonly authService: AuthService,
     ){}
 
+    // Manejar los errores
+    private handleError = (error: unknown, res: Response) => {
+        // Verificamos que el error sea una instancia del error personalizado
+        if( error instanceof CustomError ){
+            return res.status(error.statusCode).json({ error: error.message });
+        }
+
+        console.log(`${ error }`)
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+
     // Cada uno de estos metodos sera asignado a una ruta que definimos en "auth/routes.ts"
     registerUser = (req: Request, res: Response) => {
         // Tomamos el Body que es por donde nos mandan los datos, lo extraemos y lo transformamos en el DTO
@@ -22,7 +33,7 @@ export class AuthController {
         
         this.authService.registerUser(registerDto!)
             .then( (user) => res.json(user) ) // Aqui mandamos la respuesta
-            
+            .catch( error => this.handleError(error, res) );
     }
 
     loginUser = (req: Request, res: Response) => {

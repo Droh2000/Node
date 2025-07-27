@@ -2,6 +2,7 @@
 
 import { UserModel } from "../../data";
 import { CustomError, RegisterUserDto } from "../../domain";
+import { UserEntity } from '../../domain/entities/user.entity';
 
 export class AuthService {
 
@@ -13,7 +14,33 @@ export class AuthService {
         const existUser = await UserModel.findOne({ email: registerUserDto.email });
         if( existUser ) throw CustomError.badRequest('Email already exist');
 
-        // Esto que retornemos es lo que tomara el controlador
-        
+        // Lo mejor cuando vamos a manipular en una BD es hacerlo en un Try/Catch
+        try{
+            // Usamos el esquema y modelo de mongoose
+            const user = new UserModel(registerUserDto); // Esto nos crea el objeto con su ID
+            // Registramos en la BD
+            await user.save();
+
+            // Requerimos hacer algunos pasos adicionales
+            // Encriptar la contraseña
+
+            // JWT -> Para mantener la autenticacion e identificar cual usuario es
+
+            // Email de confirmacion
+
+            // Tomamos el objeto del usuario y crear la entidad para asegurarnos que la entidad se encargara de validar todo
+            // y con esto nos evitamos que en la respuesta nos salga campo que no queremos como la __v (version) y el _id
+            // No queremos mostrar el password. este campo lo tenemos que borrar, por eso hacemos la desestructuracion y en "...rest"
+            // tenemos todas las demas propiedades menos el password
+            const { password, ...userEntity } = UserEntity.fromObject(user);
+
+            // Esto que retornemos es lo que tomara el controlador
+            return { 
+                user: userEntity, 
+                token: 'ABC',// De esta forma podemos agegar mas campos que queramos regresar a la respuesta
+            };
+        }catch(error){
+            throw CustomError.internalServer(`${ error }`);
+        }
     }
 }
