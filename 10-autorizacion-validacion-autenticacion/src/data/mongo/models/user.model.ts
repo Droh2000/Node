@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
         required: [ true, 'Email is required' ],
         unique: true, // Para no tener email duplicados
     },
+    // Agregamos esta otra propiedad porque nos queremos asegurar que los emails puedan ser validados
+    emailValidated: {
+        type: Boolean,
+        default: false
+    },
     password: {
         type: String,
         required: [ true, 'Password is required' ]
