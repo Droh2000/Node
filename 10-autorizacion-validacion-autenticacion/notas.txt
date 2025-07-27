@@ -32,3 +32,10 @@ cuando recibimos un objeto de tipo DTO ya sabemos la informacion que tiene y que
 
 En el controlador no deberiamos de hacer el trabajo de la creacion, validacion y todo el proceso del DTO, el controlador es solo la ruta del endpoint
 lo que vamos a implementar para esto es un servicio que es como un gestor de estado
+
+Para encriptar las contraseñas instalamos el paquete
+    - https://www.npmjs.com/package/bcryptjs
+tambien usaremos el patron adaptador para que podamos cambiar de paquete facilmente
+para que nuestro proyecto no dependa de entidades externas, por ejemplo en este caso tenemos una dependencia del modelo que cuando nos tocara cambiar de BD
+vamos a tener que modificar todos los Servicios (pero estos serian los unicos afectados con esta logica)
+Pero si queremos ser mejores, en el AutServices podemos inyectar el repositorio para que podamos cambiar facilmente de BD

@@ -1,5 +1,6 @@
 // El servicio es el encargado de realizar la parte pesada, aqui vamos a hacer todo el proceso de cada endpoint
 
+import { bcryptAdapter } from "../../config";
 import { UserModel } from "../../data";
 import { CustomError, RegisterUserDto } from "../../domain";
 import { UserEntity } from '../../domain/entities/user.entity';
@@ -18,11 +19,13 @@ export class AuthService {
         try{
             // Usamos el esquema y modelo de mongoose
             const user = new UserModel(registerUserDto); // Esto nos crea el objeto con su ID
-            // Registramos en la BD
-            await user.save();
 
             // Requerimos hacer algunos pasos adicionales
             // Encriptar la contraseña
+            user.password = bcryptAdapter.hash( registerUserDto.password );
+
+            // Registramos en la BD
+            await user.save();
 
             // JWT -> Para mantener la autenticacion e identificar cual usuario es
 
