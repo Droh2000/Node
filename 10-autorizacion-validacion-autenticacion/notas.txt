@@ -28,4 +28,7 @@ porque si la BD cambia, la aplicacion no deberia verse afectada y solo hacer los
 Si nos vamos al controlador en el register para crear un usuario hay que pensar cual informacion es la que requerimos que nos manden en el body
 (estas serian cada una de las propiedades obligatorias que definimos en la entidad de usuario), y ademas esta informacion tenemos que validarla y verificarla
 para que sean del tipo de dato que esperamos y para esto es el DTO (Los Dtos los vamos a crear por cada endpoint que vayamos a recibir informacion)
-cuando recibimos un objeto de tipo DTO ya sabemos la informacion que tiene y que esta validada
+cuando recibimos un objeto de tipo DTO ya sabemos la informacion que tiene y que esta validada.
+
+En el controlador no deberiamos de hacer el trabajo de la creacion, validacion y todo el proceso del DTO, el controlador es solo la ruta del endpoint
+lo que vamos a implementar para esto es un servicio que es como un gestor de estado

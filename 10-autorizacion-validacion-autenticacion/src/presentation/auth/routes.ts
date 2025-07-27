@@ -1,15 +1,17 @@
 // Aqui estan las rutas de la autenticacion
 import { Router } from 'express';
 import { AuthController } from './controller';
+import { AuthService } from '../services/auth.service';
 
 export class AuthRoutes {
 
   static get routes(): Router {
 
     const router = Router();
+    const authService = new AuthService();// El servicio tiene que estar inicializado y lo hacemos en el lugar donde lo requerimos
 
     // Del controlador sacamos lo que haran las rutas
-    const controller = new AuthController();
+    const controller = new AuthController(authService);
     
     // Definir las rutas
     router.post('/login', controller.loginUser );
