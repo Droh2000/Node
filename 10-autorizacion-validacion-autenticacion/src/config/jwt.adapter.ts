@@ -1,4 +1,9 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
+import { envs } from './envs';
+
+// Para no crear una dependencia oculta tan coulta, por lo menos le decimos a los desarrolladores que aqui hay algo
+// aunque lo idealmente seria hacerlo en el constructor y recibir el argumento
+const JWT_SEED = envs.JWT_SEED;
 
 // Solo en este archivo vamos a tener la dependencia directa del paquete
 export class JwtAdapter {
