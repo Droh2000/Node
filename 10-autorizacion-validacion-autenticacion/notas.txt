@@ -39,3 +39,15 @@ tambien usaremos el patron adaptador para que podamos cambiar de paquete facilme
 para que nuestro proyecto no dependa de entidades externas, por ejemplo en este caso tenemos una dependencia del modelo que cuando nos tocara cambiar de BD
 vamos a tener que modificar todos los Servicios (pero estos serian los unicos afectados con esta logica)
 Pero si queremos ser mejores, en el AutServices podemos inyectar el repositorio para que podamos cambiar facilmente de BD
+
+JWT
+    Si queremos mantener la sesion del usuario lo vamos a hacer mediante un JWT, este es un String muy grande que esta separado en 3 partes
+        - Header: Aqui esta el algoritmo que fue utilizado para la encriptacion del token
+        - Payload: Aqui esta la informacion que requerimos guardar para identificar al usuario
+        - Firma Autorizada: Esta la usa el backen para garantizar que el payload y la firma coinciden, la firma tiene una llave secreta con la que se genero el token
+
+    Nosotros usaremos para que cuando alguien se autentique en la aplicacion le regresemos el token y ademas lo usaremos para validar las rutas porque habran rutas que solo
+    siertos usuarios podran entrar o con cierto Rol
+
+    Vamos a usar un paquete para generar los JWT
+        - https://www.npmjs.com/package/jsonwebtoken

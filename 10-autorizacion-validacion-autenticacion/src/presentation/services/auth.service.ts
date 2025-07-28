@@ -1,6 +1,6 @@
 // El servicio es el encargado de realizar la parte pesada, aqui vamos a hacer todo el proceso de cada endpoint
 
-import { bcryptAdapter } from "../../config";
+import { bcryptAdapter, JwtAdapter } from "../../config";
 import { UserModel } from "../../data";
 import { CustomError, LoginUserDto, RegisterUserDto } from "../../domain";
 import { UserEntity } from '../../domain/entities/user.entity';
@@ -28,6 +28,13 @@ export class AuthService {
             await user.save();
 
             // JWT -> Para mantener la autenticacion e identificar cual usuario es
+            const token = await JwtAdapter.generateToken({
+                // Esto es lo que queremos guardar en el token
+                id: user.id,
+                email: user.email,
+            });
+            // Si no obtenemos el token es que algo paso
+            if( !token ) throw CustomError.internalServer('Error while creating JWT');
 
             // Email de confirmacion
 
@@ -40,7 +47,7 @@ export class AuthService {
             // Esto que retornemos es lo que tomara el controlador
             return { 
                 user: userEntity, 
-                token: 'ABC',// De esta forma podemos agegar mas campos que queramos regresar a la respuesta
+                token: token,// De esta forma podemos agegar mas campos que queramos regresar a la respuesta
             };
         }catch(error){
             throw CustomError.internalServer(`${ error }`);
