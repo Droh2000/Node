@@ -51,3 +51,12 @@ JWT
 
     Vamos a usar un paquete para generar los JWT
         - https://www.npmjs.com/package/jsonwebtoken
+
+Enviar correos electronicos
+     Cada vez que alguien se registra, a este usuario le llegara un correo que al hacer click en el enlace lo va a mandar al servidor y vamos a validar
+     al usuario sabiendo cual correo es el que a sido validado, para lograr esto vamos a mandar un token al correo electronico con una fecha de expiracion
+     ese token caeria en el Endpoint, el endpoint lo va a leer y hara el proceso respectivo para validar el correo electronico
+
+     Aqui tambien vamos a usar Ngrock donde podemos crear un tunel en el localhost donde esta la aplicacion exponiendo el puerto
+     para que pueda ser usado desde internet para poder hacer la prueba desde el telefono y fingir como si estubieramos la aplicacion subida 
+     ya a produccion a alguna nube

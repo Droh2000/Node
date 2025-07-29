@@ -67,9 +67,12 @@ export class AuthService {
         // Quitamos el campo del password
         const { password, ...userEntity } = UserEntity.fromObject( user );
 
+        const token = await JwtAdapter.generateToken({ id: user.id });
+        if( !token ) throw CustomError.internalServer('Error while creating JWT');
+
         return {
             user: userEntity,
-            token: 'ABC'
+            token: token
         }
 
     }
