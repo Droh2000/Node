@@ -64,4 +64,20 @@ Enviar correos electronicos
      El objetivo va a ser que el mecanismo de envio de correos electronicos solo se va a disparar cuando se crean nuevos usuario, es decir cuando pase por el registro
      solo ahi se activara el envio del mensaje 
         - Asi que para probar el funcionamiento debemos de registrar un usuario con el Endpoint de registro en Postman con un correo real
-        
+
+    Con ngrock vamos a exponer un puerto de nuestra computadora para asi poner en produccion y a internet con un solo comando el puerto donde se esta mostrando la aplicacion
+    y acceder como si fuera una pagina, asi podremos hacer pruebas como si estubieramos en produccion la aplicacion, esto tambien sirve para cuando queremos pasarle a algun cliente
+    el avanze de la aplicacion
+        Instalacion en Windows
+            -  Creamos una cuenta
+            -  Descarga la aplicacion
+            -  El archivo ejecutable lo colocamos un una carpeta 
+            -  La ruta de esa carpeta la ponemos en las variables de entorno en la parte de Path
+
+    En el panel administrativo copiamos el comando donde dice "2. Connect your account"
+    Despues ejectuamos el comando:
+        - ngrock http PUERTO_APLICACION
+    Al precinar enter nos dara el Link con el que podramos acceder desde cualquier parte a nuestra aplicacion
+    Ese URL lo ponemos en la variables de entorno en "WEBSERVICE_URL"
+
+
