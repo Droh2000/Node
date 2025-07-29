@@ -109,4 +109,23 @@ export class AuthService {
 
         return true;
     }
+
+    // Con este metodo vamos a validar el token
+    async validateEmail(token: string) {
+        const payload = await JwtAdapter.validateToken(token);
+        if( !payload ) throw CustomError.unauthorized('Invalid Token');
+
+        // Del payload extraemos el email, que hacemos el casting ya que el tipo del payload es any
+        const { email } = payload as { email: string };
+        if( !email ) throw CustomError.internalServer('Email not in token'); // Si se le olvido a nosotros mandar el Email
+
+        // Tomamos el usuario de la base de datos
+        const user = await UserModel.findOne({ email });
+        // InternalServer error es cuando es un problema nuestro, no tiene nada que ver con el usuario que esta consumiendo el api
+        if( !user ) throw CustomError.internalServer('Email not exists'); // por si no existe un usuario con ese email
+
+        user.emailValidated = true;
+        await user.save();
+        return true;
+    }
 }

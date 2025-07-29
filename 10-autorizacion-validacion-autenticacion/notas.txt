@@ -59,4 +59,9 @@ Enviar correos electronicos
 
      Aqui tambien vamos a usar Ngrock donde podemos crear un tunel en el localhost donde esta la aplicacion exponiendo el puerto
      para que pueda ser usado desde internet para poder hacer la prueba desde el telefono y fingir como si estubieramos la aplicacion subida 
-     ya a produccion a alguna nube
+     ya a produccion a alguna nube.
+
+     El objetivo va a ser que el mecanismo de envio de correos electronicos solo se va a disparar cuando se crean nuevos usuario, es decir cuando pase por el registro
+     solo ahi se activara el envio del mensaje 
+        - Asi que para probar el funcionamiento debemos de registrar un usuario con el Endpoint de registro en Postman con un correo real
+        

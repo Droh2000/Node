@@ -46,7 +46,12 @@ export class AuthController {
     }
 
     validateEmail = (req: Request, res: Response) => {
-        res.json('validateEmail');
+        // Obtener el JWT cuando el usuario preciona el link del mensaje que le mandamos por correo
+        const { token } = req.params;
+        // En este metodo validamos el email con el token
+        this.authService.validateEmail( token )
+            .then( () => res.json("Email validated") )
+            .catch( error => this.handleError(error, res) );
     }
 
 }

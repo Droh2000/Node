@@ -21,6 +21,13 @@ export class JwtAdapter {
     }
 
     static validateToken(token: string){
+        return new Promise( (resolve) => {
+            // La misma semilla que se usa para crear el Token es la misma para verificarlo
+            jwt.verify( token, JWT_SEED, (err, decoded) => { // El "decoded" es lo que firmamos en el payload
+                if( err ) return resolve(null); // Al regresar null la promesa siempre se va a resolver de forma exitosa solo que aqui estara nula
 
+                resolve(decoded);
+            });
+        });
     }
 }
