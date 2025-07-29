@@ -1,14 +1,20 @@
 // Aqui estan las rutas de la autenticacion
 import { Router } from 'express';
 import { AuthController } from './controller';
-import { AuthService } from '../services/auth.service';
+import { AuthService, EmailService } from '../services/';
+import { envs } from '../../config';
 
 export class AuthRoutes {
 
   static get routes(): Router {
 
     const router = Router();
-    const authService = new AuthService();// El servicio tiene que estar inicializado y lo hacemos en el lugar donde lo requerimos
+    const emailService = new EmailService(
+      envs.MAILER_SERVICE,
+      envs.MAILER_EMAIL,
+      envs.MAILER_SECRET_KEY,
+    ); // Injectar el servicio por medio de la inyeccion de dependencia al AuthService
+    const authService = new AuthService( emailService );// El servicio tiene que estar inicializado y lo hacemos en el lugar donde lo requerimos
 
     // Del controlador sacamos lo que haran las rutas
     const controller = new AuthController(authService);

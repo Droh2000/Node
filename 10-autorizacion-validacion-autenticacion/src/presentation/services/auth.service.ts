@@ -1,13 +1,17 @@
 // El servicio es el encargado de realizar la parte pesada, aqui vamos a hacer todo el proceso de cada endpoint
 
-import { bcryptAdapter, JwtAdapter } from "../../config";
+import { bcryptAdapter, envs, JwtAdapter } from "../../config";
 import { UserModel } from "../../data";
 import { CustomError, LoginUserDto, RegisterUserDto } from "../../domain";
 import { UserEntity } from '../../domain/entities/user.entity';
+import { EmailService } from "./email.service";
 
 export class AuthService {
 
-    constructor(){}
+    constructor(
+        // Inyeccion de dependencias para usar el Email Service 
+        private readonly emailService: EmailService,
+    ){}
 
     // Metodos por Endpoints
     public async registerUser( registerUserDto: RegisterUserDto ) {
@@ -37,6 +41,7 @@ export class AuthService {
             if( !token ) throw CustomError.internalServer('Error while creating JWT');
 
             // Email de confirmacion
+            await this.sendEmailValidationLink(user.email);
 
             // Tomamos el objeto del usuario y crear la entidad para asegurarnos que la entidad se encargara de validar todo
             // y con esto nos evitamos que en la respuesta nos salga campo que no queremos como la __v (version) y el _id
@@ -75,5 +80,33 @@ export class AuthService {
             token: token
         }
 
+    }
+
+    // Metodo para mandar el correo electronico
+    private sendEmailValidationLink = async( email: string ) => {
+        //Generamos un token para confirmar la solicitud
+        const token = await JwtAdapter.generateToken({ email });
+        if( !token ) throw CustomError.internalServer('Error getting token');
+
+        // Este es el link que le vamos a regresar al usuario
+        const link = `${ envs.WEBSERVICE_URL }/auth/validate-email/${ token }`;
+        // Contenido que mostraremos en el mensaje del correo
+        const html = `
+            <h1>Validate your email</h1>
+            <p>Click on yout follwing link to validate your email</p>
+            <a href="${ link }">Validate your email: ${ email }</a>
+        `;
+
+        const options = {
+            to: email,
+            subject: "Validate your email",
+            htmlBody: html,
+        };
+
+        const isSent = await this.emailService.sendEmail(options);
+        // En caso que no se haya enviado el correo
+        if( !isSent ) throw CustomError.internalServer('Error sending email');
+
+        return true;
     }
 }
