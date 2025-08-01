@@ -80,4 +80,8 @@ Enviar correos electronicos
     Al precinar enter nos dara el Link con el que podramos acceder desde cualquier parte a nuestra aplicacion
     Ese URL lo ponemos en la variables de entorno en "WEBSERVICE_URL"
 
+En esta parte vamos a proteger las rutas basado en la informacion del token que nos mandan, donde ahi verificamos el usuario que hace la peticion o el rol
+y tambien el uso de los Query Parameters 
 
+Como ya no queremos seguir probando el envio de correos electronicos, nos creamos una nueva variable de entorno SEND_EMAIL que nos ayude a no mandar correos electronicos
+porque ya probamos esta funcionalidad 

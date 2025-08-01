@@ -13,6 +13,7 @@ export class AuthRoutes {
       envs.MAILER_SERVICE,
       envs.MAILER_EMAIL,
       envs.MAILER_SECRET_KEY,
+      envs.SEND_EMAIL,
     ); // Injectar el servicio por medio de la inyeccion de dependencia al AuthService
     const authService = new AuthService( emailService );// El servicio tiene que estar inicializado y lo hacemos en el lugar donde lo requerimos
 
