@@ -85,3 +85,10 @@ y tambien el uso de los Query Parameters
 
 Como ya no queremos seguir probando el envio de correos electronicos, nos creamos una nueva variable de entorno SEND_EMAIL que nos ayude a no mandar correos electronicos
 porque ya probamos esta funcionalidad 
+
+Vamos a crearnos un endpoint para que se puedan crear categorias, para esto requerimos nosotros saber que usuario es el que creo la cateogoria, despues tambien queremos mostrar 
+productos ocuparemos la cateogira y que usuario es el que lo esta creando 
+Para esto vamos a tener que crearnos un modelo, si verificamos el modelo que tenemos "user.model.ts" y tambien tenemos la entidad "user.entity.ts", la diferencia entre la entidad 
+y el modelo de mongoose es que el modelo esta amarrado a la base de datos, asi si en el futuro cambiamos el nombre de alguna popiedad en la BD, esto lo cambiariamos en el modelo
+y la entidad no deberia verse afectada, solo tendriamos que cambiarle el nombre a la propiedad correspondiente y la mapeamos a lo que estamos esperando 
+    La parte nueva es que toda categoria creada en la BD debe de tener una relacion con un usuario
