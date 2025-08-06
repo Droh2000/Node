@@ -20,13 +20,15 @@ export class JwtAdapter {
         });
     }
 
-    static validateToken(token: string){
+    // Usamos los genericos para ponerle lo que nos tiene que regresar
+    // aqui extraemos el payload del JWT o un error si no existe
+    static validateToken<T>(token: string): Promise<T | null>{
         return new Promise( (resolve) => {
             // La misma semilla que se usa para crear el Token es la misma para verificarlo
             jwt.verify( token, JWT_SEED, (err, decoded) => { // El "decoded" es lo que firmamos en el payload
                 if( err ) return resolve(null); // Al regresar null la promesa siempre se va a resolver de forma exitosa solo que aqui estara nula
 
-                resolve(decoded);
+                resolve(decoded as T);// El As lo usamos aqui y no cuando vayamos a usar el metodo
             });
         });
     }

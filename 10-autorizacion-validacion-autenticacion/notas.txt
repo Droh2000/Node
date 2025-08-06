@@ -99,3 +99,8 @@ Los datos que requerimos para crear son:
     - 
     - 
 La forma en la que aceptamos los datos que nos envian, lo definimos en los Middlewares en Server.ts que es en JSON y UrlEncoded
+
+No podemos guardar la categoria si no sabemos el usuario, esta informacion esta en el JWT (Ahi esta el Id del usuario)
+asi que hay que tomar ese token y verificarlo, ese token lo vamos a mandar en las peticiones mediante los headers 
+para lograr esta verificacion vamos a hacerlo con el middleware para que se ejecute esta funcion antes de que entre al controlador
+en este caso vamos a crearnos nuestro propio middleware, la ventaja es que si el middleware falla podemos detener la ejecucion y regresar un error.
