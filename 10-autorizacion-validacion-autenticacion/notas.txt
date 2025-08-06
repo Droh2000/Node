@@ -91,4 +91,11 @@ productos ocuparemos la cateogira y que usuario es el que lo esta creando
 Para esto vamos a tener que crearnos un modelo, si verificamos el modelo que tenemos "user.model.ts" y tambien tenemos la entidad "user.entity.ts", la diferencia entre la entidad 
 y el modelo de mongoose es que el modelo esta amarrado a la base de datos, asi si en el futuro cambiamos el nombre de alguna popiedad en la BD, esto lo cambiariamos en el modelo
 y la entidad no deberia verse afectada, solo tendriamos que cambiarle el nombre a la propiedad correspondiente y la mapeamos a lo que estamos esperando 
-    La parte nueva es que toda categoria creada en la BD debe de tener una relacion con un usuario
+    La parte nueva es que toda categoria creada en la BD debe de tener una relacion con un usuario.
+
+En este punto podemos ya casi guardar la informacion, pero hay que saber que Datos hay que pedirle al usuario para crear una categoria nueva donde requerimos saber cual usuario fue 
+el que la creo y ademas no queremos permitir que cualquiera pueda crear una y ademas requerimos el DTO para validar y transformar la Data.
+Los datos que requerimos para crear son:
+    - 
+    - 
+La forma en la que aceptamos los datos que nos envian, lo definimos en los Middlewares en Server.ts que es en JSON y UrlEncoded

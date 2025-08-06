@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { CustomError } from '../../domain';
+import { CreateCategoryDto } from '../../domain/dtos/category/create-category.dto';
 
 export class CategoryController {
 
@@ -18,7 +19,11 @@ export class CategoryController {
 
     // Metodos que se llaman en el archivo de rutas
     createCategory = async (req: Request, res: Response) => {
-        res.json('Create Category');
+        // Usamos el Dto para transformar la data que nos mandan en el Body
+        const [error, createCategoryDto] = CreateCategoryDto.create( req.body );
+        if( error ) return res.status(400).json({ error });
+
+        res.json(createCategoryDto);
     }
 
     getCategories = async (req: Request, res: Response) => {
