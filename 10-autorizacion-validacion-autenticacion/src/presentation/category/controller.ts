@@ -22,8 +22,9 @@ export class CategoryController {
         // Usamos el Dto para transformar la data que nos mandan en el Body
         const [error, createCategoryDto] = CreateCategoryDto.create( req.body );
         if( error ) return res.status(400).json({ error });
-
-        res.json(createCategoryDto);
+        
+        // Si nos preguntamos como obtenemos el usuario, este lo pusimos en "req.body.user" entonces de ahi lo leyemos
+        // res.json( req.body );
     }
 
     getCategories = async (req: Request, res: Response) => {
