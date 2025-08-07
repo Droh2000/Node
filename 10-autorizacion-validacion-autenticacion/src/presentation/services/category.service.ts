@@ -1,6 +1,7 @@
 import { CategoryModel } from '../../data';
 import { CustomError, UserEntity } from '../../domain';
 import { CreateCategoryDto } from '../../domain/dtos/category/create-category.dto';
+import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
 // La ruta llama al controlador y del controlador llama al servicio
 
 export class CategoryService {
@@ -38,16 +39,49 @@ export class CategoryService {
     }
 
     // Con este metodo vamos a obtener todas las categorias registradas
-    async getCategories() {
+    async getCategories( paginationDto: PaginationDto) {
+
+        // Sacamos los datos que esperamos de la paginacion
+        // En este punto las propiedades ya vienen validas y con seguridad que vienen, asi que en este punto solo las usamos
+        const { page, limit } = paginationDto;
+
         // Cuando hacemos una interaccion con la base de datos siempre usemos un Try/Catch
         try {
-            const categories = await CategoryModel.find();
+            // Si queremos saber cual es el total de registros que hay
+            // tenemos que corregir que estos dos await se ejecuten de forma simultanea
+            // const total = await CategoryModel.countDocuments();
+            // const categories = await CategoryModel.find()
+            // Las dos peticiones asyncronas de arriba las podemos hacer simultaneamente
+                // Aplicamos la paginacion, con este metodo nos salteamos una cantidad de registros
+                // El conteo empieza desde el 0 que seria el valor de la pagina 1, con limit es hasta donde queremos llegar
+                // .skip( (page - 1) * limit )
+                // Con esto traemos la cantidad de registros que queremos
+                // .limit( limit );
 
-            return categories.map( category => ({
-                id: category.id,
-                name: category.name,
-                available: category.available,
-            }));
+            // A diferencia de arriba las dos peticiones se hacen de manera simultanea, nos son bloqueantes una despues de la otra
+            const [ total, categories ] = await Promise.all([
+                CategoryModel.countDocuments(), // -> Este es el primer valor de retorno
+                CategoryModel.find()
+                    .skip( (page - 1) * limit )
+                    .limit( limit )
+            ]);
+            
+            // Cambiando asi el return podemos pasarle mas datos para indicar mejor informacion al usuario
+            return {
+                page: page,
+                limit: limit,
+                total: total,
+                // Es comun para quien vaya a consumir nuestro endpoint es regresarle estos datos
+                next: `/api/categories?page=${ (page + 1) }&limit=${ limit }`,
+                // Verificamos que no vayamos a estar en la pagina 0 para no mostrar que nos regrese a la pagina -1
+                prev: (page - 1 > 0) ? `/api/categories?page=${ page }&limit=${ limit }` : null,// Hay paquetes que nos ayudan a esto, pero igual es mejor siempre evitarlos a solo que tengamos un beneficio considerable
+
+                categories: categories.map( category => ({
+                    id: category.id,
+                    name: category.name,
+                    available: category.available,
+                }))
+            }
         } catch (error) {
             throw CustomError.internalServer('Internal Server Error');
         }

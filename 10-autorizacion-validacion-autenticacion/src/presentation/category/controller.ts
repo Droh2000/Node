@@ -48,10 +48,11 @@ export class CategoryController {
         if( error ) return res.status(400).json({ error });
 
         // Esto es lo que le tenemos que mandar al servicio para que aplique la paginacion
-        res.json( paginationDto );
+        //  res.json( paginationDto );
+        // Aunque sean opcionales como tenemos el DTO siempre vamos a obtener valores
 
-        /*this.categoryService.getCategories()
+        this.categoryService.getCategories( paginationDto! )
         .then( categories => res.json( categories ) ) // Aqui esta la data que queremos mandar
-        .catch( error => this.handleError(error, res) );*/
+        .catch( error => this.handleError(error, res) )
     }
 }
