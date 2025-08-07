@@ -104,3 +104,6 @@ No podemos guardar la categoria si no sabemos el usuario, esta informacion esta 
 asi que hay que tomar ese token y verificarlo, ese token lo vamos a mandar en las peticiones mediante los headers 
 para lograr esta verificacion vamos a hacerlo con el middleware para que se ejecute esta funcion antes de que entre al controlador
 en este caso vamos a crearnos nuestro propio middleware, la ventaja es que si el middleware falla podemos detener la ejecucion y regresar un error.
+
+El controlador unicamente se va a encargar de llamar el servicio que es donde tenemos los metodos necesarios para llegar a la base datos que si quisieramos implementar el patron repositorio
+los lanzariamos desde el servicio o casos de uso 
