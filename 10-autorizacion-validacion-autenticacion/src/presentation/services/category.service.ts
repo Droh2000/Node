@@ -36,4 +36,20 @@ export class CategoryService {
             throw CustomError.internalServer(`${ error }`);
         }
     }
+
+    // Con este metodo vamos a obtener todas las categorias registradas
+    async getCategories() {
+        // Cuando hacemos una interaccion con la base de datos siempre usemos un Try/Catch
+        try {
+            const categories = await CategoryModel.find();
+
+            return categories.map( category => ({
+                id: category.id,
+                name: category.name,
+                available: category.available,
+            }));
+        } catch (error) {
+            throw CustomError.internalServer('Internal Server Error');
+        }
+    }
 }

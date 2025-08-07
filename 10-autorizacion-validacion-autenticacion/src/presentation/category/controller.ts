@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { CustomError } from '../../domain';
+import { CustomError, PaginationDto } from '../../domain';
 import { CreateCategoryDto } from '../../domain/dtos/category/create-category.dto';
 import { CategoryService } from '../services/category.service';
+import { error } from 'console';
 
 export class CategoryController {
 
@@ -38,6 +39,19 @@ export class CategoryController {
     }
 
     getCategories = async (req: Request, res: Response) => {
-        res.json('Get Categories');
+
+        // Obtener los QueryParameters de la paginacionacion (Hay que saber que los Queryparameters siempre vienen en String)
+        // ademas si no vienen les vamos a dar valores por defecto
+        const { page = 1, limit = 10 } = req.query;
+        // Los convertimos a entero agregando el + al inicio
+        const [ error, paginationDto ] = PaginationDto.create( +page, +limit );
+        if( error ) return res.status(400).json({ error });
+
+        // Esto es lo que le tenemos que mandar al servicio para que aplique la paginacion
+        res.json( paginationDto );
+
+        /*this.categoryService.getCategories()
+        .then( categories => res.json( categories ) ) // Aqui esta la data que queremos mandar
+        .catch( error => this.handleError(error, res) );*/
     }
 }

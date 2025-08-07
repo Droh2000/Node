@@ -107,3 +107,11 @@ en este caso vamos a crearnos nuestro propio middleware, la ventaja es que si el
 
 El controlador unicamente se va a encargar de llamar el servicio que es donde tenemos los metodos necesarios para llegar a la base datos que si quisieramos implementar el patron repositorio
 los lanzariamos desde el servicio o casos de uso 
+
+Al obtener toda las categorias no vamos a querer regresar de golpe los 3000, 10000, registros (Ademas una respuesta asi nos va a consumir muchas megas)
+para solucionar esto vamos a implementar una paginacion por ejemplo:
+    * /api/categories?page=2&limit=5 -> Aqui indicamos que queremos la pagina 2 de 5 en 5 elementos
+Estos query parametros los podemos llamar como quieramos y denem ser opcionales porque si no serian segmentos de ruta
+
+Cuando ocupamos recibir informacion de la peticion de los endpoints podriamos solucionarlo con un DTO
+como este nos va a ayudar con la apginacion sin importar el endpoint por eso nos creamos una nueva carpeta "shared"
