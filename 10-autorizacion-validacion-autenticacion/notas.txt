@@ -125,3 +125,6 @@ Relaciones y Semillas
     La razon de porque aqui no creamos entidades es para mostrar diferentes formas de trabajar, aunque sabiendo que en la vida real vamos a trabajar de formas mas homogenea posible
     hay que recordar que cuando trabajamos con cualquier tipo de arquitectura, pagamos el precio teniendo mas archivos en el proyecto
     aqui vamos a seguir trabajando con los servicios pero no vamos a crear entidades y asi ver como regresar los objetos directamente desde el modelo
+
+    Anteriormente en categoria habiamos creado que el DTO y el usuario que se requieren se pasen de forma separado en el servicio, pero ahora con el producto vamos a hacer que en el DTO se
+    reciba el usuario y la categoria para ver otra forma de trabajarlo
