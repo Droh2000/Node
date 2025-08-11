@@ -32,4 +32,15 @@ const productSchema = new mongoose.Schema({
     },
 });
 
+// Queda mucho a nuestra discrecion lo que queremos mostrar en la respuesta al hacer la peticion, si queremos seguir el mismo patron, nos creamos una entidad
+// con el mapper, aqui gracias a mongoose podemos agregar mas informacion que requiramos como los "TimeStamp"
+// pero cuando serializamos el objeto como JSON tenemos la posibilidad de decirle a mongoose como queremos que sea serializado
+productSchema.set('toJSON', {
+    virtuals: true, // Mostrar el ID del documento
+    versionKey: false, // Quitar el __v
+    transform: function( doc, ret: any, options ){
+        delete ret._id; // Esto es para eliminar el _id
+    },
+});
+
 export const ProductModel = mongoose.model('Product', productSchema);

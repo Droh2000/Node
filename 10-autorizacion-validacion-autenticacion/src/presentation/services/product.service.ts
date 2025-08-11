@@ -31,6 +31,10 @@ export class ProductService {
                 ProductModel.find()
                     .skip( (page - 1) * limit )
                     .limit( limit )
+                    // Este es para que podamos unirlo a una relacion (En este caso por los IDs que tenemos "user" o "category")
+                    // luego para que no nos de mucha informacion podemos especificar solo las propiedades que requerimos (Esto lo implementamos en cada modelo respectivo)
+                    .populate('user')
+                    .populate('category')
             ]);
             
             return {

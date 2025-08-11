@@ -131,3 +131,6 @@ Relaciones y Semillas
 
     Ademas antes habiamos creado el user.entity.ts por mantener lo mismo seria conveniente crear tambien la entidad de producto pero ahora vamos a ver diferentes maneras de trabajar, usando directamente
     el modelo que asi es como mas comunmente se trabaja en la vida real en lugar de entidades personalizadas u objetos
+
+    Vamos a modificar la respuesta qutando los elementos "_id", "__v" de una mejor forma a como lo habiamos hecho antes y en los IDs de User y Category queremos mostrar
+    la informacion completa del id correspondiente y traernos todos sus campos de informacion
