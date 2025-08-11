@@ -24,4 +24,8 @@ export class MongoDatabse {
             throw error;
         }
     }
+
+    static async disconnect(){
+        await mongoose.disconnect();
+    }
 }
