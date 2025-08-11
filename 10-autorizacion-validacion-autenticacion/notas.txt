@@ -115,3 +115,13 @@ Estos query parametros los podemos llamar como quieramos y denem ser opcionales 
 
 Cuando ocupamos recibir informacion de la peticion de los endpoints podriamos solucionarlo con un DTO
 como este nos va a ayudar con la apginacion sin importar el endpoint por eso nos creamos una nueva carpeta "shared"
+
+Relaciones y Semillas
+   
+    Vamos a hacer validaciones de MongoID
+    Con las semillas vamos a crear datos ficticios en las bases de datos
+    Veremos que en los schemas de mongoose podemos borrar la data que no requerimos 
+
+    La razon de porque aqui no creamos entidades es para mostrar diferentes formas de trabajar, aunque sabiendo que en la vida real vamos a trabajar de formas mas homogenea posible
+    hay que recordar que cuando trabajamos con cualquier tipo de arquitectura, pagamos el precio teniendo mas archivos en el proyecto
+    aqui vamos a seguir trabajando con los servicios pero no vamos a crear entidades y asi ver como regresar los objetos directamente desde el modelo
