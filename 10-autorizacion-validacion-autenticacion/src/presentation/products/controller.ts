@@ -25,7 +25,12 @@ export class ProductController {
     // Metodos que se llaman en el archivo de rutas
     createProduct = (req: Request, res: Response) => {
         // Usamos el Dto para transformar la data que nos mandan en el Body
-        const [error, createProductDto] = CreateProductDto.create( req.body );
+        const [error, createProductDto] = CreateProductDto.create({ 
+            ...req.body,
+            // Otra cosa a tener en cuenta es que el usuario ya lo estamos mandando por el token, no lo vamos a mandar como mandamos la catagory
+            // para tener el usuario en el body debe de haber pasado por el middleware de autenticacion
+            user: req.body.user.id,
+        });
         if( error ) return res.status(400).json({ error });
 
         // llamamos el servicio

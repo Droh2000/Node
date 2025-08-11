@@ -1,3 +1,4 @@
+import { Validators } from "../../../config";
 
 export class CreateProductDto {
 
@@ -27,7 +28,9 @@ export class CreateProductDto {
         // Verificacion de como viene la data (Para esto siempre nos guiaremos del modelo y creemos esta capa de proteccion)
         if( !name ) return ['Missing name'];
         if( !user ) return ['Missing user'];
+        if( !Validators.isMongoID(user) ) return ['Invalid User Id']; // Verificamos que los datos esten en el formato esperado
         if( !category ) return ['Missing category'];
+        if( !Validators.isMongoID(category) ) return ['Invalid Category Id']; // Verificamos que los datos esten en el formato esperado
 
         return [
             undefined,
