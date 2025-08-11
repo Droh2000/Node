@@ -128,3 +128,6 @@ Relaciones y Semillas
 
     Anteriormente en categoria habiamos creado que el DTO y el usuario que se requieren se pasen de forma separado en el servicio, pero ahora con el producto vamos a hacer que en el DTO se
     reciba el usuario y la categoria para ver otra forma de trabajarlo
+
+    Ademas antes habiamos creado el user.entity.ts por mantener lo mismo seria conveniente crear tambien la entidad de producto pero ahora vamos a ver diferentes maneras de trabajar, usando directamente
+    el modelo que asi es como mas comunmente se trabaja en la vida real en lugar de entidades personalizadas u objetos
